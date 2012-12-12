@@ -1,51 +1,50 @@
 <html>
-	<head>
-		<title></title>
-		<script src="jquery.min.js"></script>
-		<script src="live.js"></script>
-		<script src="../vendor/fidel.js"></script>
-		<script src="../lib/slider.js"></script>
-		<style>
-            #slider {}
-                #slider .wrapper { width: 1000px; overflow: hidden; }
-                #slider .wrapper ul { width: 300000px; position: relative; margin: 0; padding: 0;}
-                #slider .wrapper ul li { float: left; margin: 0; padding: 0; width: 500px; list-style: none; }
-		</style>
-	</head>
-	<body>
-        <div id="slider">
-            <div class="wrapper">
-                <ul data-element="container">
-                    <li>1<img src="http://placekitten.com/g/500/400"/></li>
-                    <li>2<img src="http://placekitten.com/g/500/400"/></li>
-                    <li>3<img src="http://placekitten.com/g/500/400"/></li>
-                    <li>4<img src="http://placekitten.com/g/500/400"/></li>
-                    <li>5<img src="http://placekitten.com/g/500/400"/></li>
-                    <li>6<img src="http://placekitten.com/g/500/400"/></li>
-                </ul>
-            </div>
-            <button data-element="prevButton" data-action="prev">Prev</button> 
-            <button data-element="nextButton" data-action="next">Next</button> 
-        </div>
-		<script>
-
-            var duration = 1000;
-			var slider = new Fidel.Slider({ el: $("#slider"), itemsPerPage: 2, duration: duration });
-            slider.on('slide', function() { 
-                console.log('slide');
-            });
-            slider.on('first', function() {
-                console.log('first');
-            });
-            slider.on('last', function() {
-                console.log('last');
-            });
-            setTimeout(function() {
-                slider.next();
-                setTimeout(function() {
-                    slider.prev();
-                }, duration+200);
-            }, 100);
-		</script>
-	</body>
+  <head>
+    <title></title>
+    <style>
+      #slider {}
+        #slider .wrapper { width: 1000px; overflow: hidden; }
+        #slider .wrapper ul { width: 300000px; position: relative; margin: 0; padding: 0;}
+        #slider .wrapper ul li { float: left; margin: 0; padding: 0; width: 500px; list-style: none; }
+    </style>
+  </head>
+  <body>
+    <div id="slider">
+      <div class="wrapper">
+        <ul data-element="container">
+          <li>1<img src="http://placekitten.com/g/500/400"/></li>
+          <li>2<img src="http://placekitten.com/g/500/400"/></li>
+          <li>3<img src="http://placekitten.com/g/500/400"/></li>
+          <li>4<img src="http://placekitten.com/g/500/400"/></li>
+          <li>5<img src="http://placekitten.com/g/500/400"/></li>
+          <li>6<img src="http://placekitten.com/g/500/400"/></li>
+         </ul>
+      </div>
+      <button data-element="prevButton" data-action="prev">Prev</button> 
+      <button data-element="nextButton" data-action="next">Next</button> 
+    </div>
+    <script src="../components/jquery/jquery.js"></script>
+    <script src="../components/fidel/dist/fidel.js"></script>
+    <script src="../lib/slider.js"></script>
+    <script>
+      var duration = 1000;
+      $('#slider')
+        .slider({ itemsPerPage: 2, duration: duration })
+        .on('slide', function() { 
+          console.log('slide');
+        })
+        .on('first', function() {
+          console.log('first');
+        })
+        .on('last', function() {
+          console.log('last');
+        });
+        setTimeout(function() {
+          $('#slider').slider('next');
+          setTimeout(function() {
+              $('#slider').slider('prev');
+          }, duration+200);
+        }, 100);
+    </script>
+  </body>
 </html>

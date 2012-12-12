@@ -1,0 +1,26 @@
+{
+  "name": "fidel",
+  "description": "a ui view controller",
+  "version": "2.0.2",
+  "homepage": "https://github.com/jgallen23/fidel",
+  "author": "Greg Allen <@jgaui> (http://jga.me)",
+  "copyright": "JGA",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jgallen23/fidel.git"
+  },
+  "main": "./dist/fidel.js",
+  "keywords": [
+    "view",
+    "controller",
+    "mvc"
+  ],
+  "devDependencies": {
+    "mocha": "*",
+    "chai": "*",
+    "smoosh": "*",
+    "grunt": "~0.3.17",
+    "grunt-mocha": "~0.1.7"
+  }
+}
