@@ -1,15 +1,20 @@
 /*!
-  * Fidel Slider 
-  * v0.0.1
-  * https://github.com/jgallen23/fidel-slider
-  * copyright JGA 2011
-  * MIT License
-  */
+ * fidel-slider - a generic slider using fidel
+ * v0.0.1
+ * https://github.com/jgallen23/fidel-slider
+ * copyright JGA 2012
+ * MIT License
+*/
 
-Fidel.Slider = Fidel.ViewController.extend({
+$.declare('slider', {
   defaults: {
     itemsPerPage: 1,
     duration: 500
+  },
+  elements: {
+    '[data-element=container]': 'container',
+    '[data-element=prevButton]': 'prev',
+    '[data-element=nextButton]': 'next'
   },
   init: function() {
     this._currentPage = 0;
@@ -30,27 +35,28 @@ Fidel.Slider = Fidel.ViewController.extend({
     if (self._animating)
       return;
     self._animating = true;
-    this.container.animate({
+    this.els.container.animate({
       left: width 
     }, self.duration, function() {
       self._animating = false;
       self._currentPage += offset; 
-      self.trigger('slide');
+      self.emit('slide');
       self._updateButtons();
     });
   },
   _updateButtons: function() {
-    if (this._currentPage === 0) {//hide prev
-      this.prevButton.hide();
-      this.trigger('first');
+    //hide prev
+    if (this._currentPage === 0) {
+      this.els.prev.hide();
+      this.emit('first');
     } else {
-      this.prevButton.show();
+      this.els.prev.show();
     }
     if (this._currentPage == this._pageCount - 1) {
-      this.nextButton.hide();
-      this.trigger('last');
+      this.els.next.hide();
+      this.emit('last');
     } else {
-      this.nextButton.show();
+      this.els.next.show();
     }
   }
 });
