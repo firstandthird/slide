@@ -1,0 +1,52 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>fidel-slider Tests</title>
+  <link rel="stylesheet" href="../node_modules/mocha/mocha.css" />
+  <script src="../support/assert.js"></script>
+  <script src="../node_modules/mocha/mocha.js"></script>
+  <script>mocha.setup('tdd')</script>
+  <style>
+    #fixture .slider1 {
+      overflow: hidden;
+    }
+    #fixture .container {
+      width: 30000px;
+      position: relative;
+    }
+    #fixture .item {
+      float: left;
+    }
+    #fixture li div {
+      width: 250px;
+      height: 250px;
+    }
+  </style>
+</head>
+<body>
+  <div id="mocha"></div>
+  <div id="fixture" style="visibility: hidden"></div>
+  <div id="clone" style="visibility: hidden">
+    <div class="slider1">
+      <ul class="container">
+        <li class="item"><div></div></li>
+        <li class="item"><div></div></li>
+        <li class="item"><div></div></li>
+        <li class="item"><div></div></li>
+      </ul>
+      <button data-action="previous">Prev</button>
+      <button data-action="next">Next</button>
+    </div>
+  </div>
+  <script src="../components/jquery/jquery.js"></script>
+  <script src="../components/fidel/dist/fidel.js"></script>
+  <script src="../dist/fidel.slider.js"></script>
+  <script src="slider.test.js"></script>
+  <script>
+    if (navigator.userAgent.indexOf('PhantomJS') < 0) {
+      mocha.run().globals(['LiveReload']);
+    }
+  </script>
+</body>
+</html>
