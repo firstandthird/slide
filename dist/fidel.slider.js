@@ -1,62 +1,95 @@
 /*!
  * fidel-slider - a generic slider using fidel
- * v0.0.1
+ * v0.1.0
  * https://github.com/jgallen23/fidel-slider
- * copyright JGA 2012
+ * copyright JGA 2013
  * MIT License
 */
 
 $.declare('slider', {
   defaults: {
     itemsPerPage: 1,
-    duration: 500
+    duration: 500,
+    itemClass: 'item',
+    containerClass: 'container'
   },
+
   elements: {
-    '[data-element=container]': 'container',
-    '[data-element=prevButton]': 'prev',
-    '[data-element=nextButton]': 'next'
+    '[data-action=previous]': 'previousButton',
+    '[data-action=next]': 'nextButton'
   },
+
   init: function() {
-    this._currentPage = 0;
-    var items = this.find('li');
-    this._pageCount = Math.ceil(items.length/this.itemsPerPage);
-    this._pageWidth = items.width()*this.itemsPerPage;
-    this._animating = false;
-    this._updateButtons();
+    this.currentPage = 1;
+    var items = this.find('.'+this.itemClass);
+    this.pageCount = Math.ceil(items.length/this.itemsPerPage);
+    this.pageWidth = items.width()*this.itemsPerPage;
+    this.container = this.find('.'+this.containerClass);
+    this.container.queue('fx');
+    this.el.css('width', this.pageWidth);
+    this.updateButtons();
   },
-  next: function() {
-    this._slide('-='+this._pageWidth, 1);
+
+  getCurrentPage: function() {
+    return this.currentPage;
   },
-  prev: function() {
-    this._slide('+='+this._pageWidth, -1);
+
+  next: function(cb) {
+    this.go(this.currentPage + 1, cb);
+    this.emit('next');
   },
-  _slide: function(width, offset) {
-    var self = this;
-    if (self._animating)
+
+  previous: function(cb) {
+    this.go(this.currentPage - 1, cb);
+    this.emit('previous');
+  },
+
+  go: function(page, cb) {
+    if (page > this.pageCount || page < 1) {
+      if (typeof cb == 'function') {
+        cb();
+      }
       return;
-    self._animating = true;
-    this.els.container.animate({
+    }
+    this.currentPage = page;
+    var width = '-'+this.pageWidth * (page - 1);
+    this._slide(width, cb);
+  },
+
+  first: function(cb) {
+    this.go(1, cb);
+  },
+
+  last: function(cb) {
+    this.go(this.pageCount, cb);
+  },
+
+  _slide: function(width, cb) {
+    var self = this;
+    this.emit('beforeSlide');
+    this.container.animate({
       left: width 
     }, self.duration, function() {
-      self._animating = false;
-      self._currentPage += offset; 
       self.emit('slide');
-      self._updateButtons();
+      self.updateButtons();
+      if (typeof cb == 'function') { 
+        cb();
+      }
     });
   },
-  _updateButtons: function() {
-    //hide prev
-    if (this._currentPage === 0) {
-      this.els.prev.hide();
+
+  updateButtons: function() {
+    if (this.currentPage == 1) {
+      this.previousButton.hide();
       this.emit('first');
     } else {
-      this.els.prev.show();
+      this.previousButton.show();
     }
-    if (this._currentPage == this._pageCount - 1) {
-      this.els.next.hide();
+    if (this.currentPage == this.pageCount) {
+      this.nextButton.hide();
       this.emit('last');
     } else {
-      this.els.next.show();
+      this.nextButton.show();
     }
   }
 });
