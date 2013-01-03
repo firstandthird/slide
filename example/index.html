@@ -11,17 +11,17 @@
   <body>
     <div id="slider">
       <div class="wrapper">
-        <ul data-element="container">
-          <li>1<img src="http://placekitten.com/g/500/400"/></li>
-          <li>2<img src="http://placekitten.com/g/500/400"/></li>
-          <li>3<img src="http://placekitten.com/g/500/400"/></li>
-          <li>4<img src="http://placekitten.com/g/500/400"/></li>
-          <li>5<img src="http://placekitten.com/g/500/400"/></li>
-          <li>6<img src="http://placekitten.com/g/500/400"/></li>
-         </ul>
+        <ul class="container">
+          <li class="item">1<img src="http://placekitten.com/g/500/400"/></li>
+          <li class="item">2<img src="http://placekitten.com/g/500/400"/></li>
+          <li class="item">3<img src="http://placekitten.com/g/500/400"/></li>
+          <li class="item">4<img src="http://placekitten.com/g/500/400"/></li>
+          <li class="item">5<img src="http://placekitten.com/g/500/400"/></li>
+          <li class="item">6<img src="http://placekitten.com/g/500/400"/></li>
+        </ul>
       </div>
-      <button data-element="prevButton" data-action="prev">Prev</button> 
-      <button data-element="nextButton" data-action="next">Next</button> 
+      <button data-action="previous">Prev</button> 
+      <button data-action="next">Next</button> 
     </div>
     <script src="../components/jquery/jquery.js"></script>
     <script src="../components/fidel/dist/fidel.js"></script>
@@ -39,12 +39,14 @@
         .on('last', function() {
           console.log('last');
         });
+        /*
         setTimeout(function() {
           $('#slider').slider('next');
           setTimeout(function() {
-              $('#slider').slider('prev');
+              $('#slider').slider('previous');
           }, duration+200);
         }, 100);
+       */
     </script>
   </body>
 </html>
