@@ -1,0 +1,11 @@
+{
+  "name": "fidel-slider",
+  "private": true,
+  "version": "0.0.0",
+  "devDependencies": {
+    "mocha": "~1.7.4",
+    "grunt": "~0.3.17",
+    "grunt-reloadr": "~0.1.2",
+    "grunt-mocha": "~0.1.7"
+  }
+}
