@@ -173,6 +173,13 @@ suite('fidel-slider', function() {
       assert.equal($('#fixture [data-action=previous]').css('display'), 'inline-block');
     });
 
+    test('data-action=go to jump to a page', function() {
+      slider1.slider();
+      $('#fixture [data-action=go]').click();
+      assert.equal(slider1.slider('getCurrentPage'), 3);
+    });
+
+
 
   });
 
