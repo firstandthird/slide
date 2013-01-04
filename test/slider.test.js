@@ -180,8 +180,9 @@ suite('fidel-slider', function() {
 
     test('event when about to slide', function(done) {
       slider1.slider();
-      slider1.on('beforeSlide', function() {
+      slider1.on('beforeSlide', function(e, pageNumber) {
         assert.equal(slider1.find('.container').css('left'), 'auto');
+        assert.equal(pageNumber, 2);
         done();
       });
       slider1.slider('next');
@@ -189,8 +190,9 @@ suite('fidel-slider', function() {
 
     test('event after sliding', function(done) {
       slider1.slider();
-      slider1.on('slide', function() {
+      slider1.on('slide', function(e, pageNumber) {
         assert.equal(parseInt(slider1.find('.container').css('left'), 10), -250);
+        assert.equal(pageNumber, 2);
         done();
       });
       slider1.slider('next');
@@ -198,7 +200,8 @@ suite('fidel-slider', function() {
 
     test('event when on first page', function(done) {
       slider1.slider();
-      slider1.on('first', function() {
+      slider1.on('first', function(e, pageNumber) {
+        assert.equal(pageNumber, 1);
         done();
       });
       slider1.slider('first');
@@ -206,7 +209,8 @@ suite('fidel-slider', function() {
 
     test('event when on the last page', function(done) {
       slider1.slider();
-      slider1.on('last', function() {
+      slider1.on('last', function(e, pageNumber) {
+        assert.equal(pageNumber, 4);
         done();
       });
       slider1.slider('last');
@@ -214,7 +218,8 @@ suite('fidel-slider', function() {
 
     test('event when going next', function(done) {
       slider1.slider();
-      slider1.on('next', function() {
+      slider1.on('next', function(e, pageNumber) {
+        assert.equal(pageNumber, 2);
         done();
       });
       slider1.slider('next');
@@ -222,7 +227,8 @@ suite('fidel-slider', function() {
 
     test('event when going previous', function(done) {
       slider1.slider();
-      slider1.on('previous', function() {
+      slider1.on('previous', function(e, pageNumber) {
+        assert.equal(pageNumber, 1);
         done();
       });
       slider1.slider('previous');
