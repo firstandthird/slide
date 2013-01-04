@@ -1,4 +1,11 @@
 
+0.1.1 / 2013-01-04 
+==================
+
+  * [bower] updated fidel version dep
+  * [docs] updated readme
+  * [example] removed old files
+
 0.1.0 / 2013-01-03 
 ==================
 
