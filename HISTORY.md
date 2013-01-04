@@ -1,4 +1,11 @@
 
+0.2.0 / 2013-01-04 
+==================
+
+  * [lib] added ability to pass in first page as option
+  * [lib] data-action="go" data-page="#" will auto bind
+  * [lib] pass pageNumber to event handlers
+
 0.1.1 / 2013-01-04 
 ==================
 
