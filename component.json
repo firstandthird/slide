@@ -6,6 +6,6 @@
   "license": "MIT",
   "copyright": "JGA",
   "dependencies": {
-    "fidel": "2.1.*"
+    "fidel": "2.*"
   }
 }
