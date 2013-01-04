@@ -18,7 +18,10 @@ suite('fidel-slider', function() {
       assert.equal(typeof slider1.slider, 'function');
     });
 
-    test('set initial page from options');
+    test('set initial page from options', function() {
+      slider1.slider({ page: 2 });
+      assert.equal(slider1.slider('getCurrentPage'), 2);
+    });
 
   });
 
@@ -188,7 +191,7 @@ suite('fidel-slider', function() {
     test('event when about to slide', function(done) {
       slider1.slider();
       slider1.on('beforeSlide', function(e, pageNumber) {
-        assert.equal(slider1.find('.container').css('left'), 'auto');
+        assert.equal(slider1.find('.container').css('left'), '0px');
         assert.equal(pageNumber, 2);
         done();
       });
