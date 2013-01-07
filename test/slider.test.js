@@ -146,7 +146,6 @@ suite('fidel-slider', function() {
   suite('buttons', function() {
 
     test('click to go next', function() {
-      console.log('next');
       slider1.slider();
       $('#fixture [data-action=next]').click();
       assert.equal(slider1.slider('getCurrentPage'), 2);
@@ -248,11 +247,79 @@ suite('fidel-slider', function() {
 
   suite('auto', function() {
 
-    test('auto slide');
+    test('auto slide', function(done) {
+      slider1.slider({ auto: true, autoDelay: 10 });
+      setTimeout(function() {
+        assert.equal(slider1.slider('getCurrentPage'), 2);
+        setTimeout(function() {
+          assert.equal(slider1.slider('getCurrentPage'), 3);
+          done();
+        }, 10);
+      }, 15);
+    });
 
-    test('set delay');
+    test('stop on hover', function(done) {
+      slider1.slider({ auto: true, autoDelay: 10 });
+      slider1.mouseover();
+      setTimeout(function() {
+        assert.equal(slider1.slider('getCurrentPage'), 1);
+        done();
+      }, 15);
+    });
 
-    test('stop on hover');
+    test('continue on mouse out', function(done) {
+      slider1.slider({ auto: true, autoDelay: 10 });
+      slider1.mouseover();
+      setTimeout(function() {
+        slider1.mouseout();
+      }, 5);
+      setTimeout(function() {
+        assert.equal(slider1.slider('getCurrentPage'), 2);
+        done();
+      }, 20);
+    });
+
+    test('auto: false to disable', function(done) {
+      slider1.slider({ auto: false });
+      setTimeout(function() {
+        assert.equal(slider1.slider('getCurrentPage'), 1);
+        done();
+      }, 15);
+    });
+
+    test('wrap around automatically', function(done) {
+      slider1.slider({ auto: 5 });
+      setTimeout(function() {
+        assert.equal(slider1.slider('getCurrentPage'), 1);
+        done();
+      }, 5*5);
+    });
+
+    test('disable wrap', function(done) {
+      slider1.slider({ auto: true, autoDelay: 5, wrap: false });
+      setTimeout(function() {
+        assert.equal(slider1.slider('getCurrentPage'), 4);
+        done();
+      }, 5*5);
+    });
+
+    test('method to stop', function(done) {
+      slider1.slider({ auto: true, autoDelay: 5 });
+      slider1.slider('stop');
+      setTimeout(function() {
+        assert.equal(slider1.slider('getCurrentPage'), 1);
+        done();
+      }, 7);
+    });
+
+    test('method to start', function(done) {
+      slider1.slider({ autoDelay: 5 });
+      slider1.slider('start');
+      setTimeout(function() {
+        assert.equal(slider1.slider('getCurrentPage'), 2);
+        done();
+      }, 7);
+    });
 
   });
 
