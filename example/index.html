@@ -27,12 +27,11 @@
     <script src="../components/fidel/dist/fidel.js"></script>
     <script src="../lib/slider.js"></script>
     <script>
-      var duration = 1000;
       $('#slider')
         .on('beforeSlide', function(e, pageNumber) {
           console.log('sliding to '+pageNumber);
         })
-        .slider({ itemsPerPage: 2, duration: duration })
+        .slider({ auto: true, autoDelay: 2000, itemsPerPage: 2, duration: 250 })
         .on('slide', function() { 
           console.log('slide');
         })
