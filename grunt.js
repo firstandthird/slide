@@ -46,6 +46,9 @@ module.exports = function(grunt) {
     mocha: {
       all: {
         src: 'test/index.html',
+        options: {
+          //grep: 'auto'
+        },
         run: true
       }
     },
@@ -64,5 +67,5 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-reloadr');
   grunt.registerTask('default', 'lint concat min');
   grunt.registerTask('dev', 'server reloadr watch:main');
-  grunt.registerTask('ci', 'watch:ci');
+  grunt.registerTask('ci', 'server watch:ci');
 };
