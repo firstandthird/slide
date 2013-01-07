@@ -29,7 +29,10 @@
     <script>
       var duration = 1000;
       $('#slider')
-        .slider({ page: 2, itemsPerPage: 2, duration: duration })
+        .on('beforeSlide', function(e, pageNumber) {
+          console.log('sliding to '+pageNumber);
+        })
+        .slider({ itemsPerPage: 2, duration: duration })
         .on('slide', function() { 
           console.log('slide');
         })
