@@ -1,4 +1,13 @@
 
+0.3.0 / 2013-01-06 
+==================
+
+  * [grunt] added server to ci task
+  * [example] updated example to use auto
+  * [lib] added option for auto and autoDelay
+  * [test] added blanket.js for coverage
+  * [example] updated example to show beforeSlide event
+
 0.2.0 / 2013-01-04 
 ==================
 

@@ -1,6 +1,6 @@
 /*!
  * fidel-slider - a generic slider using fidel
- * v0.2.0
+ * v0.3.0
  * https://github.com/jgallen23/fidel-slider
  * copyright JGA 2013
  * MIT License
@@ -12,7 +12,15 @@ $.declare('slider', {
     itemsPerPage: 1,
     duration: 500,
     itemClass: 'item',
-    containerClass: 'container'
+    containerClass: 'container',
+    auto: false,
+    autoDelay: 5000,
+    wrap: true
+  },
+
+  events: {
+    'mouseover': 'stop',
+    'mouseout': 'start'
   },
 
   elements: {
@@ -28,6 +36,9 @@ $.declare('slider', {
     this.container.queue('fx');
     this.el.css('width', this.pageWidth);
     this.go(this.page);
+    if (this.auto) {
+      this.start();
+    }
   },
 
   getCurrentPage: function() {
@@ -96,5 +107,23 @@ $.declare('slider', {
     } else {
       this.nextButton.show();
     }
+  },
+
+  start: function() {
+    if (this.timeout) {
+      clearTimeout(this.timeout);
+    }
+    var self = this;
+    this.timeout = setTimeout(function() {
+      if (self.wrap && self.currentPage == self.pageCount) {
+        self.currentPage = 0;
+      }
+      self.next();
+      self.start();
+    }, this.autoDelay);
+  },
+
+  stop: function() {
+    clearTimeout(this.timeout);
   }
 });
