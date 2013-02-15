@@ -317,9 +317,38 @@ suite('fidel-slider', function() {
       slider1.slider('start');
       setTimeout(function() {
         assert.equal(slider1.slider('getCurrentPage'), 2);
+        setTimeout(function() {
+          assert.equal(slider1.slider('getCurrentPage'), 3);
+          done();
+        }, 7);
+      }, 7);
+    });
+
+    test('call start method and mouse over', function(done) {
+      slider1.slider({ autoDelay: 5 });
+      slider1.slider('start');
+      slider1.mouseover();
+      setTimeout(function() {
+        assert.equal(slider1.slider('getCurrentPage'), 1);
+        slider1.mouseout();
+        setTimeout(function() {
+          assert.equal(slider1.slider('getCurrentPage'), 2);
+          done();
+        }, 7);
+      }, 7);
+    });
+
+    test('mouseout doesnt start auto', function(done) {
+      slider1.slider({ autoDelay: 5 });
+      slider1.mouseover();
+      slider1.mouseout();
+      setTimeout(function() {
+        assert.equal(slider1.slider('getCurrentPage'), 1);
         done();
       }, 7);
     });
+
+
 
   });
 
