@@ -43,23 +43,23 @@ suite('fidel-slider', function() {
     test('pageWidth', function() {
 
       var s = slider1.slider().data('slider');
-      assert.equal(s.pageWidth, 250);
+      assert.equal(s.pageWidth, 270);
     });
 
     test('pageWidth with itemsPerPage = 2', function() {
 
       var s = slider1.slider({ itemsPerPage: 2}).data('slider');
-      assert.equal(s.pageWidth, 500);
+      assert.equal(s.pageWidth, 540);
     });
 
     test('set width of slider', function() {
       slider1.slider();
-      assert.equal(slider1.width(), 250);
+      assert.equal(slider1.width(), 270);
     });
 
     test('set width of slider with itemsPerPage = 2', function() {
       slider1.slider({ itemsPerPage: 2});
-      assert.equal(slider1.width(), 500);
+      assert.equal(slider1.width(), 540);
     });
 
   });
@@ -80,7 +80,7 @@ suite('fidel-slider', function() {
     test('next takes a callback', function(done) {
       slider1.slider();
       slider1.slider('next', function() {
-        assert.equal(parseInt(slider1.find('.container').css('left'), 10), -250);
+        assert.equal(parseInt(slider1.find('.container').css('left'), 10), -270);
         done();
       });
     });
@@ -117,7 +117,7 @@ suite('fidel-slider', function() {
     test('go', function(done) {
       slider1.slider();
       slider1.slider('go', 2, function() {
-        assert.equal(parseInt(slider1.find('.container').css('left'), 10), -250);
+        assert.equal(parseInt(slider1.find('.container').css('left'), 10), -270);
         assert.equal(slider1.slider('getCurrentPage'), 2);
         done();
       });
@@ -200,7 +200,7 @@ suite('fidel-slider', function() {
     test('event after sliding', function(done) {
       slider1.slider();
       slider1.on('slide', function(e, pageNumber) {
-        assert.equal(parseInt(slider1.find('.container').css('left'), 10), -250);
+        assert.equal(parseInt(slider1.find('.container').css('left'), 10), -270);
         assert.equal(pageNumber, 2);
         done();
       });
