@@ -1,6 +1,6 @@
 /*!
  * fidel-slider - a generic slider using fidel
- * v0.3.0
+ * v0.3.1
  * https://github.com/jgallen23/fidel-slider
  * copyright JGA 2013
  * MIT License
@@ -109,7 +109,11 @@ $.declare('slider', {
     }
   },
 
-  start: function() {
+  start: function(e) {
+    if (e && !this.auto) {
+      return;
+    }
+    this.auto = true;
     if (this.timeout) {
       clearTimeout(this.timeout);
     }
@@ -124,6 +128,9 @@ $.declare('slider', {
   },
 
   stop: function() {
+    if (!this.auto) {
+      return;
+    }
     clearTimeout(this.timeout);
   }
 });

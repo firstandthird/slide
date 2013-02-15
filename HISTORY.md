@@ -1,4 +1,10 @@
 
+0.3.1 / 2013-02-15 
+==================
+
+  * [lib] make sure mouse events dont start/stop unless auto is set
+  * [test] tests mouseover/out triggering auto slide
+
 0.3.0 / 2013-01-06 
 ==================
 
