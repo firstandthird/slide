@@ -1,6 +1,6 @@
 /*!
  * fidel-slider - a generic slider using fidel
- * v0.3.1
+ * v0.3.2
  * https://github.com/jgallen23/fidel-slider
  * copyright JGA 2013
  * MIT License
@@ -31,7 +31,7 @@ $.declare('slider', {
   init: function() {
     var items = this.find('.'+this.itemClass);
     this.pageCount = Math.ceil(items.length/this.itemsPerPage);
-    this.pageWidth = items.width()*this.itemsPerPage;
+    this.pageWidth = items.outerWidth(true)*this.itemsPerPage;
     this.container = this.find('.'+this.containerClass);
     this.container.queue('fx');
     this.el.css('width', this.pageWidth);

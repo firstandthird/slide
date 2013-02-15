@@ -1,4 +1,10 @@
 
+0.3.2 / 2013-02-15 
+==================
+
+  * [test] update tests to consider padding/margin between items
+  * [lib] use outerWidth instead of width
+
 0.3.1 / 2013-02-15 
 ==================
 
