@@ -51,11 +51,15 @@ module.exports = function(grunt) {
     },
     mocha: {
       all: {
-        src: 'test/index.html',
-        options: {
-          //grep: 'auto'
+        src: ['test/index.html'],
+        run: true
+      }
+    },
+    plato: {
+      main: {
+        files: {
+          'reports': ['lib/*.js']
         }
-        //run: true
       }
     },
     reloadr: {
@@ -68,6 +72,13 @@ module.exports = function(grunt) {
       server:{
         port: 8000,
         base: '.'
+      },
+      plato: {
+        port: 8000,
+        base: 'reports',
+        options: {
+          keepalive: true
+        }
       }
     }
   });
@@ -78,7 +89,9 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-connect');
+  grunt.loadNpmTasks('grunt-plato');
   grunt.registerTask('default', ['jshint', 'concat', 'uglify']);
-  grunt.registerTask('dev', ['connect', 'reloadr', 'watch:main']);
-  grunt.registerTask('ci', ['connect', 'watch:ci']);
+  grunt.registerTask('dev', ['connect:server', 'reloadr', 'watch:main']);
+  grunt.registerTask('ci', ['connect:server', 'watch:ci']);
+  grunt.registerTask('reports', ['plato', 'connect:plato']);
 };
