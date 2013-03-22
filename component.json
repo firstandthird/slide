@@ -7,5 +7,9 @@
   "copyright": "JGA",
   "dependencies": {
     "fidel": "2.*"
+  },
+  "devDependencies": {
+    "blanket": "*",
+    "assert": "*"
   }
 }
