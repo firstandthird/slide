@@ -51,8 +51,10 @@ module.exports = function(grunt) {
     },
     mocha: {
       all: {
-        src: ['test/index.html'],
-        run: true
+        src: 'test/index.html',
+        options: {
+          run: true
+        }
       }
     },
     plato: {
@@ -82,13 +84,13 @@ module.exports = function(grunt) {
       }
     }
   });
-  grunt.loadNpmTasks('grunt-mocha');
-  grunt.loadNpmTasks('grunt-reloadr');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-connect');
+  grunt.loadNpmTasks('grunt-mocha');
+  grunt.loadNpmTasks('grunt-reloadr');
   grunt.loadNpmTasks('grunt-plato');
   grunt.registerTask('default', ['jshint', 'concat', 'uglify']);
   grunt.registerTask('dev', ['connect:server', 'reloadr', 'watch:main']);
