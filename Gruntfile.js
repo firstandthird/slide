@@ -1,6 +1,6 @@
 module.exports = function(grunt) {
   grunt.initConfig({
-    info: '<json:component.json>',
+    info: grunt.file.readJSON('component.json'),
     meta: {
       banner: '/*!\n'+
               ' * <%= info.name %> - <%= info.description %>\n'+
@@ -8,9 +8,9 @@ module.exports = function(grunt) {
               ' * <%= info.homepage %>\n'+
               ' * copyright <%= info.copyright %> <%= grunt.template.today("yyyy") %>\n'+
               ' * <%= info.license %> License\n'+
-              '*/'
+              '*/\n'
     },
-    lint: {
+    jshint: {
       main: [
         'grunt.js', 
         'component.json',
@@ -19,28 +19,34 @@ module.exports = function(grunt) {
       ]
     },
     concat: {
+      options: {
+        banner: '<%= meta.banner %>'
+      },
       dist: {
-        src: ['<banner>', 'lib/slider.js'],
+        src: 'lib/slider.js',
         dest: 'dist/fidel.slider.js'
       }
     },
-    min: {
+    uglify: {
+      options: {
+        banner: '<%= meta.banner %>'
+      },
       dist: {
-        src: ['<banner>', 'dist/fidel.slider.js'],
+        src: 'dist/fidel.slider.js',
         dest: 'dist/fidel.slider.min.js'
       }
     },
     watch: {
       main: {
-        files: '<config:lint.main>',
+        files: '<%= jshint.main %>',
         tasks: 'default' 
       },
       ci: {
         files: [
-          '<config:lint.main>',
+          '<%= jshint.main %>',
           'test/index.html'
         ],
-        tasks: 'default mocha' 
+        tasks: ['default', 'mocha']
       }
     },
     mocha: {
@@ -48,8 +54,8 @@ module.exports = function(grunt) {
         src: 'test/index.html',
         options: {
           //grep: 'auto'
-        },
-        run: true
+        }
+        //run: true
       }
     },
     reloadr: {
@@ -58,14 +64,21 @@ module.exports = function(grunt) {
         'dist/*'
       ]
     },
-    server:{
-      port: 8000,
-      base: '.'
+    connect: {
+      server:{
+        port: 8000,
+        base: '.'
+      }
     }
   });
   grunt.loadNpmTasks('grunt-mocha');
   grunt.loadNpmTasks('grunt-reloadr');
-  grunt.registerTask('default', 'lint concat min');
-  grunt.registerTask('dev', 'server reloadr watch:main');
-  grunt.registerTask('ci', 'server watch:ci');
+  grunt.loadNpmTasks('grunt-contrib-jshint');
+  grunt.loadNpmTasks('grunt-contrib-concat');
+  grunt.loadNpmTasks('grunt-contrib-watch');
+  grunt.loadNpmTasks('grunt-contrib-uglify');
+  grunt.loadNpmTasks('grunt-contrib-connect');
+  grunt.registerTask('default', ['jshint', 'concat', 'uglify']);
+  grunt.registerTask('dev', ['connect', 'reloadr', 'watch:main']);
+  grunt.registerTask('ci', ['connect', 'watch:ci']);
 };
