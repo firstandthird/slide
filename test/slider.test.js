@@ -352,5 +352,28 @@ suite('fidel-slider', function() {
 
   });
 
+  suite('indicators', function() {
+
+    test('set initial indicator', function() {
+      slider1.slider({ indicators: '.indicators li' });
+      assert.equal(slider1.find('.indicators .active').length, 1);
+      assert.equal(slider1.find('.indicators li:eq(0)').hasClass('active'), true);
+    });
+
+    test('update indicator on slide', function() {
+      slider1.slider({ indicators: '.indicators li' });
+      slider1.slider('next');
+      assert.equal(slider1.find('.indicators .active').length, 1);
+      assert.equal(slider1.find('.indicators li:eq(1)').hasClass('active'), true);
+    });
+
+    test('change indicator class', function() {
+      slider1.slider({ indicators: '.indicators li', indicatorClass: 'selected' });
+      assert.equal(slider1.find('.indicators .selected').length, 1);
+      assert.equal(slider1.find('.indicators li:eq(0)').hasClass('selected'), true);
+    });
+
+  });
+
 });
 

@@ -6,6 +6,8 @@
         #slider .wrapper { width: 1000px; overflow: hidden; }
         #slider .wrapper ul { width: 300000px; position: relative; margin: 0; padding: 0;}
         #slider .wrapper ul li { float: left; margin: 0; padding: 0; width: 500px; list-style: none; }
+        #slider .indicators li { width: 25px; height: 25px; background: #ccc; display: inline-block; list-style: none; text-align: center;}
+        #slider .indicators li.active { background: red; color: #fff;}
     </style>
   </head>
   <body>
@@ -20,6 +22,11 @@
           <li class="item">6<img src="http://placekitten.com/g/500/400"/></li>
         </ul>
       </div>
+      <ul class="indicators">
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+      </ul>
       <button data-action="previous">Prev</button> 
       <button data-action="next">Next</button> 
     </div>
@@ -31,7 +38,13 @@
         .on('beforeSlide', function(e, pageNumber) {
           console.log('sliding to '+pageNumber);
         })
-        .slider({ auto: true, autoDelay: 2000, itemsPerPage: 2, duration: 250 })
+        .slider({ 
+          auto: true,
+          autoDelay: 2000,
+          itemsPerPage: 2,
+          duration: 250,
+          indicators: '.indicators li'
+        })
         .on('slide', function() { 
           console.log('slide');
         })
