@@ -4,9 +4,9 @@
   <meta charset="utf-8">
   <title>fidel-slider Tests</title>
   <link rel="stylesheet" href="../node_modules/mocha/mocha.css" />
-  <script src="../support/assert.js"></script>
+  <script src="../components/assert/assert.js"></script>
   <script src="../node_modules/mocha/mocha.js"></script>
-  <!--<script src="../support/blanket.min.js" data-cover-adapter="../support/mocha-blanket.js"></script>-->
+  <!--<script src="../components/blanket/dist/qunit/blanket.min.js" data-cover-adapter="../components/blanket/src/adapters/mocha-blanket.js"></script>-->
   <script>mocha.setup('tdd')</script>
   <style>
     #fixture .slider1 {
@@ -43,12 +43,12 @@
     </div>
   </div>
   <script src="../components/jquery/jquery.js"></script>
-  <script src="../components/fidel/dist/fidel.js"></script>
+  <script src="../components/fidel/dist/fidel.js" data-cover></script>
   <script src="../dist/fidel.slider.js" data-cover></script>
   <script src="slider.test.js"></script>
   <script>
     if (navigator.userAgent.indexOf('PhantomJS') < 0) {
-      mocha.run().globals(['LiveReload']);
+      mocha.run();
     }
   </script>
 </body>
