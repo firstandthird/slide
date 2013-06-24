@@ -1,6 +1,6 @@
 /*!
  * fidel-slider - a generic slider using fidel
- * v0.3.3
+ * v0.4.0
  * https://github.com/jgallen23/fidel-slider
  * copyright JGA 2013
  * MIT License
@@ -207,6 +207,8 @@ w.Fidel = Fidel;
       containerClass: 'container',
       auto: false,
       autoDelay: 5000,
+      indicators: false,
+      indicatorClass: 'active',
       wrap: true
     },
 
@@ -262,6 +264,11 @@ w.Fidel = Fidel;
       this.currentPage = page;
       var width = '-'+this.pageWidth * (page - 1);
       this._slide(width, cb);
+      if (this.indicators) {
+        var indicators = this.el.find(this.indicators);
+        indicators.removeClass(this.indicatorClass);
+        indicators.eq(this.currentPage - 1).addClass(this.indicatorClass);
+      }
     },
 
     first: function(cb) {

@@ -1,7 +1,7 @@
 {
   "name": "fidel-slider",
   "description": "a generic slider using fidel",
-  "version": "0.3.3",
+  "version": "0.4.0",
   "homepage": "https://github.com/jgallen23/fidel-slider",
   "license": "MIT",
   "copyright": "JGA",
@@ -9,7 +9,6 @@
     "fidel": "2.*"
   },
   "devDependencies": {
-    "blanket": "*",
     "assert": "*"
   }
 }

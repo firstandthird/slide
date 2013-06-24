@@ -1,4 +1,16 @@
 
+0.4.0 / 2013-06-24 
+==================
+
+  * added ability to pass in indicators elements to highlight current page
+  * [grunt] tweaks
+  * Merge branch 'feature/grunt0.4'
+  * updated grunt config and bower
+  * [grunt] fixed mocha
+  * [grunt] added plato and grunt reports
+  * [component] moved blanket and assert to devDependencies
+  * [grunt] updated to 0.4
+
 0.3.3 / 2013-02-24 
 ==================
 
