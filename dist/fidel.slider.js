@@ -5,7 +5,6 @@
  * copyright JGA 2013
  * MIT License
 */
-
 (function($) {
   $.declare('slider', {
     defaults: {
