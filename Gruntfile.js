@@ -15,7 +15,7 @@ module.exports = function(grunt) {
         'Gruntfile.js',
         'bower.json',
         'lib/**/*.js',
-        'test/*.js'
+        'test/**/*test.js'
       ]
     },
     bower: {
@@ -96,7 +96,6 @@ module.exports = function(grunt) {
     reloadr: {
       main: [
         'example/*',
-        'test/*',
         'dist/*'
       ]
     },
@@ -133,7 +132,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-mocha');
   grunt.loadNpmTasks('grunt-reloadr');
   grunt.loadNpmTasks('grunt-plato');
-  grunt.registerTask('scripts', ['jshint', 'clean:dist', 'bower', 'concat', 'uglify', 'clean:bower', 'mocha', 'bytesize']);
+  grunt.registerTask('scripts', ['jshint', 'bower', 'concat', 'uglify', 'clean:bower', 'mocha', 'bytesize']);
   grunt.registerTask('default', ['scripts']);
   grunt.registerTask('dev', ['connect:server', 'reloadr', 'watch']);
   grunt.registerTask('reports', ['plato', 'connect:plato']);
