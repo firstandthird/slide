@@ -5,6 +5,7 @@
   "homepage": "https://github.com/jgallen23/fidel-slider",
   "license": "MIT",
   "copyright": "JGA",
+  "main": "dist/fidel.slider.js",
   "dependencies": {
     "fidel": "2.*"
   },
