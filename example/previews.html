@@ -1,0 +1,62 @@
+<html>
+  <head>
+    <title></title>
+    <style>
+      #slider { width: 1000px; overflow: hidden; }
+        #slider .wrapper { width: 1000px; margin-left: -250px; }
+        #slider .wrapper ul { width: 300000px; position: relative; margin: 0; padding: 0;}
+        #slider .wrapper ul li { float: left; margin: 0; padding: 0; width: 500px; list-style: none; }
+        #slider .indicators li { width: 25px; height: 25px; background: #ccc; display: inline-block; list-style: none; text-align: center;}
+        #slider .indicators li.active { background: red; color: #fff;}
+    </style>
+  </head>
+  <body>
+    <div id="slider">
+      <div class="wrapper">
+        <ul class="container">
+          <li class="item">1<img src="http://placekitten.com/g/500/400"/></li>
+          <li class="item">2<img src="http://placekitten.com/500/400"/></li>
+          <li class="item">3<img src="http://placekitten.com/g/500/400"/></li>
+          <li class="item">4<img src="http://placekitten.com/500/400"/></li>
+          <li class="item">5<img src="http://placekitten.com/g/500/400"/></li>
+          <li class="item">6<img src="http://placekitten.com/500/400"/></li>
+        </ul>
+      </div>
+      <button data-action="previous">Prev</button> 
+      <button data-action="next">Next</button> 
+    </div>
+    <script src="../components/jquery/jquery.js"></script>
+    <script src="../components/fidel/dist/fidel.js"></script>
+    <script src="../lib/slider.js"></script>
+    <script>
+      $('#slider')
+        .on('beforeSlide', function(e, pageNumber) {
+          console.log('sliding to '+pageNumber);
+        })
+        .slider({ 
+          auto: false,
+          autoDelay: 2000,
+          itemsPerPage: 1,
+          duration: 250,
+          previews: true
+        })
+        .on('slide', function() { 
+          console.log('slide');
+        })
+        .on('first', function() {
+          console.log('first');
+        })
+        .on('last', function() {
+          console.log('last');
+        });
+        /*
+        setTimeout(function() {
+          $('#slider').slider('next');
+          setTimeout(function() {
+              $('#slider').slider('previous');
+          }, duration+200);
+        }, 100);
+       */
+    </script>
+  </body>
+</html>

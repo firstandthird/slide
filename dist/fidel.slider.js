@@ -1,6 +1,6 @@
 /*!
  * fidel-slider - a generic slider using fidel
- * v0.4.0
+ * v0.4.1
  * https://github.com/jgallen23/fidel-slider
  * copyright JGA 2013
  * MIT License
@@ -17,7 +17,8 @@
       autoDelay: 5000,
       indicators: false,
       indicatorClass: 'active',
-      wrap: true
+      wrap: true,
+      previews: false
     },
 
     events: {
@@ -36,11 +37,19 @@
       this.pageWidth = items.outerWidth(true)*this.itemsPerPage;
       this.container = this.find('.'+this.containerClass);
       this.container.queue('fx');
-      this.el.css('width', this.pageWidth);
+
+      if(!this.previews) {
+        this.el.css('width', this.pageWidth);
+      } else {
+        this.el.css('width', this.pageWidth * 2);
+      }
+      
       this.go(this.page);
       if (this.auto) {
         this.start();
       }
+
+      this.updatePreview();
     },
 
     getCurrentPage: function() {
@@ -64,8 +73,16 @@
       }
 
       if (page > this.pageCount || page < 1) {
-        if (typeof cb == 'function') {
-          cb();
+        if(this.previews) {
+          if(page < 1) {
+            this.go(this.pageCount, cb);
+          } else {
+            this.go(1, cb);
+          }
+        } else {
+          if (typeof cb == 'function') {
+            cb();
+          }
         }
         return;
       }
@@ -92,28 +109,37 @@
       this.emit('beforeSlide', this.currentPage);
       this.updateButtons();
       this.container.animate({
-        left: width 
+        left: width
       }, self.duration, function() {
         self.emit('slide', self.currentPage);
-        if (typeof cb == 'function') { 
+        if (typeof cb == 'function') {
           cb();
         }
       });
     },
 
     updateButtons: function() {
-      if (this.currentPage == 1) {
+      if (this.currentPage == 1 && !this.previews) {
         this.previousButton.hide();
         this.emit('first', this.currentPage);
       } else {
         this.previousButton.show();
       }
-      if (this.currentPage == this.pageCount) {
+      if (this.currentPage == this.pageCount  && !this.previews) {
         this.nextButton.hide();
         this.emit('last', this.currentPage);
       } else {
         this.nextButton.show();
       }
+    },
+
+    updatePreview: function() {
+      var items = this.find('.'+this.itemClass);
+      var first = items.first().clone();
+      var last = items.last().clone();
+
+      last.insertBefore(items.first());
+      first.insertAfter(items.last());
     },
 
     start: function(e) {
