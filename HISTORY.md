@@ -1,4 +1,12 @@
 
+0.5.0 / 2013-07-09 
+==================
+
+  * Merge branch 'feature/previews'
+  * Added this.previews check to updatePreviews method.
+  * Added some tests for previews.
+  * Added previews
+
 0.4.1 / 2013-06-25 
 ==================
 
