@@ -23,6 +23,12 @@ suite('fidel-slider', function() {
       assert.equal(slider1.slider('getCurrentPage'), 2);
     });
 
+    test('no previews by default', function() {
+      var pages = slider1.find('.item').length;
+      slider1.slider();
+      assert.equal(pages, slider1.find('.item').length);
+    });
+
     test('previews generated', function() {
       var pages = slider1.find('.item').length;
       slider1.slider({ previews: true });
