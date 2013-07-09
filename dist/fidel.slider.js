@@ -42,8 +42,9 @@
         this.el.css('width', this.pageWidth);
       } else {
         this.el.css('width', this.pageWidth * 2);
+        this.el.find('.wrapper').css('margin-left', '-' + this.pageWidth / 2);
       }
-      
+
       this.go(this.page);
       if (this.auto) {
         this.start();

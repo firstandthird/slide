@@ -23,6 +23,12 @@ suite('fidel-slider', function() {
       assert.equal(slider1.slider('getCurrentPage'), 2);
     });
 
+    test('previews generated', function() {
+      var pages = slider1.find('.item').length;
+      slider1.slider({ previews: true });
+      assert.equal(pages +2, slider1.find('.item').length);
+    });
+
   });
 
 
@@ -181,7 +187,10 @@ suite('fidel-slider', function() {
       assert.equal(slider1.slider('getCurrentPage'), 3);
     });
 
-
+    test('show both buttons if previews = true', function(){
+      slider1.slider({ previews: true });
+      assert.equal($('#fixture [data-action=previous]').css('display'), 'inline-block');
+    });
 
   });
 
