@@ -15,6 +15,7 @@
     "grunt-bytesize": "~0.1.0",
     "grunt-concat-bower": "~0.1.0",
     "grunt-shell": "~0.3.0",
-    "grunt-contrib-clean": "~0.4.1"
+    "grunt-contrib-clean": "~0.4.1",
+    "mocha": "~1.8"
   }
 }
