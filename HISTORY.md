@@ -1,4 +1,10 @@
 
+n.n.n / 2013-07-09 
+==================
+
+ * Merge branch 'bug/margin-left-needs-px'
+ * Added 'px' to margin-left since the value wasn't being accepted without it.
+
 0.5.0 / 2013-07-09 
 ==================
 
