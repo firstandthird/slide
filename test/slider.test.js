@@ -392,6 +392,14 @@ suite('fidel-slider', function() {
       assert.equal(slider1.find('.indicators li:eq(0)').hasClass('selected'), true);
     });
 
+    test('click on indicator', function() {
+      slider1.slider({ indicators: '.indicators li', indicatorClass: 'selected', indicatorClick: true });
+
+      slider1.find('.indicators li:eq(2)').click();
+
+      assert.equal(slider1.slider('getCurrentPage'), 3);
+    });
+
   });
 
 });
