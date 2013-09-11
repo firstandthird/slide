@@ -82,7 +82,8 @@ module.exports = function(grunt) {
       all: {
         src: 'test/index.html',
         options: {
-          run: true
+          run: true,
+          reporter: 'Spec'
         }
       }
     },
@@ -93,22 +94,17 @@ module.exports = function(grunt) {
         }
       }
     },
-    reloadr: {
-      main: [
-        'example/*',
-        'dist/*'
-      ]
-    },
     connect: {
       server:{
-        port: 8000,
-        base: '.'
+        options: {
+          port: 8000
+        }
       },
       plato: {
-        port: 8000,
-        base: 'reports',
         options: {
-          keepalive: true
+          keepalive: true,
+          port: 8000,
+          base: 'reports'
         }
       }
     },
@@ -120,20 +116,9 @@ module.exports = function(grunt) {
       }
     }
   });
-  grunt.loadNpmTasks('grunt-contrib-jshint');
-  grunt.loadNpmTasks('grunt-contrib-concat');
-  grunt.loadNpmTasks('grunt-contrib-watch');
-  grunt.loadNpmTasks('grunt-contrib-uglify');
-  grunt.loadNpmTasks('grunt-contrib-connect');
-  grunt.loadNpmTasks('grunt-contrib-clean');
-  grunt.loadNpmTasks('grunt-concat-bower');
-  grunt.loadNpmTasks('grunt-shell');
-  grunt.loadNpmTasks('grunt-bytesize');
-  grunt.loadNpmTasks('grunt-mocha');
-  grunt.loadNpmTasks('grunt-reloadr');
-  grunt.loadNpmTasks('grunt-plato');
+  require('load-grunt-tasks')(grunt);
   grunt.registerTask('scripts', ['jshint', 'bower', 'concat', 'uglify', 'clean:bower', 'mocha', 'bytesize']);
   grunt.registerTask('default', ['scripts']);
-  grunt.registerTask('dev', ['connect:server', 'reloadr', 'watch']);
+  grunt.registerTask('dev', ['connect:server', 'watch']);
   grunt.registerTask('reports', ['plato', 'connect:plato']);
 };
