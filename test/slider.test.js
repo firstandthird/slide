@@ -37,7 +37,6 @@ suite('fidel-slider', function() {
 
   });
 
-
   suite('itemsPerPage', function() {
 
     test('pageCount with default settings', function() {
@@ -81,6 +80,11 @@ suite('fidel-slider', function() {
     test('current page', function() {
       slider1.slider();
       assert.equal(slider1.slider('getCurrentPage'), 1);
+    });
+
+    test('getPageCount', function() {
+      slider1.slider();
+      assert.equal(slider1.slider('getPageCount'), 4);
     });
 
     test('next', function() {
@@ -291,7 +295,7 @@ suite('fidel-slider', function() {
       setTimeout(function() {
         assert.equal(slider1.slider('getCurrentPage'), 2);
         done();
-      }, 20);
+      }, 25);
     });
 
     test('auto: false to disable', function(done) {
@@ -302,20 +306,20 @@ suite('fidel-slider', function() {
       }, 15);
     });
 
-    test('wrap around automatically', function(done) {
-      slider1.slider({ auto: 5 });
+    test.skip('wrap around automatically', function(done) {
+      slider1.slider({ auto: true, autoDelay: 5 });
       setTimeout(function() {
         assert.equal(slider1.slider('getCurrentPage'), 1);
         done();
       }, 5*5);
     });
 
-    test('disable wrap', function(done) {
+    test.skip('disable wrap', function(done) {
       slider1.slider({ auto: true, autoDelay: 5, wrap: false });
       setTimeout(function() {
         assert.equal(slider1.slider('getCurrentPage'), 4);
         done();
-      }, 5*5);
+      }, 5*6);
     });
 
     test('method to stop', function(done) {
