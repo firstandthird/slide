@@ -1,5 +1,12 @@
 
-n.n.n / 2013-07-09 
+0.6.0 / 2013-09-10 
+==================
+
+  * support for clicking indicators, disable with indicatorClick: false
+  * getPageCount method call
+  * updated for latest bower and grunt plugins
+
+0.5.1 / 2013-07-09 
 ==================
 
  * Merge branch 'bug/margin-left-needs-px'
