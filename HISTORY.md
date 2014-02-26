@@ -1,4 +1,10 @@
 
+0.7.0 / 2014-02-25
+==================
+
+ * Merge pull request #3 from jgallen23/feature/flex-width
+ * Adds updateWidth method to help support responsiveness.
+
 0.6.0 / 2013-09-10 
 ==================
 

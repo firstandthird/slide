@@ -2,14 +2,14 @@
  * fidel-slider - a generic slider using fidel
  * v0.6.0
  * https://github.com/jgallen23/fidel-slider
- * copyright JGA 2013
+ * copyright JGA 2014
  * MIT License
 */
 /*!
  * fidel - a ui view controller
- * v2.2.3
+ * v2.2.5
  * https://github.com/jgallen23/fidel
- * copyright Greg Allen 2013
+ * copyright Greg Allen 2014
  * MIT License
 */
 (function(w, $) {
@@ -21,6 +21,7 @@
   Fidel.prototype.__init = function(options) {
     $.extend(this, this.obj);
     this.id = _id++;
+    this.namespace = '.fidel' + this.id;
     this.obj.defaults = this.obj.defaults || {};
     $.extend(this, this.obj.defaults, options);
     $('body').trigger('FidelPreInit', this);
@@ -35,8 +36,8 @@
   Fidel.prototype.setElement = function(el) {
     this.el = el;
     this.getElements();
-    this.delegateEvents();
     this.dataElements();
+    this.delegateEvents();
     this.delegateActions();
   };
 
@@ -68,7 +69,6 @@
   };
 
   Fidel.prototype.delegateEvents = function() {
-    var self = this;
     if (!this.events)
       return;
     for (var key in this.events) {
@@ -79,12 +79,12 @@
       var method = this.proxy(this[methodName]);
 
       if (selector === '') {
-        this.el.on(eventName, method);
+        this.el.on(eventName + this.namespace, method);
       } else {
         if (this[selector] && typeof this[selector] != 'function') {
-          this[selector].on(eventName, method);
+          this[selector].on(eventName + this.namespace, method);
         } else {
-          this.el.on(eventName, selector, method);
+          this.el.on(eventName + this.namespace, selector, method);
         }
       }
     }
@@ -92,7 +92,7 @@
 
   Fidel.prototype.delegateActions = function() {
     var self = this;
-    self.el.on('click', '[data-action]', function(e) {
+    self.el.on('click'+this.namespace, '[data-action]', function(e) {
       var el = $(this);
       var action = el.attr('data-action');
       if (self[action]) {
@@ -102,15 +102,15 @@
   };
 
   Fidel.prototype.on = function(eventName, cb) {
-    this.el.on(eventName+'.fidel'+this.id, cb);
+    this.el.on(eventName+this.namespace, cb);
   };
 
   Fidel.prototype.one = function(eventName, cb) {
-    this.el.one(eventName+'.fidel'+this.id, cb);
+    this.el.one(eventName+this.namespace, cb);
   };
 
   Fidel.prototype.emit = function(eventName, data, namespaced) {
-    var ns = (namespaced) ? '.fidel'+this.id : '';
+    var ns = (namespaced) ? this.namespace : '';
     this.el.trigger(eventName+ns, data);
   };
 
@@ -134,7 +134,7 @@
   Fidel.prototype.destroy = function() {
     this.el.empty();
     this.emit('destroy');
-    this.el.unbind('.fidel'+this.id);
+    this.el.unbind(this.namespace);
   };
 
   Fidel.declare = function(obj) {
@@ -223,18 +223,12 @@
     },
 
     init: function() {
-      var items = this.find('.'+this.itemClass);
-      this.pageCount = Math.ceil(items.length/this.itemsPerPage);
-      this.pageWidth = items.outerWidth(true)*this.itemsPerPage;
+      this.items = this.find('.'+this.itemClass);
+      this.pageCount = Math.ceil(this.items.length/this.itemsPerPage);
       this.container = this.find('.'+this.containerClass);
       this.container.queue('fx');
 
-      if(!this.previews) {
-        this.el.css('width', this.pageWidth);
-      } else {
-        this.el.css('width', this.pageWidth * 2);
-        this.el.find('.wrapper').css('margin-left', '-' + (this.pageWidth / 2) + 'px');
-      }
+      this.updateWidth(this.items.first().outerWidth(true));
 
       this.go(this.page);
       if (this.auto) {
@@ -371,6 +365,27 @@
     indicatorClicked: function(e) {
       var index = this.el.find(this.indicators).index(e.currentTarget);
       this.go(index+1);
+    },
+
+    updateWidth: function(width) {
+      if(!width) {
+        width = $(window).width();
+      }
+
+      this.pageWidth = width*this.itemsPerPage;
+
+      if(!this.previews) {
+        this.el.css('width', this.pageWidth);
+      } else {
+        this.el.css('width', width * 2);
+        this.el.find('.wrapper').css('margin-left', '-' + (width / 2) + 'px');
+      }
+
+      this.container.css({
+        left: '-'+this.pageWidth * ((this.currentPage === 0) ? 0 : this.currentPage - 1)
+      });
+
+      this.items.css('width', width);
     }
   });
 })(jQuery);

@@ -2,7 +2,7 @@
  * fidel-slider - a generic slider using fidel
  * v0.6.0
  * https://github.com/jgallen23/fidel-slider
- * copyright JGA 2013
+ * copyright JGA 2014
  * MIT License
 */
 (function($) {
@@ -33,18 +33,12 @@
     },
 
     init: function() {
-      var items = this.find('.'+this.itemClass);
-      this.pageCount = Math.ceil(items.length/this.itemsPerPage);
-      this.pageWidth = items.outerWidth(true)*this.itemsPerPage;
+      this.items = this.find('.'+this.itemClass);
+      this.pageCount = Math.ceil(this.items.length/this.itemsPerPage);
       this.container = this.find('.'+this.containerClass);
       this.container.queue('fx');
 
-      if(!this.previews) {
-        this.el.css('width', this.pageWidth);
-      } else {
-        this.el.css('width', this.pageWidth * 2);
-        this.el.find('.wrapper').css('margin-left', '-' + (this.pageWidth / 2) + 'px');
-      }
+      this.updateWidth(this.items.first().outerWidth(true));
 
       this.go(this.page);
       if (this.auto) {
@@ -181,6 +175,27 @@
     indicatorClicked: function(e) {
       var index = this.el.find(this.indicators).index(e.currentTarget);
       this.go(index+1);
+    },
+
+    updateWidth: function(width) {
+      if(!width) {
+        width = $(window).width();
+      }
+
+      this.pageWidth = width*this.itemsPerPage;
+
+      if(!this.previews) {
+        this.el.css('width', this.pageWidth);
+      } else {
+        this.el.css('width', width * 2);
+        this.el.find('.wrapper').css('margin-left', '-' + (width / 2) + 'px');
+      }
+
+      this.container.css({
+        left: '-'+this.pageWidth * ((this.currentPage === 0) ? 0 : this.currentPage - 1)
+      });
+
+      this.items.css('width', width);
     }
   });
 })(jQuery);
