@@ -1,4 +1,10 @@
 
+0.8.0 / 2014-02-26
+==================
+
+ * Merge pull request #4 from jgallen23/bug/indicator-multiple-bind
+ * Only binds indicators once.
+
 0.7.0 / 2014-02-25
 ==================
 
