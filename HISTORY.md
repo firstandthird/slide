@@ -1,4 +1,10 @@
 
+0.9.0 / 2014-03-06
+==================
+
+ * Merge pull request #5 from jgallen23/bug/pixels-are-units-too
+ * jquery should be smart enough to use px by default...
+
 0.8.0 / 2014-02-26
 ==================
 
