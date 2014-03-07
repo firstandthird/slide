@@ -1,4 +1,10 @@
 
+0.10.0 / 2014-03-06
+==================
+
+ * Merge pull request #6 from jgallen23/bug/wrap
+ * Wrap actually works.
+
 0.9.0 / 2014-03-06
 ==================
 

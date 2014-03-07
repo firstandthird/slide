@@ -1,6 +1,6 @@
 /*!
  * fidel-slider - a generic slider using fidel
- * v0.8.0
+ * v0.9.0
  * https://github.com/jgallen23/fidel-slider
  * copyright JGA 2014
  * MIT License
@@ -77,7 +77,7 @@
       }
 
       if (page > this.pageCount || page < 1) {
-        if(this.previews) {
+        if(this.previews || this.wrap) {
           if(page < 1) {
             this.go(this.pageCount, cb);
           } else {
@@ -123,13 +123,13 @@
     },
 
     updateButtons: function() {
-      if (this.currentPage == 1 && !this.previews) {
+      if (this.currentPage == 1 && !this.previews && !this.wrap) {
         this.previousButton.hide();
         this.emit('first', this.currentPage);
       } else {
         this.previousButton.show();
       }
-      if (this.currentPage == this.pageCount  && !this.previews) {
+      if (this.currentPage == this.pageCount  && !this.previews && !this.wrap) {
         this.nextButton.hide();
         this.emit('last', this.currentPage);
       } else {
