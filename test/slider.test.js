@@ -102,7 +102,7 @@ suite('fidel-slider', function() {
     });
 
     test('next past max pages', function(done) {
-      slider1.slider();
+      slider1.slider({wrap: false});
       slider1.slider('next');
       slider1.slider('next');
       slider1.slider('next');
@@ -112,6 +112,19 @@ suite('fidel-slider', function() {
         done();
       });
       assert.equal(slider1.slider('getCurrentPage'), 4);
+    });
+
+    test('next past max pages with wrap', function(done) {
+      slider1.slider({wrap: true});
+      slider1.slider('next');
+      slider1.slider('next');
+      slider1.slider('next');
+      slider1.slider('next');
+      slider1.slider('next');
+      slider1.slider('next', function() {
+        done();
+      });
+      assert.equal(slider1.slider('getCurrentPage'), 3);
     });
 
     test('previous', function(done) {
@@ -125,9 +138,15 @@ suite('fidel-slider', function() {
     });
 
     test('previous if at first page', function() {
-      slider1.slider();
+      slider1.slider({wrap: false});
       slider1.slider('previous');
       assert.equal(slider1.slider('getCurrentPage'), 1);
+    });
+
+    test('previous if at first page with wrap', function() {
+      slider1.slider({wrap: true});
+      slider1.slider('previous');
+      assert.equal(slider1.slider('getCurrentPage'), 4);
     });
 
     test('go', function(done) {
@@ -175,12 +194,12 @@ suite('fidel-slider', function() {
     });
 
     test('hide previous when on first page', function() {
-      slider1.slider();
+      slider1.slider({wrap:false});
       assert.equal($('#fixture [data-action=previous]').css('display'), 'none');
     });
 
     test('hide next when on last page', function() {
-      slider1.slider();
+      slider1.slider({wrap: false});
       slider1.slider('last');
       assert.equal($('#fixture [data-action=next]').css('display'), 'none');
     });
@@ -254,7 +273,7 @@ suite('fidel-slider', function() {
     });
 
     test('event when going previous', function(done) {
-      slider1.slider();
+      slider1.slider({wrap: false});
       slider1.on('previous', function(e, pageNumber) {
         assert.equal(pageNumber, 1);
         done();
@@ -398,6 +417,17 @@ suite('fidel-slider', function() {
       slider1.find('.indicators li:eq(2)').click();
 
       assert.equal(slider1.slider('getCurrentPage'), 3);
+    });
+
+  });
+
+  suite('resize', function() {
+
+    test('updateWidth should update width', function() {
+      slider1.slider();
+      slider1.slider('updateWidth', 200);
+
+      assert.equal(slider1.width(), 200);
     });
 
   });
