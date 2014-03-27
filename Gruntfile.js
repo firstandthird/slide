@@ -115,10 +115,16 @@ module.exports = function(grunt) {
           'dist/*'
         ]
       }
+    },
+    less: {
+      transitions: {
+        src: 'lib/transitions.less',
+        dest: 'dist/transitions.css'
+      }
     }
   });
   require('load-grunt-tasks')(grunt);
-  grunt.registerTask('scripts', ['jshint', 'bower', 'concat', 'uglify', 'clean:bower', 'mocha', 'bytesize']);
+  grunt.registerTask('scripts', ['jshint', 'bower', 'concat', 'uglify', 'clean:bower', 'less', 'mocha', 'bytesize']);
   grunt.registerTask('default', ['scripts']);
   grunt.registerTask('dev', ['connect:server', 'watch']);
   grunt.registerTask('reports', ['plato', 'connect:plato']);
