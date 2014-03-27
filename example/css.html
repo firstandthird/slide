@@ -1,16 +1,34 @@
 <html>
   <head>
     <title></title>
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
     <style>
       body {
         margin: 0;
       }
       #slider {
         position: relative;
-        height: 500px;
+        height: 100%;
         width: 100%;
         background-color: #222224;
       }
+        #slider .prev, #slider .next {
+          position: absolute;
+          top: 50%;
+          font-size: 72px;
+          color: rgba(255,255,255,.5);
+          z-index: 3000;
+          border: 0;
+          background: 0;
+          outline: none;
+          cursor: pointer;
+          margin-top: -30px;
+        }
+
+        #slider .next {
+          right: 0;
+        }
+
         #slider .wrapper {
           width: 100%;
           height: 100%;
@@ -56,6 +74,13 @@
           position: absolute;
           top: 30px;
           z-index: 2000;
+          left: 50%;
+          width: 350px;
+          margin-left: -175px;
+          background: transparent;
+          border: 4px solid rgba(255,255,255,.75);
+          color: #fff;
+          font-size: 22px;
         }
     </style>
     <link rel="stylesheet" type="text/css" href="../dist/transitions.css"/>
@@ -69,26 +94,28 @@
           <li class="item"><img src="http://cdn.sarahjane-photography.com/wp-content/uploads/2013/04/IMG_65961-e1378020026487.jpg"/></li>
         </ul>
       </div>
-      <button data-action="previous">Prev</button> 
-      <button data-action="next">Next</button> 
+      <button data-action="previous" class="prev"><i class="fa fa-chevron-left"></i></button> 
+      <button data-action="next" class="next"><i class="fa fa-chevron-right"></i></button> 
     </div>
-    <select id="fxselect" name="fxselect">
-      <option value="fxSoftScale">Soft scale</option>
-      <option value="fxPressAway">Press away</option>
-      <option value="fxSideSwing">Side Swing</option>
-      <option value="fxFortuneWheel">Fortune wheel</option>
-      <option value="fxSwipe">Swipe</option>
-      <option value="fxPushReveal">Push reveal</option>
-      <option value="fxSnapIn">Snap in</option>
-      <option value="fxLetMeIn">Let me in</option>
-      <option value="fxStickIt">Stick it</option>
-      <option value="fxArchiveMe">Archive me</option>
-      <option value="fxVGrowth">Vertical growth</option>
-      <option value="fxSlideBehind">Slide Behind</option>
-      <option value="fxSoftPulse">Soft Pulse</option>
-      <option value="fxEarthquake">Earthquake</option>
-      <option value="fxCliffDiving">Cliff diving</option>
-    </select>
+    <div class="form">
+      <select id="fxselect" name="fxselect">
+        <option value="fxSoftScale">Soft scale</option>
+        <option value="fxPressAway">Press away</option>
+        <option value="fxSideSwing">Side Swing</option>
+        <option value="fxFortuneWheel">Fortune wheel</option>
+        <option value="fxSwipe">Swipe</option>
+        <option value="fxPushReveal">Push reveal</option>
+        <option value="fxSnapIn">Snap in</option>
+        <option value="fxLetMeIn">Let me in</option>
+        <option value="fxStickIt">Stick it</option>
+        <option value="fxArchiveMe">Archive me</option>
+        <option value="fxVGrowth">Vertical growth</option>
+        <option value="fxSlideBehind">Slide Behind</option>
+        <option value="fxSoftPulse">Soft Pulse</option>
+        <option value="fxEarthquake">Earthquake</option>
+        <option value="fxCliffDiving">Cliff diving</option>
+      </select>
+    </div>
     <script src="../bower_components/jquery/dist/jquery.js"></script>
     <script src="../bower_components/fidel/dist/fidel.js"></script>
     <script src="../lib/slider.js"></script>
