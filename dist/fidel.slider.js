@@ -1,6 +1,6 @@
 /*!
  * fidel-slider - a generic slider using fidel
- * v0.9.0
+ * v0.10.0
  * https://github.com/jgallen23/fidel-slider
  * copyright JGA 2014
  * MIT License
@@ -19,7 +19,10 @@
       indicatorClass: 'active',
       indicatorClick: true,
       wrap: true,
-      previews: false
+      previews: false,
+      cssAnimate: false,
+      ease: 'easeOut',
+      animationEndEvents: 'animationend webkitAnimationEnd oAnimationEnd MSAnimationEnd'
     },
 
     events: {
@@ -37,10 +40,11 @@
       this.pageCount = Math.ceil(this.items.length/this.itemsPerPage);
       this.container = this.find('.'+this.containerClass);
       this.container.queue('fx');
+      this.animating = false;
 
       this.updateWidth(this.items.first().outerWidth(true));
 
-      this.go(this.page);
+      this.go(this.page, 'first');
       if (this.auto) {
         this.start();
       }
@@ -71,6 +75,10 @@
     },
 
     go: function(page, cb) {
+      if(this.animating) {
+        return false;
+      }
+
       //check if click from data-action
       if (typeof page === 'object')  {
         page = $(page.target).data('page');
@@ -90,9 +98,25 @@
         }
         return;
       }
+      var direction = (this.currentPage < page) ? 'next' : 'prev';
+      
+      if(page === 1 && this.currentPage === this.items.length) {
+        direction = 'next';
+      }
+
+      if(page === this.items.length && this.currentPage === 1) {
+        direction = 'prev';
+      }
+
       this.currentPage = page;
       var width = '-'+this.pageWidth * (page - 1);
-      this._slide(width, cb);
+      
+      if(this.cssAnimate) {
+        this._slideCSS(direction, cb);
+      } else {
+        this._slide(width, cb);
+      }
+      
       if (this.indicators) {
         var indicators = this.el.find(this.indicators);
         indicators.removeClass(this.indicatorClass);
@@ -108,30 +132,87 @@
       this.go(this.pageCount, cb);
     },
 
-    _slide: function(width, cb) {
+    _slideCSS: function(direction, cb) {
       var self = this;
-      this.emit('beforeSlide', this.currentPage);
-      this.updateButtons();
-      this.container.animate({
-        left: width
-      }, self.duration, function() {
+      var out = 0;
+
+      if(cb === 'first') {
+        $(this.items[this.currentPage - 1]).addClass('active');
+        return;
+      }
+
+      this.animating = true;
+
+      $(self.items).one(this.animationEndEvents, function(){
+        self.animating = false;
+        self.container.find('.active').removeClass('active');
+        $(self.items[self.currentPage - 1]).removeClass(direction + 'ItemAnimationIn').addClass('active');
+        $(self.items[out]).removeClass(direction + 'ItemAnimationOut');
+
+        $(self.items).unbind(self.animationEndEvents);
+
         self.emit('slide', self.currentPage);
         if (typeof cb == 'function') {
           cb();
         }
       });
+
+      if(direction === 'next') {
+        out = this.currentPage - 2;
+
+        if(out < 0) {
+          out = this.items.length - 1;
+        }
+      } else {
+        out = this.currentPage;
+
+        if(out >= this.items.length) {
+          out = 0;
+        }
+      }
+
+      $(this.items[out]).addClass(direction + 'ItemAnimationOut active');
+      $(this.items[this.currentPage - 1]).addClass(direction + 'ItemAnimationIn active');
+    },
+
+    _slide: function(width, cb) {
+      var self = this;
+      this.cb = cb;
+      this.emit('beforeSlide', this.currentPage);
+      this.updateButtons();
+
+      if(cb === 'first') {
+        this.container.css({
+          left: width
+        });
+      } else {
+        this.container.animate({
+          left: width
+        }, self.duration, function() {
+          self.emit('slide', self.currentPage);
+          if (typeof cb == 'function') {
+            cb();
+          }
+        });
+      }
     },
 
     updateButtons: function() {
+      if (this.currentPage === 1) {
+        this.emit('first', this.currentPage);
+      }
+
+      if (this.currentPage === this.pageCount) {
+        this.emit('last', this.currentPage);
+      }
+
       if (this.currentPage == 1 && !this.previews && !this.wrap) {
         this.previousButton.hide();
-        this.emit('first', this.currentPage);
       } else {
         this.previousButton.show();
       }
       if (this.currentPage == this.pageCount  && !this.previews && !this.wrap) {
         this.nextButton.hide();
-        this.emit('last', this.currentPage);
       } else {
         this.nextButton.show();
       }
