@@ -1,4 +1,4 @@
-# Fidel Slider
+# Slide
 
 A fully tested slider library built using jQuery and Fidel.
 

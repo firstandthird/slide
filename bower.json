@@ -1,11 +1,11 @@
 {
-  "name": "fidel-slider",
+  "name": "slide",
   "description": "a generic slider using fidel",
   "version": "0.10.0",
-  "homepage": "https://github.com/jgallen23/fidel-slider",
+  "homepage": "https://github.com/firstandthird/slide/",
   "license": "MIT",
   "copyright": "JGA",
-  "main": "dist/fidel.slider.js",
+  "main": "dist/fidel.slide.js",
   "dependencies": {
     "fidel": "2.*"
   },

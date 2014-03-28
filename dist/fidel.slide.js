@@ -1,7 +1,7 @@
 /*!
- * fidel-slider - a generic slider using fidel
+ * slide - a generic slider using fidel
  * v0.10.0
- * https://github.com/jgallen23/fidel-slider
+ * https://github.com/firstandthird/slide/
  * copyright JGA 2014
  * MIT License
 */
