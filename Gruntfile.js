@@ -33,15 +33,15 @@ module.exports = function(grunt) {
         banner: '<%= meta.banner %>'
       },
       dist: {
-        src: 'lib/slider.js',
-        dest: 'dist/fidel.slider.js'
+        src: 'lib/slide.js',
+        dest: 'dist/fidel.slide.js'
       },
       full: {
         src: [
           'dist/_bower.js',
-          'lib/slider.js'
+          'lib/slide.js'
         ],
-        dest: 'dist/slider.js'
+        dest: 'dist/slide.js'
       }
     },
     uglify: {
@@ -49,12 +49,12 @@ module.exports = function(grunt) {
         banner: '<%= meta.banner %>'
       },
       dist: {
-        src: 'dist/fidel.slider.js',
-        dest: 'dist/fidel.slider.min.js'
+        src: 'dist/fidel.slide.js',
+        dest: 'dist/fidel.slide.min.js'
       },
       full: {
-        src: 'dist/slider.js',
-        dest: 'dist/slider.min.js'
+        src: 'dist/slide.js',
+        dest: 'dist/slide.min.js'
       }
     },
     clean: {
@@ -67,7 +67,7 @@ module.exports = function(grunt) {
     },
     watch: {
       scripts: {
-        files: '<%= jshint.main %>',
+        files: ['<%= jshint.main %>', 'lib/*.less'],
         tasks: 'scripts'
       },
       ci: {
@@ -115,10 +115,24 @@ module.exports = function(grunt) {
           'dist/*'
         ]
       }
+    },
+    less: {
+      allTransitions: {
+        src: 'lib/transitions.all.less',
+        dest: 'dist/transitions.css'
+      }
+    },
+    autoprefixer: {
+      options: {
+
+      },
+      transitions: {
+        src: 'dist/transitions.css'
+      }
     }
   });
   require('load-grunt-tasks')(grunt);
-  grunt.registerTask('scripts', ['jshint', 'bower', 'concat', 'uglify', 'clean:bower', 'mocha', 'bytesize']);
+  grunt.registerTask('scripts', ['jshint', 'bower', 'concat', 'uglify', 'clean:bower', 'less', 'autoprefixer', 'mocha', 'bytesize']);
   grunt.registerTask('default', ['scripts']);
   grunt.registerTask('dev', ['connect:server', 'watch']);
   grunt.registerTask('reports', ['plato', 'connect:plato']);
