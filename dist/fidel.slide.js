@@ -1,7 +1,7 @@
 /*!
- * fidel-slider - a generic slider using fidel
- * v0.9.0
- * https://github.com/jgallen23/fidel-slider
+ * slide - a generic slider using fidel
+ * v0.10.0
+ * https://github.com/firstandthird/slide/
  * copyright JGA 2014
  * MIT License
 */
@@ -123,15 +123,21 @@
     },
 
     updateButtons: function() {
+      if (this.currentPage === 1) {
+        this.emit('first', this.currentPage);
+      }
+
+      if (this.currentPage === this.pageCount) {
+        this.emit('last', this.currentPage);
+      }
+
       if (this.currentPage == 1 && !this.previews && !this.wrap) {
         this.previousButton.hide();
-        this.emit('first', this.currentPage);
       } else {
         this.previousButton.show();
       }
       if (this.currentPage == this.pageCount  && !this.previews && !this.wrap) {
         this.nextButton.hide();
-        this.emit('last', this.currentPage);
       } else {
         this.nextButton.show();
       }
