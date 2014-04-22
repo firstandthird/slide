@@ -21,8 +21,10 @@
       wrap: true,
       previews: false,
       cssAnimate: false,
-      ease: 'easeOut',
-      animationEndEvents: 'animationend webkitAnimationEnd oAnimationEnd MSAnimationEnd'
+      responsive: false,
+      ease: 'swing',
+      animationEndEvents: 'animationend webkitAnimationEnd oAnimationEnd MSAnimationEnd',
+      animationBaseClass: 'ItemAnimation'
     },
 
     events: {
@@ -51,6 +53,12 @@
 
       if (this.indicators && this.indicatorClick) {
         this.el.find(this.indicators).on('click', this.proxy(this.indicatorClicked));
+      }
+
+      if(this.responsive) {
+        $(window).on('resize', this.proxy(function(){
+          this.updateWidth();
+        })).trigger('resize');
       }
 
       this.updatePreview();
@@ -146,8 +154,8 @@
       $(self.items).one(this.animationEndEvents, function(){
         self.animating = false;
         self.container.find('.active').removeClass('active');
-        $(self.items[self.currentPage - 1]).removeClass(direction + 'ItemAnimationIn').addClass('active');
-        $(self.items[out]).removeClass(direction + 'ItemAnimationOut');
+        $(self.items[self.currentPage - 1]).removeClass(direction + self.animationBaseClass + 'In').addClass('active');
+        $(self.items[out]).removeClass(direction + self.animationBaseClass + 'Out');
 
         $(self.items).unbind(self.animationEndEvents);
 
@@ -171,8 +179,8 @@
         }
       }
 
-      $(this.items[out]).addClass(direction + 'ItemAnimationOut active');
-      $(this.items[this.currentPage - 1]).addClass(direction + 'ItemAnimationIn active');
+      $(this.items[out]).addClass(direction + this.animationBaseClass + 'Out active');
+      $(this.items[this.currentPage - 1]).addClass(direction + this.animationBaseClass + 'In active');
     },
 
     _slide: function(width, cb) {
@@ -188,7 +196,7 @@
       } else {
         this.container.animate({
           left: width
-        }, self.duration, function() {
+        }, self.duration, this.ease, function() {
           self.emit('slide', self.currentPage);
           if (typeof cb == 'function') {
             cb();
