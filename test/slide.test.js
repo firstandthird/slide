@@ -439,8 +439,8 @@ suite('fidel-slider', function() {
         cssAnimate: true
       });
       slider1.slider('next');
-      assert.equal($('#fixture .nextItemAnimationOut').length, 1);
-      assert.equal($('#fixture .nextItemAnimationIn').length, 1);
+      assert.equal($('#fixture .next-item-animation-out').length, 1);
+      assert.equal($('#fixture .next-item-animation-in').length, 1);
     });
 
     test('should have classes on slide prev', function() {
@@ -448,18 +448,18 @@ suite('fidel-slider', function() {
         cssAnimate: true
       });
       slider1.slider('previous');
-      assert.equal($('#fixture .prevItemAnimationOut').length, 1);
-      assert.equal($('#fixture .prevItemAnimationIn').length, 1);
+      assert.equal($('#fixture .prev-item-animation-out').length, 1);
+      assert.equal($('#fixture .prev-item-animation-in').length, 1);
     });
 
     test('custom class', function() {
       slider1.slider({
         cssAnimate: true,
-        animationBaseClass: 'TestClass'
+        animationBaseClass: 'test-class'
       });
       slider1.slider('next');
-      assert.equal($('#fixture .nextTestClassOut').length, 1);
-      assert.equal($('#fixture .nextTestClassIn').length, 1);
+      assert.equal($('#fixture .next-test-class-out').length, 1);
+      assert.equal($('#fixture .next-test-class-in').length, 1);
     });
 
   });
