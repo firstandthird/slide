@@ -67,7 +67,7 @@ module.exports = function(grunt) {
     },
     watch: {
       scripts: {
-        files: '<%= jshint.main %>',
+        files: ['<%= jshint.main %>', 'lib/*.less'],
         tasks: 'scripts'
       },
       ci: {
@@ -115,10 +115,24 @@ module.exports = function(grunt) {
           'dist/*'
         ]
       }
+    },
+    less: {
+      allTransitions: {
+        src: 'lib/transitions.all.less',
+        dest: 'dist/transitions.css'
+      }
+    },
+    autoprefixer: {
+      options: {
+
+      },
+      transitions: {
+        src: 'dist/transitions.css'
+      }
     }
   });
   require('load-grunt-tasks')(grunt);
-  grunt.registerTask('scripts', ['jshint', 'bower', 'concat', 'uglify', 'clean:bower', 'mocha', 'bytesize']);
+  grunt.registerTask('scripts', ['jshint', 'bower', 'concat', 'uglify', 'clean:bower', 'less', 'autoprefixer', 'mocha', 'bytesize']);
   grunt.registerTask('default', ['scripts']);
   grunt.registerTask('dev', ['connect:server', 'watch']);
   grunt.registerTask('reports', ['plato', 'connect:plato']);

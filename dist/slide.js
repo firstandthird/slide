@@ -209,7 +209,12 @@
       indicatorClass: 'active',
       indicatorClick: true,
       wrap: true,
-      previews: false
+      previews: false,
+      cssAnimate: false,
+      responsive: false,
+      ease: 'swing',
+      animationEndEvents: 'animationend webkitAnimationEnd oAnimationEnd MSAnimationEnd',
+      animationBaseClass: 'ItemAnimation'
     },
 
     events: {
@@ -227,16 +232,23 @@
       this.pageCount = Math.ceil(this.items.length/this.itemsPerPage);
       this.container = this.find('.'+this.containerClass);
       this.container.queue('fx');
+      this.animating = false;
 
       this.updateWidth(this.items.first().outerWidth(true));
 
-      this.go(this.page);
+      this.go(this.page, 'first');
       if (this.auto) {
         this.start();
       }
 
       if (this.indicators && this.indicatorClick) {
         this.el.find(this.indicators).on('click', this.proxy(this.indicatorClicked));
+      }
+
+      if(this.responsive) {
+        $(window).on('resize', this.proxy(function(){
+          this.updateWidth();
+        })).trigger('resize');
       }
 
       this.updatePreview();
@@ -261,6 +273,10 @@
     },
 
     go: function(page, cb) {
+      if(this.animating) {
+        return false;
+      }
+
       //check if click from data-action
       if (typeof page === 'object')  {
         page = $(page.target).data('page');
@@ -280,9 +296,25 @@
         }
         return;
       }
+      var direction = (this.currentPage < page) ? 'next' : 'prev';
+      
+      if(page === 1 && this.currentPage === this.items.length) {
+        direction = 'next';
+      }
+
+      if(page === this.items.length && this.currentPage === 1) {
+        direction = 'prev';
+      }
+
       this.currentPage = page;
       var width = '-'+this.pageWidth * (page - 1);
-      this._slide(width, cb);
+      
+      if(this.cssAnimate) {
+        this._slideCSS(direction, cb);
+      } else {
+        this._slide(width, cb);
+      }
+      
       if (this.indicators) {
         var indicators = this.el.find(this.indicators);
         indicators.removeClass(this.indicatorClass);
@@ -298,18 +330,69 @@
       this.go(this.pageCount, cb);
     },
 
-    _slide: function(width, cb) {
+    _slideCSS: function(direction, cb) {
       var self = this;
-      this.emit('beforeSlide', this.currentPage);
-      this.updateButtons();
-      this.container.animate({
-        left: width
-      }, self.duration, function() {
+      var out = 0;
+
+      if(cb === 'first') {
+        $(this.items[this.currentPage - 1]).addClass('active');
+        return;
+      }
+
+      this.animating = true;
+
+      $(self.items).one(this.animationEndEvents, function(){
+        self.animating = false;
+        self.container.find('.active').removeClass('active');
+        $(self.items[self.currentPage - 1]).removeClass(direction + self.animationBaseClass + 'In').addClass('active');
+        $(self.items[out]).removeClass(direction + self.animationBaseClass + 'Out');
+
+        $(self.items).unbind(self.animationEndEvents);
+
         self.emit('slide', self.currentPage);
         if (typeof cb == 'function') {
           cb();
         }
       });
+
+      if(direction === 'next') {
+        out = this.currentPage - 2;
+
+        if(out < 0) {
+          out = this.items.length - 1;
+        }
+      } else {
+        out = this.currentPage;
+
+        if(out >= this.items.length) {
+          out = 0;
+        }
+      }
+
+      $(this.items[out]).addClass(direction + this.animationBaseClass + 'Out active');
+      $(this.items[this.currentPage - 1]).addClass(direction + this.animationBaseClass + 'In active');
+    },
+
+    _slide: function(width, cb) {
+      var self = this;
+      this.cb = cb;
+      this.emit('beforeSlide', this.currentPage);
+      this.updateButtons();
+
+      if(cb === 'first') {
+        this.container.css({
+          left: width
+        });
+      } else {
+        this.container.animate({
+          left: width
+        }, self.duration, this.ease, function() {
+          self.emit('slide', self.currentPage);
+          if (typeof cb == 'function') {
+            cb();
+          }
+        });
+      }
     },
 
     updateButtons: function() {
