@@ -1,62 +1,62 @@
 // Soft scale
-.slide-transition(@style, @base: ItemAnimation) when (@style = 'soft-scale') {
-  .next@{base}Out {
+.slide-transition(@style, @base: item-animation) when (@style = 'soft-scale') {
+  .next-@{base}-out {
     animation: scaleUp 1.5s forwards cubic-bezier(0.7, 0, 0.3, 1);
   }
 
-  .next@{base}In {
+  .next-@{base}-in {
     animation: scaleDownUp 1.5s forwards cubic-bezier(0.7, 0, 0.3, 1);
   }
 
-  .prev@{base}Out {
+  .prev-@{base}-out {
     animation: scaleDown 1.5s forwards cubic-bezier(0.7, 0, 0.3, 1);
   }
 
-  .prev@{base}In {
+  .prev-@{base}-in {
     animation: scaleUpDown 1.5s forwards cubic-bezier(0.7, 0, 0.3, 1);
   }
 }
 
 // Press away
-.slide-transition(@style, @base: ItemAnimation) when (@style = 'press-away') {
-  .next@{base}Out {
+.slide-transition(@style, @base: item-animation) when (@style = 'press-away') {
+  .next-@{base}-out {
     animation: slideOutScaleRight 1.2s forwards cubic-bezier(0.7, 0, 0.3, 1);
   }
 
-  .next@{base}In {
+  .next-@{base}-in {
     opacity: 1;
     animation: slideInFromLeft 1.2s forwards cubic-bezier(0.7, 0, 0.3, 1);
   }
 
-  .prev@{base}Out {
+  .prev-@{base}-out {
     animation: slideOutScaleLeft 1.2s forwards cubic-bezier(0.7, 0, 0.3, 1);
   }
 
-  .prev@{base}In {
+  .prev-@{base}-in {
     opacity: 1;
     animation: slideInFromRight 1.2s forwards cubic-bezier(0.7, 0, 0.3, 1);
   }
 }
 
 // Side swing
-.slide-transition(@style, @base: ItemAnimation) when (@style = 'side-swing') {
-  .next@{base}Out {
+.slide-transition(@style, @base: item-animation) when (@style = 'side-swing') {
+  .next-@{base}-out {
     animation: slideOutScaleRight 1.2s forwards;
     animation-timing-function: cubic-bezier(1, -0.2, 0, 1);
   }
 
-  .next@{base}In {
+  .next-@{base}-in {
     opacity: 1;
     animation: slideInFromLeft 1.2s forwards;
     animation-timing-function: cubic-bezier(1, -0.2, 0, 1);
   }
 
-  .prev@{base}Out {
+  .prev-@{base}-out {
     animation: slideOutScaleLeft 1.2s forwards;
     animation-timing-function: cubic-bezier(1, -0.2, 0, 1);
   }
 
-  .prev@{base}In {
+  .prev-@{base}-in {
     opacity: 1;
     animation: slideInFromRight 1.2s forwards;
     animation-timing-function: cubic-bezier(1, -0.2, 0, 1);
@@ -64,45 +64,45 @@
 }
 
 // Fortune wheel
-.slide-transition(@style, @base: ItemAnimation) when (@style = 'fortune-wheel') {
+.slide-transition(@style, @base: item-animation) when (@style = 'fortune-wheel') {
   ul {
     perspective: 1600px;
   }
 
-  .next@{base}Out {
+  .next-@{base}-out {
     animation: slideOutScaleRight 1.2s forwards cubic-bezier(0.7, 0, 0.3, 1);
   }
 
-  .next@{base}In {
+  .next-@{base}-in {
     transform-origin: 100% 50%;
     animation: rotateInFromLeft 1.2s forwards cubic-bezier(0.7, 0, 0.3, 1);
   }
 
-  .prev@{base}Out {
+  .prev-@{base}-out {
     animation: slideOutScaleLeft 1.2s forwards cubic-bezier(0.7, 0, 0.3, 1);
   }
 
-  .prev@{base}In {
+  .prev-@{base}-in {
     transform-origin: 0% 50%;
     animation: rotateInFromRight 1.2s forwards cubic-bezier(0.7, 0, 0.3, 1);
   }
 }
 
 // Swipe
-.slide-transition(@style, @base: ItemAnimation) when (@style = 'swipe') {
-  .next@{base}Out {
+.slide-transition(@style, @base: item-animation) when (@style = 'swipe') {
+  .next-@{base}-out {
     animation: decreaseHeight 0.8s forwards ease-in-out;
   }
 
-  .next@{base}In {
+  .next-@{base}-in {
     animation: show 0.8s forwards ease-in-out;
   }
 
-  .prev@{base}Out {
+  .prev-@{base}-out {
     animation: hide 0.8s forwards ease-in-out;
   }
 
-  .prev@{base}In {
+  .prev-@{base}-in {
     z-index: 1001;
     opacity: 1;
     animation: increaseHeight 0.8s forwards ease-in-out;
@@ -110,23 +110,23 @@
 }
 
 // Push reveal
-.slide-transition(@style, @base: ItemAnimation) when (@style = 'push-reveal') {
-  .next@{base}Out {
+.slide-transition(@style, @base: item-animation) when (@style = 'push-reveal') {
+  .next-@{base}-out {
     opacity: 1;
     animation: slideOutBottom 0.7s forwards ease-in-out;
   }
 
-  .next@{base}In {
+  .next-@{base}-in {
     opacity: 1;
     animation: slideInHalfFromTop 0.7s forwards ease-in-out;
   }
 
-  .prev@{base}Out {
+  .prev-@{base}-out {
     opacity: 1;
     animation: slideOutHalfTop 0.7s forwards ease-in-out;
   }
 
-  .prev@{base}In {
+  .prev-@{base}-in {
     opacity: 1;
     z-index: 1001;
     animation: slideInFromBottom 0.7s forwards ease-in-out;
@@ -134,22 +134,22 @@
 }
 
 // Snap in
-.slide-transition(@style, @base: ItemAnimation) when (@style = 'snap-in') {
-  .next@{base}Out {
+.slide-transition(@style, @base: item-animation) when (@style = 'snap-in') {
+  .next-@{base}-out {
     animation: slideOutLeft 0.5s forwards ease-in;
   }
 
-  .next@{base}In {
+  .next-@{base}-in {
     z-index: 1001;
     opacity: 1;
     animation: slideFromRightFast 0.5s forwards cubic-bezier(0.7, 0, 0.3, 1);
   }
 
-  .prev@{base}Out {
+  .prev-@{base}-out {
     animation: slideOutRight 0.5s forwards ease-in;
   }
 
-  .prev@{base}In {
+  .prev-@{base}-in {
     z-index: 1001;
     opacity: 1;
     animation: slideFromLeftFast 0.5s forwards cubic-bezier(0.7, 0, 0.3, 1);
@@ -168,35 +168,35 @@
     transition: opacity 0.4s 0.1s ease-in;
   }
 
-  .prev@{base}Out::after,
-  .next@{base}Out::after {
+  .prev-@{base}-out::after,
+  .next-@{base}-out::after {
     opacity: 1;
   }
 }
 
 // Let me in
-.slide-transition(@style, @base: ItemAnimation) when (@style = 'let-me-in') {
+.slide-transition(@style, @base: item-animation) when (@style = 'let-me-in') {
   ul {
     perspective: 1600px;
   }
 
-  .next@{base}Out {
+  .next-@{base}-out {
     transform-origin: 0% 50%;
     animation: rotateOutRight 0.5s forwards ease-in-out;
   }
 
-  .next@{base}In {
+  .next-@{base}-in {
     z-index: 1001;
     opacity: 1;
     animation: slideFromRightFast 0.5s forwards ease;
   }
 
-  .prev@{base}Out {
+  .prev-@{base}-out {
     transform-origin: 100% 0%;
     animation: rotateOutLeft 0.5s forwards ease-in-out;
   }
 
-  .prev@{base}In {
+  .prev-@{base}-in {
     z-index: 1001;
     opacity: 1;
     animation: slideFromLeftFast 0.5s forwards ease;
@@ -215,57 +215,57 @@
     transition: opacity 0.5s ease-in-out;
   }
 
-  .prev@{base}Out::after,
-  .next@{base}Out::after {
+  .prev-@{base}-out::after,
+  .next-@{base}-out::after {
     opacity: 1;
   }
 }
 
 // Stick it
-.slide-transition(@style, @base: ItemAnimation) when (@style = 'stick-it') {
+.slide-transition(@style, @base: item-animation) when (@style = 'stick-it') {
   ul {
     perspective: 1600px;
   }
 
-  .next@{base}Out {
+  .next-@{base}-out {
     transform-origin: 50% 0%;
     animation: rotateBottomSideOut 0.8s forwards ease-in;
   }
 
-  .next@{base}In {
+  .next-@{base}-in {
     z-index: 1001;
     opacity: 1;
     animation: slideInFromBottomDelayed 0.8s forwards;
   }
 
-  .prev@{base}Out {
+  .prev-@{base}-out {
     opacity: 1;
     animation: slideOutToBottom 0.8s forwards;
   }
 
-  .prev@{base}In {
+  .prev-@{base}-in {
     transform-origin: 50% 0%;
     animation: rotateBottomSideIn 0.8s 0.1s forwards ease-in;
   }
 }
 
 // Archive me
-.slide-transition(@style, @base: ItemAnimation) when (@style = 'archive-me') {
-  .next@{base}Out {
+.slide-transition(@style, @base: item-animation) when (@style = 'archive-me') {
+  .next-@{base}-out {
     animation: scaleHalfDown 0.7s forwards cubic-bezier(0.7, 0, 0.3, 1);
   }
 
-  .next@{base}In {
+  .next-@{base}-in {
     z-index: 1001;
     opacity: 1;
     animation: slideInFromBottom 0.7s forwards cubic-bezier(0.7, 0, 0.3, 1);
   }
 
-  .prev@{base}Out {
+  .prev-@{base}-out {
     animation: slideOutToBottom 0.7s forwards cubic-bezier(0.7, 0, 0.3, 1);
   }
 
-  .prev@{base}In {
+  .prev-@{base}-in {
     animation: scaleHalfUp 0.7s forwards cubic-bezier(0.7, 0, 0.3, 1);
   }
 
@@ -283,40 +283,40 @@
   }
 
   li::after,
-  .next@{base}Out::before {
+  .next-@{base}-out::before {
     opacity: 1;
   }
 
   li::before,
   li.current::after,
-  .next@{base}In::after,
-  .prev@{base}In::after {
+  .next-@{base}-in::after,
+  .prev-@{base}-in::after {
     opacity: 0;
   }
 
-  .next@{base}In::after {
+  .next-@{base}-in::after {
     transition: none;
   }
 }
 
 // Vertical growth
-.slide-transition(@style, @base: ItemAnimation) when (@style = 'vertical-growth') {
-  .next@{base}Out {
+.slide-transition(@style, @base: item-animation) when (@style = 'vertical-growth') {
+  .next-@{base}-out {
     animation: scaleDown 0.6s forwards cubic-bezier(0.6, 0, 0.4, 1);
   }
 
-  .next@{base}In {
+  .next-@{base}-in {
     z-index: 1001;
     opacity: 1;
     transform-origin: 50% 100%;
     animation: maximize 0.6s forwards cubic-bezier(0.6, 0, 0.4, 1);
   }
 
-  .prev@{base}Out {
+  .prev-@{base}-out {
     animation: scaleDown 0.6s forwards cubic-bezier(0.6, 0, 0.4, 1);
   }
 
-  .prev@{base}In {
+  .prev-@{base}-in {
     z-index: 1001;
     opacity: 1;
     transform-origin: 50% 0%;
@@ -326,63 +326,63 @@
 
 // Slide behind
 // From https://github.com/hakimel/kontext by Hakim El Hattab, http://hakim.se
-.slide-transition(@style, @base: ItemAnimation) when (@style = 'vertical-growth') {
+.slide-transition(@style, @base: item-animation) when (@style = 'vertical-growth') {
   ul {
     perspective: 1000px;
   }
 
-  .next@{base}Out {
+  .next-@{base}-out {
     animation: hideLeft 0.8s forwards;
   }
 
-  .next@{base}In {
+  .next-@{base}-in {
     animation: showRight 0.8s forwards;
   }
 
-  .prev@{base}Out {
+  .prev-@{base}-out {
     animation: hideRight 0.8s forwards;
   }
 
-  .prev@{base}In {
+  .prev-@{base}-in {
     animation: showLeft 0.8s forwards;
   }
 }
 
 // Soft pulse
-.slide-transition(@style, @base: ItemAnimation) when (@style = 'soft-pulse') {
-  .prev@{base}Out,
-  .next@{base}Out {
+.slide-transition(@style, @base: item-animation) when (@style = 'soft-pulse') {
+  .prev-@{base}-out,
+  .next-@{base}-out {
     animation: scaleUpFadeOut 0.8s forwards ease-in;
   }
 
-  .prev@{base}In,
-  .next@{base}In {
+  .prev-@{base}-in,
+  .next-@{base}-in {
     animation: scaleDownFadeIn 0.8s forwards ease-out;
   }
 }
 
 // Cliff dive
-.slide-transition(@style, @base: ItemAnimation) when (@style = 'cliff-dive') {
+.slide-transition(@style, @base: item-animation) when (@style = 'cliff-dive') {
   li {
     transform-origin: 50% 400%;
   }
 
-  .next@{base}Out {
+  .next-@{base}-out {
     opacity: 1;
     animation: rotateOutCircLeft 0.9s forwards cubic-bezier(0.7, 0, 0.3, 1);
   }
 
-  .next@{base}In {
+  .next-@{base}-in {
     opacity: 1;
     animation: rotateInCircRight 0.9s forwards cubic-bezier(0.7, 0, 0.3, 1);
   }
 
-  .prev@{base}Out {
+  .prev-@{base}-out {
     opacity: 1;
     animation: rotateOutCircRight 0.9s forwards cubic-bezier(0.7, 0, 0.3, 1);
   }
 
-  .prev@{base}In {
+  .prev-@{base}-in {
     opacity: 1;
     animation: rotateInCircLeft 0.9s forwards cubic-bezier(0.7, 0, 0.3, 1);
   }
@@ -400,8 +400,8 @@
     transition: opacity 0.9s cubic-bezier(0.7, 0, 0.3, 1);
   }
 
-  .prev@{base}Out::after,
-  .next@{base}Out::after {
+  .prev-@{base}-out::after,
+  .next-@{base}-out::after {
     opacity: 1;
   }
 }
