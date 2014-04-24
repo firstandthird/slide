@@ -1,4 +1,26 @@
 
+0.11.0 / 2014-04-24 
+==================
+
+  * fixed path for tests
+  * Updated build script.
+  * Updated classes to fit our code style.
+  * Added responsive option.
+  * Added tests.
+  * Fixed paths in tests.
+  * Updated path. Added option to pass in base class.
+  * Updated paths on example pages.
+  * Merge branch 'feature/rename' into feature/css-animate
+  * Renamed to slide.
+  * Added autoprefixer and transition mixins.
+  * Fixed flickering issue with some effects.
+  * WIP - Improved animations.
+  * WIP - Better example page.
+  * WIP - More animation styles work now.
+  * WIP - css animations.
+  * Merge pull request #8 from jgallen23/feature/wrap-tests
+  * Fixed tests and added tests for wrap and resize.
+
 0.10.0 / 2014-03-06
 ==================
 

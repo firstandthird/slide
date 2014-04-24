@@ -1,8 +1,8 @@
 /*!
- * slide - a generic slider using fidel
- * v0.10.0
+ * slide - a generic slider
+ * v0.11.0
  * https://github.com/firstandthird/slide/
- * copyright JGA 2014
+ * copyright First+Third 2014
  * MIT License
 */
 (function($) {
@@ -24,7 +24,7 @@
       responsive: false,
       ease: 'swing',
       animationEndEvents: 'animationend webkitAnimationEnd oAnimationEnd MSAnimationEnd',
-      animationBaseClass: 'ItemAnimation'
+      animationBaseClass: 'item-animation'
     },
 
     events: {
@@ -154,8 +154,8 @@
       $(self.items).one(this.animationEndEvents, function(){
         self.animating = false;
         self.container.find('.active').removeClass('active');
-        $(self.items[self.currentPage - 1]).removeClass(direction + self.animationBaseClass + 'In').addClass('active');
-        $(self.items[out]).removeClass(direction + self.animationBaseClass + 'Out');
+        $(self.items[self.currentPage - 1]).removeClass(direction + '-' + self.animationBaseClass + '-in').addClass('active');
+        $(self.items[out]).removeClass(direction + '-' + self.animationBaseClass + '-out');
 
         $(self.items).unbind(self.animationEndEvents);
 
@@ -179,8 +179,8 @@
         }
       }
 
-      $(this.items[out]).addClass(direction + this.animationBaseClass + 'Out active');
-      $(this.items[this.currentPage - 1]).addClass(direction + this.animationBaseClass + 'In active');
+      $(this.items[out]).addClass(direction + '-' + this.animationBaseClass + '-out active');
+      $(this.items[this.currentPage - 1]).addClass(direction + '-' + this.animationBaseClass + '-in active');
     },
 
     _slide: function(width, cb) {
