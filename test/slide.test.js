@@ -432,5 +432,37 @@ suite('fidel-slider', function() {
 
   });
 
+  suite('css animations', function() {
+
+    test('should have classes on slide next', function() {
+      slider1.slider({
+        cssAnimate: true
+      });
+      slider1.slider('next');
+      assert.equal($('#fixture .next-item-animation-out').length, 1);
+      assert.equal($('#fixture .next-item-animation-in').length, 1);
+    });
+
+    test('should have classes on slide prev', function() {
+      slider1.slider({
+        cssAnimate: true
+      });
+      slider1.slider('previous');
+      assert.equal($('#fixture .prev-item-animation-out').length, 1);
+      assert.equal($('#fixture .prev-item-animation-in').length, 1);
+    });
+
+    test('custom class', function() {
+      slider1.slider({
+        cssAnimate: true,
+        animationBaseClass: 'test-class'
+      });
+      slider1.slider('next');
+      assert.equal($('#fixture .next-test-class-out').length, 1);
+      assert.equal($('#fixture .next-test-class-in').length, 1);
+    });
+
+  });
+
 });
 
