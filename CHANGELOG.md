@@ -1,4 +1,11 @@
 
+0.12.0 / 2014-04-25 
+==================
+
+  * fix forbidden errors with grunt-connect
+  * if responsive and cssAnimate, don't change container left position
+  * renamed $().slider to $().slide
+
 0.11.1 / 2014-04-24 
 ==================
 

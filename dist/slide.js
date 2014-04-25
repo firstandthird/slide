@@ -1,6 +1,6 @@
 /*!
  * slide - a generic slider
- * v0.11.1
+ * v0.12.0
  * https://github.com/firstandthird/slide/
  * copyright First+Third 2014
  * MIT License
@@ -196,7 +196,7 @@
 })(jQuery);
 
 (function($) {
-  $.declare('slider', {
+  $.declare('slide', {
     defaults: {
       page: 1,
       itemsPerPage: 1,
@@ -468,12 +468,16 @@
         this.el.css('width', this.pageWidth);
       } else {
         this.el.css('width', width * 2);
-        this.el.find('.wrapper').css('margin-left', '-' + (width / 2) + 'px');
+        if (!this.cssAnimate) {
+          this.el.find('.wrapper').css('margin-left', '-' + (width / 2) + 'px');
+        }
       }
 
-      this.container.css({
-        left: '-' + ~~(this.pageWidth * ((this.currentPage === 0) ? 0 : this.currentPage - 1)) + 'px'
-      });
+      if (!this.cssAnimate) {
+        this.container.css({
+          left: '-' + ~~(this.pageWidth * ((this.currentPage === 0) ? 0 : this.currentPage - 1)) + 'px'
+        });
+      }
 
       this.items.css('width', width);
     }
