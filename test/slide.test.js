@@ -472,12 +472,6 @@ suite('fidel-slider', function() {
 
       assert.equal(slider2.find('.container').length, 1);
     });
-
-    test('should add next/prev buttons', function() {
-      slider2.slide();
-
-      assert.equal(slider2.find('button').length, 2);
-    });
   });
 
 });
