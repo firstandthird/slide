@@ -1,0 +1,26 @@
+<html>
+  <head>
+    <title></title>
+  </head>
+  <body>
+    <div id="slider">
+      <div class="item">1<img src="http://placekitten.com/g/500/400"/ width="500" height="400"></div>
+      <div class="item">2<img src="http://placekitten.com/g/500/400"/ width="500" height="400"></div>
+      <div class="item">3<img src="http://placekitten.com/g/500/400"/ width="500" height="400"></div>
+      <div class="item">4<img src="http://placekitten.com/g/500/400"/ width="500" height="400"></div>
+      <div class="item">5<img src="http://placekitten.com/g/500/400"/ width="500" height="400"></div>
+      <div class="item">6<img src="http://placekitten.com/g/500/400"/ width="500" height="400"></div>
+    </div>
+    <script src="../bower_components/jquery/dist/jquery.js"></script>
+    <script src="../bower_components/fidel/dist/fidel.js"></script>
+    <script src="../lib/slide.js"></script>
+    <script>
+      $('#slider')
+        .slide({ 
+          auto: true,
+          autoDelay: 2000,
+          duration: 250,
+        });
+    </script>
+  </body>
+</html>
