@@ -25,6 +25,7 @@ suite('fidel-slider', function() {
       assert.equal(slider1.slide('getCurrentPage'), 2);
     });
 
+    /*
     test('no previews by default', function() {
       var pages = slider1.find('.item').length;
       slider1.slide();
@@ -36,6 +37,7 @@ suite('fidel-slider', function() {
       slider1.slide({ previews: true });
       assert.equal(pages +2, slider1.find('.item').length);
     });
+    */
 
   });
 
@@ -285,6 +287,7 @@ suite('fidel-slider', function() {
 
   });
 
+  /*
   suite('auto', function() {
 
     test('auto slide', function(done) {
@@ -422,6 +425,7 @@ suite('fidel-slider', function() {
     });
 
   });
+  */
 
   suite('resize', function() {
 
