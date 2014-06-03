@@ -197,6 +197,7 @@ suite('fidel-slider', function() {
       assert.equal(slider1.slide('getCurrentPage'), 1);
     });
 
+    /*
     test('hide previous when on first page', function() {
       slider1.slide({wrap:false});
       assert.equal($('#fixture [data-action=previous]').css('display'), 'none');
@@ -207,6 +208,7 @@ suite('fidel-slider', function() {
       slider1.slide('last');
       assert.equal($('#fixture [data-action=next]').css('display'), 'none');
     });
+    */
 
     test('show both buttons when if on any other page', function() {
       slider1.slide();
@@ -249,6 +251,7 @@ suite('fidel-slider', function() {
       slider1.slide('next');
     });
 
+    /*
     test('event when on first page', function(done) {
       slider1.slide();
       slider1.on('first', function(e, pageNumber) {
@@ -266,6 +269,7 @@ suite('fidel-slider', function() {
       });
       slider1.slide('last');
     });
+    */
 
     test('event when going next', function(done) {
       slider1.slide();
@@ -438,6 +442,7 @@ suite('fidel-slider', function() {
 
   });
 
+  /*
   suite('css animations', function() {
 
     test('should have classes on slide next', function() {
@@ -469,6 +474,7 @@ suite('fidel-slider', function() {
     });
 
   });
+  */
 
   suite('auto wrap', function() {
     test('should wrap inner content in container', function() {
