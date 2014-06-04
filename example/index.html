@@ -2,48 +2,28 @@
   <head>
     <title></title>
     <style>
-      #slider {}
-        #slider .wrapper { width: 500px; overflow: hidden; }
-        #slider .wrapper div { width: 300000px; position: relative; margin: 0; padding: 0;}
-        #slider .wrapper div img { float: left; margin: 0; padding: 0; width: 500px; list-style: none; }
-        #slider .indicators li { width: 25px; height: 25px; background: #ccc; display: inline-block; list-style: none; text-align: center;}
-        #slider .indicators li.active { background: red; color: #fff;}
+      #slider {
+        width: 500px;
+      }
     </style>
   </head>
   <body>
     <div id="slider">
-      <div class="wrapper">
-        <div class="container">
-          <img class="item" src="http://placekitten.com/g/500/400"/>
-          <img class="item" src="http://placekitten.com/g/500/400"/>
-          <img class="item" src="http://placekitten.com/g/500/400"/>
-        </div>
-      </div>
-      <ul class="indicators">
-        <li>1</li>
-        <li>2</li>
-        <li>3</li>
-      </ul>
-      <button data-action="goPrevious">Prev</button> 
-      <button data-action="goNext">Next</button> 
+      <img src="http://placekitten.com/g/500/400"/>
+      <img src="http://placekitten.com/g/500/400"/>
+      <img src="http://placekitten.com/g/500/400"/>
     </div>
     <script src="../bower_components/jquery/dist/jquery.js"></script>
     <script src="../bower_components/fidel/dist/fidel.js"></script>
     <script src="../lib/slide.js"></script>
-    <script src="../lib/slide-indicators.js"></script>
     <script>
       $('#slider')
         .on('beforeSlide', function(e, pageNumber) {
           console.log('sliding to '+pageNumber);
         })
         .slide({ 
-          auto: true,
-          autoDelay: 2000,
           itemsPerPage: 1,
           duration: 250
-        })
-        .slideIndicators({
-          indicators: '.indicators li'
         })
         .on('slide', function() { 
           console.log('slide');
