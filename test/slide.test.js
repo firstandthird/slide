@@ -91,50 +91,50 @@ suite('fidel-slider', function() {
       assert.equal(slider1.slide('getPageCount'), 4);
     });
 
-    test('next', function() {
+    test('goNext', function() {
       slider1.slide();
-      slider1.slide('next');
+      slider1.slide('goNext');
       assert.equal(slider1.slide('getCurrentPage'), 2);
     });
 
-    test('next takes a callback', function(done) {
+    test('goNext takes a callback', function(done) {
       slider1.slide();
-      slider1.slide('next', function() {
+      slider1.slide('goNext', function() {
         assert.equal(parseInt(slider1.find('.container').css('left'), 10), -270);
         done();
       });
     });
 
-    test('next past max pages', function(done) {
-      slider1.slide({wrap: false});
-      slider1.slide('next');
-      slider1.slide('next');
-      slider1.slide('next');
-      slider1.slide('next');
-      slider1.slide('next');
-      slider1.slide('next', function() {
+    test('goNext past max pages', function(done) {
+      slider1.slide();
+      slider1.slide('goNext');
+      slider1.slide('goNext');
+      slider1.slide('goNext');
+      slider1.slide('goNext', function() {
         done();
       });
       assert.equal(slider1.slide('getCurrentPage'), 4);
     });
+    /*
 
     test('next past max pages with wrap', function(done) {
       slider1.slide({wrap: true});
-      slider1.slide('next');
-      slider1.slide('next');
-      slider1.slide('next');
-      slider1.slide('next');
-      slider1.slide('next');
-      slider1.slide('next', function() {
+      slider1.slide('goNext');
+      slider1.slide('goNext');
+      slider1.slide('goNext');
+      slider1.slide('goNext');
+      slider1.slide('goNext');
+      slider1.slide('goNext', function() {
         done();
       });
       assert.equal(slider1.slide('getCurrentPage'), 3);
     });
+    */
 
     test('previous', function(done) {
       slider1.slide();
-      slider1.slide('next');
-      slider1.slide('previous', function() {
+      slider1.slide('goNext');
+      slider1.slide('goPrevious', function() {
         assert.equal(parseInt(slider1.find('.container').css('left'), 10), 0);
         done();
       });
@@ -142,16 +142,18 @@ suite('fidel-slider', function() {
     });
 
     test('previous if at first page', function() {
-      slider1.slide({wrap: false});
-      slider1.slide('previous');
+      slider1.slide();
+      slider1.slide('goPrevious');
       assert.equal(slider1.slide('getCurrentPage'), 1);
     });
 
+    /*
     test('previous if at first page with wrap', function() {
       slider1.slide({wrap: true});
-      slider1.slide('previous');
+      slider1.slide('goPrevious');
       assert.equal(slider1.slide('getCurrentPage'), 4);
     });
+    */
 
     test('go', function(done) {
       slider1.slide();
@@ -186,14 +188,14 @@ suite('fidel-slider', function() {
 
     test('click to go next', function() {
       slider1.slide();
-      $('#fixture [data-action=next]').click();
+      $('#fixture [data-action=goNext]').click();
       assert.equal(slider1.slide('getCurrentPage'), 2);
     });
 
     test('click to go prev', function() {
       slider1.slide();
-      $('#fixture [data-action=next]').click();
-      $('#fixture [data-action=previous]').click();
+      $('#fixture [data-action=goNext]').click();
+      $('#fixture [data-action=goPrevious]').click();
       assert.equal(slider1.slide('getCurrentPage'), 1);
     });
 
@@ -208,11 +210,10 @@ suite('fidel-slider', function() {
       slider1.slide('last');
       assert.equal($('#fixture [data-action=next]').css('display'), 'none');
     });
-    */
 
     test('show both buttons when if on any other page', function() {
       slider1.slide();
-      slider1.slide('next');
+      slider1.slide('goNext');
       assert.equal($('#fixture [data-action=previous]').css('display'), 'inline-block');
     });
 
@@ -224,8 +225,9 @@ suite('fidel-slider', function() {
 
     test('show both buttons if previews = true', function(){
       slider1.slide({ previews: true });
-      assert.equal($('#fixture [data-action=previous]').css('display'), 'inline-block');
+      assert.equal($('#fixture [data-action=goPrevious]').css('display'), 'inline-block');
     });
+    */
 
   });
 
@@ -233,22 +235,22 @@ suite('fidel-slider', function() {
 
     test('event when about to slide', function(done) {
       slider1.slide();
-      slider1.on('beforeSlide', function(e, pageNumber) {
+      slider1.on('beforeSlide.slide', function(e, pageNumber) {
         assert.equal(slider1.find('.container').css('left'), '0px');
         assert.equal(pageNumber, 2);
         done();
       });
-      slider1.slide('next');
+      slider1.slide('goNext');
     });
 
     test('event after sliding', function(done) {
       slider1.slide();
-      slider1.on('slide', function(e, pageNumber) {
+      slider1.on('slide.slide', function(e, pageNumber) {
         assert.equal(parseInt(slider1.find('.container').css('left'), 10), -270);
         assert.equal(pageNumber, 2);
         done();
       });
-      slider1.slide('next');
+      slider1.slide('goNext');
     });
 
     /*
@@ -273,20 +275,20 @@ suite('fidel-slider', function() {
 
     test('event when going next', function(done) {
       slider1.slide();
-      slider1.on('next', function(e, pageNumber) {
+      slider1.on('next.slide', function(e, pageNumber) {
         assert.equal(pageNumber, 2);
         done();
       });
-      slider1.slide('next');
+      slider1.slide('goNext');
     });
 
     test('event when going previous', function(done) {
       slider1.slide({wrap: false});
-      slider1.on('previous', function(e, pageNumber) {
+      slider1.on('previous.slide', function(e, pageNumber) {
         assert.equal(pageNumber, 1);
         done();
       });
-      slider1.slide('previous');
+      slider1.slide('goPrevious');
     });
 
   });
