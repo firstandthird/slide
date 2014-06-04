@@ -16,7 +16,6 @@ suite('fidel-slider', function() {
   suite('init', function() {
 
     test('$().slide exists', function() {
-
       assert.equal(typeof slider1.slide, 'function');
     });
 
@@ -24,21 +23,6 @@ suite('fidel-slider', function() {
       slider1.slide({ page: 2 });
       assert.equal(slider1.slide('getCurrentPage'), 2);
     });
-
-    /*
-    test('no previews by default', function() {
-      var pages = slider1.find('.item').length;
-      slider1.slide();
-      assert.equal(pages, slider1.find('.item').length);
-    });
-
-    test('previews generated', function() {
-      var pages = slider1.find('.item').length;
-      slider1.slide({ previews: true });
-      assert.equal(pages +2, slider1.find('.item').length);
-    });
-    */
-
   });
 
   suite('itemsPerPage', function() {
@@ -115,7 +99,7 @@ suite('fidel-slider', function() {
         done();
       });
     });
-    /*
+
 
     test('next past max pages with wrap', function(done) {
       slider1.slide({wrap: true});
@@ -125,11 +109,10 @@ suite('fidel-slider', function() {
       slider1.slide('goNext');
       slider1.slide('goNext');
       slider1.slide('goNext', function() {
+        assert.equal(slider1.slide('getCurrentPage'), 1);
         done();
       });
-      assert.equal(slider1.slide('getCurrentPage'), 3);
     });
-    */
 
     test('previous', function(done) {
       slider1.slide();
@@ -147,13 +130,12 @@ suite('fidel-slider', function() {
       assert.equal(slider1.slide('getCurrentPage'), 1);
     });
 
-    /*
+
     test('previous if at first page with wrap', function() {
       slider1.slide({wrap: true});
       slider1.slide('goPrevious');
-      assert.equal(slider1.slide('getCurrentPage'), 4);
+      assert.equal(slider1.slide('getCurrentPage'), 3);
     });
-    */
 
     test('go', function(done) {
       slider1.slide();
@@ -184,53 +166,6 @@ suite('fidel-slider', function() {
 
   });
 
-  suite('buttons', function() {
-
-    // test('click to go next', function() {
-    //   slider1.slide();
-    //   $('#fixture [data-action=goNext]').click();
-    //   assert.equal(slider1.slide('getCurrentPage'), 2);
-    // });
-
-    // test('click to go prev', function() {
-    //   slider1.slide();
-    //   $('#fixture [data-action=goNext]').click();
-    //   $('#fixture [data-action=goPrevious]').click();
-    //   assert.equal(slider1.slide('getCurrentPage'), 1);
-    // });
-
-    /*
-    test('hide previous when on first page', function() {
-      slider1.slide({wrap:false});
-      assert.equal($('#fixture [data-action=previous]').css('display'), 'none');
-    });
-
-    test('hide next when on last page', function() {
-      slider1.slide({wrap: false});
-      slider1.slide('last');
-      assert.equal($('#fixture [data-action=next]').css('display'), 'none');
-    });
-
-    test('show both buttons when if on any other page', function() {
-      slider1.slide();
-      slider1.slide('goNext');
-      assert.equal($('#fixture [data-action=previous]').css('display'), 'inline-block');
-    });
-
-    test('data-action=go to jump to a page', function() {
-      slider1.slide();
-      $('#fixture [data-action=go]').click();
-      assert.equal(slider1.slide('getCurrentPage'), 3);
-    });
-
-    test('show both buttons if previews = true', function(){
-      slider1.slide({ previews: true });
-      assert.equal($('#fixture [data-action=goPrevious]').css('display'), 'inline-block');
-    });
-    */
-
-  });
-
   suite('events', function() {
 
     test('event when about to slide', function(done) {
@@ -253,25 +188,23 @@ suite('fidel-slider', function() {
       slider1.slide('goNext');
     });
 
-    /*
     test('event when on first page', function(done) {
       slider1.slide();
-      slider1.on('first', function(e, pageNumber) {
-        assert.equal(pageNumber, 1);
+      slider1.on('first.slide', function() {
+        assert.ok(true);
         done();
       });
-      slider1.slide('first');
+      slider1.slide('goFirst');
     });
 
     test('event when on the last page', function(done) {
       slider1.slide();
-      slider1.on('last', function(e, pageNumber) {
-        assert.equal(pageNumber, 4);
+      slider1.on('last.slide', function() {
+        assert.ok(true);
         done();
       });
-      slider1.slide('last');
+      slider1.slide('goLast');
     });
-    */
 
     test('event when going next', function(done) {
       slider1.slide();
@@ -292,192 +225,6 @@ suite('fidel-slider', function() {
     });
 
   });
-
-  /*
-  suite('auto', function() {
-
-    test('auto slide', function(done) {
-      slider1.slide({ auto: true, autoDelay: 10 });
-      setTimeout(function() {
-        assert.equal(slider1.slide('getCurrentPage'), 2);
-        setTimeout(function() {
-          assert.equal(slider1.slide('getCurrentPage'), 3);
-          done();
-        }, 10);
-      }, 15);
-    });
-
-    test('stop on hover', function(done) {
-      slider1.slide({ auto: true, autoDelay: 10 });
-      slider1.mouseover();
-      setTimeout(function() {
-        assert.equal(slider1.slide('getCurrentPage'), 1);
-        done();
-      }, 15);
-    });
-
-    test('continue on mouse out', function(done) {
-      slider1.slide({ auto: true, autoDelay: 10 });
-      slider1.mouseover();
-      setTimeout(function() {
-        slider1.mouseout();
-      }, 5);
-      setTimeout(function() {
-        assert.equal(slider1.slide('getCurrentPage'), 2);
-        done();
-      }, 25);
-    });
-
-    test('auto: false to disable', function(done) {
-      slider1.slide({ auto: false });
-      setTimeout(function() {
-        assert.equal(slider1.slide('getCurrentPage'), 1);
-        done();
-      }, 15);
-    });
-
-    test.skip('wrap around automatically', function(done) {
-      slider1.slide({ auto: true, autoDelay: 5 });
-      setTimeout(function() {
-        assert.equal(slider1.slide('getCurrentPage'), 1);
-        done();
-      }, 5*5);
-    });
-
-    test.skip('disable wrap', function(done) {
-      slider1.slide({ auto: true, autoDelay: 5, wrap: false });
-      setTimeout(function() {
-        assert.equal(slider1.slide('getCurrentPage'), 4);
-        done();
-      }, 5*6);
-    });
-
-    test('method to stop', function(done) {
-      slider1.slide({ auto: true, autoDelay: 5 });
-      slider1.slide('stop');
-      setTimeout(function() {
-        assert.equal(slider1.slide('getCurrentPage'), 1);
-        done();
-      }, 7);
-    });
-
-    test('method to start', function(done) {
-      slider1.slide({ autoDelay: 5 });
-      slider1.slide('start');
-      setTimeout(function() {
-        assert.equal(slider1.slide('getCurrentPage'), 2);
-        setTimeout(function() {
-          assert.equal(slider1.slide('getCurrentPage'), 3);
-          done();
-        }, 7);
-      }, 7);
-    });
-
-    test('call start method and mouse over', function(done) {
-      slider1.slide({ autoDelay: 5 });
-      slider1.slide('start');
-      slider1.mouseover();
-      setTimeout(function() {
-        assert.equal(slider1.slide('getCurrentPage'), 1);
-        slider1.mouseout();
-        setTimeout(function() {
-          assert.equal(slider1.slide('getCurrentPage'), 2);
-          done();
-        }, 7);
-      }, 7);
-    });
-
-    test('mouseout doesnt start auto', function(done) {
-      slider1.slide({ autoDelay: 5 });
-      slider1.mouseover();
-      slider1.mouseout();
-      setTimeout(function() {
-        assert.equal(slider1.slide('getCurrentPage'), 1);
-        done();
-      }, 7);
-    });
-
-
-
-  });
-
-  suite('indicators', function() {
-
-    test('set initial indicator', function() {
-      slider1.slide({ indicators: '.indicators li' });
-      assert.equal(slider1.find('.indicators .active').length, 1);
-      assert.equal(slider1.find('.indicators li:eq(0)').hasClass('active'), true);
-    });
-
-    test('update indicator on slide', function() {
-      slider1.slide({ indicators: '.indicators li' });
-      slider1.slide('next');
-      assert.equal(slider1.find('.indicators .active').length, 1);
-      assert.equal(slider1.find('.indicators li:eq(1)').hasClass('active'), true);
-    });
-
-    test('change indicator class', function() {
-      slider1.slide({ indicators: '.indicators li', indicatorClass: 'selected' });
-      assert.equal(slider1.find('.indicators .selected').length, 1);
-      assert.equal(slider1.find('.indicators li:eq(0)').hasClass('selected'), true);
-    });
-
-    test('click on indicator', function() {
-      slider1.slide({ indicators: '.indicators li', indicatorClass: 'selected', indicatorClick: true });
-
-      slider1.find('.indicators li:eq(2)').click();
-
-      assert.equal(slider1.slide('getCurrentPage'), 3);
-    });
-
-  });
-  */
-
-
-  // suite('resize', function() {
-
-  //   test('updateWidth should update width', function() {
-  //     slider1.slide();
-  //     slider1.slide('updateWidth', 200);
-
-  //     assert.equal(slider1.width(), 200);
-  //   });
-
-  // });
-
-  /*
-  suite('css animations', function() {
-
-    test('should have classes on slide next', function() {
-      slider1.slide({
-        cssAnimate: true
-      });
-      slider1.slide('next');
-      assert.equal($('#fixture .next-item-animation-out').length, 1);
-      assert.equal($('#fixture .next-item-animation-in').length, 1);
-    });
-
-    test('should have classes on slide prev', function() {
-      slider1.slide({
-        cssAnimate: true
-      });
-      slider1.slide('previous');
-      assert.equal($('#fixture .prev-item-animation-out').length, 1);
-      assert.equal($('#fixture .prev-item-animation-in').length, 1);
-    });
-
-    test('custom class', function() {
-      slider1.slide({
-        cssAnimate: true,
-        animationBaseClass: 'test-class'
-      });
-      slider1.slide('next');
-      assert.equal($('#fixture .next-test-class-out').length, 1);
-      assert.equal($('#fixture .next-test-class-in').length, 1);
-    });
-
-  });
-  */
 
   suite('auto wrap', function() {
     test('should wrap inner content in container', function() {
