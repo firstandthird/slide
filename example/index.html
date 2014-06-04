@@ -3,9 +3,9 @@
     <title></title>
     <style>
       #slider {}
-        #slider .wrapper { width: 1000px; overflow: hidden; }
-        #slider .wrapper ul { width: 300000px; position: relative; margin: 0; padding: 0;}
-        #slider .wrapper ul li { float: left; margin: 0; padding: 0; width: 500px; list-style: none; }
+        #slider .wrapper { width: 500px; overflow: hidden; }
+        #slider .wrapper div { width: 300000px; position: relative; margin: 0; padding: 0;}
+        #slider .wrapper div img { float: left; margin: 0; padding: 0; width: 500px; list-style: none; }
         #slider .indicators li { width: 25px; height: 25px; background: #ccc; display: inline-block; list-style: none; text-align: center;}
         #slider .indicators li.active { background: red; color: #fff;}
     </style>
@@ -13,14 +13,11 @@
   <body>
     <div id="slider">
       <div class="wrapper">
-        <ul class="container">
-          <li class="item">1<img src="http://placekitten.com/g/500/400"/></li>
-          <li class="item">2<img src="http://placekitten.com/g/500/400"/></li>
-          <li class="item">3<img src="http://placekitten.com/g/500/400"/></li>
-          <li class="item">4<img src="http://placekitten.com/g/500/400"/></li>
-          <li class="item">5<img src="http://placekitten.com/g/500/400"/></li>
-          <li class="item">6<img src="http://placekitten.com/g/500/400"/></li>
-        </ul>
+        <div class="container">
+          <img class="item" src="http://placekitten.com/g/500/400"/>
+          <img class="item" src="http://placekitten.com/g/500/400"/>
+          <img class="item" src="http://placekitten.com/g/500/400"/>
+        </div>
       </div>
       <ul class="indicators">
         <li>1</li>
@@ -42,7 +39,7 @@
         .slide({ 
           auto: true,
           autoDelay: 2000,
-          itemsPerPage: 2,
+          itemsPerPage: 1,
           duration: 250
         })
         .slideIndicators({
