@@ -11,6 +11,23 @@
       #slider3 {
         width: 500px;
       }
+      #slider4 {
+        width: 500px;
+        height: 400px;
+      }
+      #slider4 .slide-indicator {
+        display: inline-block;
+        margin: 0 5px;
+        width: 10px;
+        height: 10px;
+        border-radius: 8px;
+        background: #f1f1f1;
+        cursor: pointer;
+      }
+      #slider4 .slide-indicator-active {
+        background: #232323;
+        color: #fff;
+      }
     </style>
   </head>
   <body>
@@ -37,6 +54,15 @@
       <img src="http://placekitten.com/g/500/400" data-index="6"/>
       <img src="http://placekitten.com/g/500/400" data-index="7"/>
     </div>
+    <div id="slider4" class="slide">
+      <img src="http://placekitten.com/g/500/400" data-index="1"/>
+      <img src="http://placekitten.com/g/500/400" data-index="2"/>
+      <img src="http://placekitten.com/g/500/400" data-index="3"/>
+      <img src="http://placekitten.com/g/500/400" data-index="4"/>
+      <img src="http://placekitten.com/g/500/400" data-index="5"/>
+      <img src="http://placekitten.com/g/500/400" data-index="6"/>
+      <img src="http://placekitten.com/g/500/400" data-index="7"/>
+    </div>
     <button type="button" data-action="first">First</button>
     <button type="button" data-action="previous">Previous</button>
     <button type="button" data-action="next">Next</button>
@@ -49,12 +75,6 @@
         .slide({
           itemsPerPage: 1,
           duration: 250
-        }).slideIndicators({
-          element: '<div/>',
-          activeClass: 'slide-indicator-active',
-          itemClass: 'slide-indicator',
-          offsetY: '-10px',
-          allowClick: true
         });
       $('#slider2')
         .slide({
@@ -66,6 +86,18 @@
           itemsPerPage: 1,
           duration: 250
         }).slidePreview();
+      $('#slider4')
+        .slide({
+          itemsPerPage: 1,
+          duration: 250
+        }).slideIndicators({
+          element: '<div/>',
+          activeClass: 'slide-indicator-active',
+          itemClass: 'slide-indicator',
+          containerClass: 'indicators',
+          offsetY: -40,
+          allowClick: true
+        });;
 
       //watch events
       $('.slide')
