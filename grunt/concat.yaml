@@ -9,5 +9,5 @@ full:
   src:
     - 'dist/_bower.js'
     - 'lib/<%= name %>.js'
-    - '<%= name %>-*.js'
+    - 'lib/<%= name %>-*.js'
   dest: 'dist/<%= name %>.js'
