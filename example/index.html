@@ -32,11 +32,18 @@
     <script src="../bower_components/jquery/dist/jquery.js"></script>
     <script src="../bower_components/fidel/dist/fidel.js"></script>
     <script src="../lib/slide.js"></script>
+    <script src="../lib/slide-indicators.js"></script>
     <script>
       $('#slider1')
         .slide({ 
           itemsPerPage: 1,
           duration: 250
+        }).slideIndicators({
+          element: '<div/>',
+          activeClass: 'slide-indicator-active',
+          itemClass: 'slide-indicator',
+          offsetY: '-10px',
+          allowClick: true
         });
       $('#slider2')
         .slide({ 
