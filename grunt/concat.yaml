@@ -3,9 +3,11 @@ options:
 lib:
   src:
     - 'lib/<%= name %>.js'
+    - 'lib/<%= name %>-*.js'
   dest: 'dist/<%= name %>.bower.js'
 full:
   src:
     - 'dist/_bower.js'
     - 'lib/<%= name %>.js'
+    - 'lib/<%= name %>-*.js'
   dest: 'dist/<%= name %>.js'
