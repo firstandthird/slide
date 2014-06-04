@@ -46,7 +46,7 @@ suite('fidel-slider', function() {
     test('pageCount with default settings', function() {
 
       var s = slider1.slide().data('slide');
-      assert.equal(s.pageCount, 4);
+      assert.equal(s.pageCount, 3);
     });
 
     test('pageCount with itemsPerPage = 2', function() {
@@ -58,23 +58,23 @@ suite('fidel-slider', function() {
     test('pageWidth', function() {
 
       var s = slider1.slide().data('slide');
-      assert.equal(s.pageWidth, 270);
+      assert.equal(s.pageWidth, 500);
     });
 
     test('pageWidth with itemsPerPage = 2', function() {
 
       var s = slider1.slide({ itemsPerPage: 2}).data('slide');
-      assert.equal(s.pageWidth, 540);
+      assert.equal(s.pageWidth, 500);
     });
 
     test('set width of slider', function() {
       slider1.slide();
-      assert.equal(slider1.width(), 270);
+      assert.equal(slider1.width(), 500);
     });
 
     test('set width of slider with itemsPerPage = 2', function() {
       slider1.slide({ itemsPerPage: 2});
-      assert.equal(slider1.width(), 540);
+      assert.equal(slider1.width(), 500);
     });
 
   });
@@ -88,7 +88,7 @@ suite('fidel-slider', function() {
 
     test('getPageCount', function() {
       slider1.slide();
-      assert.equal(slider1.slide('getPageCount'), 4);
+      assert.equal(slider1.slide('getPageCount'), 3);
     });
 
     test('goNext', function() {
@@ -100,7 +100,7 @@ suite('fidel-slider', function() {
     test('goNext takes a callback', function(done) {
       slider1.slide();
       slider1.slide('goNext', function() {
-        assert.equal(parseInt(slider1.find('.container').css('left'), 10), -270);
+        assert.equal(slider1.find('.slide-container').css('left'), "-500px");
         done();
       });
     });
@@ -111,9 +111,9 @@ suite('fidel-slider', function() {
       slider1.slide('goNext');
       slider1.slide('goNext');
       slider1.slide('goNext', function() {
+        assert.equal(slider1.slide('getCurrentPage'), 3);
         done();
       });
-      assert.equal(slider1.slide('getCurrentPage'), 4);
     });
     /*
 
@@ -135,7 +135,7 @@ suite('fidel-slider', function() {
       slider1.slide();
       slider1.slide('goNext');
       slider1.slide('goPrevious', function() {
-        assert.equal(parseInt(slider1.find('.container').css('left'), 10), 0);
+        assert.equal(slider1.find('.slide-container').css('left'), "0px");
         done();
       });
       assert.equal(slider1.slide('getCurrentPage'), 1);
@@ -158,7 +158,7 @@ suite('fidel-slider', function() {
     test('go', function(done) {
       slider1.slide();
       slider1.slide('go', 2, function() {
-        assert.equal(parseInt(slider1.find('.container').css('left'), 10), -270);
+        assert.equal(slider1.find('.slide-container').css('left'), "-500px");
         assert.equal(slider1.slide('getCurrentPage'), 2);
         done();
       });
@@ -168,7 +168,7 @@ suite('fidel-slider', function() {
 
     test('first method goes to first slide', function(done) {
       slider1.slide();
-      slider1.slide('first', function() {
+      slider1.slide('goFirst', function() {
         assert.equal(slider1.slide('getCurrentPage'), 1);
         done();
       });
@@ -176,8 +176,8 @@ suite('fidel-slider', function() {
 
     test('last method goes to last slide', function(done) {
       slider1.slide();
-      slider1.slide('last', function() {
-        assert.equal(slider1.slide('getCurrentPage'), 4);
+      slider1.slide('goLast', function() {
+        assert.equal(slider1.slide('getCurrentPage'), 3);
         done();
       });
     });
@@ -186,18 +186,18 @@ suite('fidel-slider', function() {
 
   suite('buttons', function() {
 
-    test('click to go next', function() {
-      slider1.slide();
-      $('#fixture [data-action=goNext]').click();
-      assert.equal(slider1.slide('getCurrentPage'), 2);
-    });
+    // test('click to go next', function() {
+    //   slider1.slide();
+    //   $('#fixture [data-action=goNext]').click();
+    //   assert.equal(slider1.slide('getCurrentPage'), 2);
+    // });
 
-    test('click to go prev', function() {
-      slider1.slide();
-      $('#fixture [data-action=goNext]').click();
-      $('#fixture [data-action=goPrevious]').click();
-      assert.equal(slider1.slide('getCurrentPage'), 1);
-    });
+    // test('click to go prev', function() {
+    //   slider1.slide();
+    //   $('#fixture [data-action=goNext]').click();
+    //   $('#fixture [data-action=goPrevious]').click();
+    //   assert.equal(slider1.slide('getCurrentPage'), 1);
+    // });
 
     /*
     test('hide previous when on first page', function() {
@@ -236,8 +236,8 @@ suite('fidel-slider', function() {
     test('event when about to slide', function(done) {
       slider1.slide();
       slider1.on('beforeSlide.slide', function(e, pageNumber) {
-        assert.equal(slider1.find('.container').css('left'), '0px');
-        assert.equal(pageNumber, 2);
+        assert.equal(slider1.find('.slide-container').css('left'), '0px');
+        assert.equal(pageNumber, 1);
         done();
       });
       slider1.slide('goNext');
@@ -246,7 +246,7 @@ suite('fidel-slider', function() {
     test('event after sliding', function(done) {
       slider1.slide();
       slider1.on('slide.slide', function(e, pageNumber) {
-        assert.equal(parseInt(slider1.find('.container').css('left'), 10), -270);
+        assert.equal(slider1.find('.slide-container').css('left'), '-500px');
         assert.equal(pageNumber, 2);
         done();
       });
@@ -433,16 +433,17 @@ suite('fidel-slider', function() {
   });
   */
 
-  suite('resize', function() {
 
-    test('updateWidth should update width', function() {
-      slider1.slide();
-      slider1.slide('updateWidth', 200);
+  // suite('resize', function() {
 
-      assert.equal(slider1.width(), 200);
-    });
+  //   test('updateWidth should update width', function() {
+  //     slider1.slide();
+  //     slider1.slide('updateWidth', 200);
 
-  });
+  //     assert.equal(slider1.width(), 200);
+  //   });
+
+  // });
 
   /*
   suite('css animations', function() {
@@ -482,7 +483,7 @@ suite('fidel-slider', function() {
     test('should wrap inner content in container', function() {
       slider2.slide();
 
-      assert.equal(slider2.find('.container').length, 1);
+      assert.equal(slider2.find('.slide-container').length, 1);
     });
   });
 

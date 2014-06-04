@@ -9,20 +9,8 @@
   <!--<script src="../components/blanket/dist/qunit/blanket.min.js" data-cover-adapter="../components/blanket/src/adapters/mocha-blanket.js"></script>-->
   <script>mocha.setup('tdd')</script>
   <style>
-    #fixture .slider1 {
-      overflow: hidden;
-    }
-    #fixture .container {
-      width: 30000px;
-      position: relative;
-    }
-    #fixture .item {
-      float: left;
-    }
-    #fixture li div {
-      width: 250px;
-      height: 250px;
-      margin: 0 10px;
+    .slider1 {
+      width: 500px;
     }
   </style>
 </head>
@@ -31,21 +19,9 @@
   <div id="fixture" style="visibility: hidden"></div>
   <div id="clone" style="visibility: hidden">
     <div class="slider1">
-      <ul class="container">
-        <li class="item"><div></div></li>
-        <li class="item"><div></div></li>
-        <li class="item"><div></div></li>
-        <li class="item"><div></div></li>
-      </ul>
-      <button data-action="goPrevious">Prev</button>
-      <button data-action="goNext">Next</button>
-      <button data-action="go" data-page="3">Go to Page 3</button>
-      <ul class="indicators">
-        <li></li>
-        <li></li>
-        <li></li>
-        <li></li>
-      </ul>
+      <img src="http://placekitten.com/g/500/400"/>
+      <img src="http://placekitten.com/g/500/400"/>
+      <img src="http://placekitten.com/g/500/400"/>
     </div>
     <div class="slider2">
       <div class="item"><div></div></div>
@@ -53,6 +29,10 @@
       <div class="item"><div></div></div>
       <div class="item"><div></div></div>
     </div>
+    <button type="button" data-action="goFirst">First</button>
+    <button type="button" data-action="goPrevious">Previous</button>
+    <button type="button" data-action="goNext">Next</button>
+    <button type="button" data-action="goLast">Last</button>
   </div>
   <script src="../bower_components/jquery/dist/jquery.js"></script>
   <script src="../bower_components/fidel/dist/fidel.js"></script>
