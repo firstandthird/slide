@@ -1,4 +1,12 @@
 
+0.13.0 / 2014-06-05 
+==================
+
+	* Complete refactor - switched to a plugin architecture. (needs documentation)
+	* Buttons plugin
+	* Preview plugin
+	* Indicator Plugin
+
 0.12.0 / 2014-04-25 
 ==================
 
