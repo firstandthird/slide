@@ -28,6 +28,9 @@
         background: #232323;
         color: #fff;
       }
+      #slider5 {
+        width: 500px;
+      }
     </style>
   </head>
   <body>
@@ -62,6 +65,15 @@
       <img src="http://placekitten.com/g/500/400" data-index="5"/>
       <img src="http://placekitten.com/g/500/400" data-index="6"/>
       <img src="http://placekitten.com/g/500/400" data-index="7"/>
+    </div>
+    <div id="slider5" class="slide">
+      <img src="http://placekitten.com/g/500/400"/>
+      <img src="http://placekitten.com/g/500/400"/>
+      <img src="http://placekitten.com/g/500/400"/>
+      <img src="http://placekitten.com/g/500/400"/>
+      <img src="http://placekitten.com/g/500/400"/>
+      <img src="http://placekitten.com/g/500/400"/>
+      <img src="http://placekitten.com/g/500/400"/>
     </div>
     <button type="button" data-action="first">First</button>
     <button type="button" data-action="previous">Previous</button>
@@ -99,6 +111,21 @@
           offsetY: 40,
           allowClick: true
         });;
+      $('#slider5')
+        .slide({
+          itemsPerPage: 1,
+          duration: 250
+        }).slideButtons({
+          previousText: 'Previous',
+          previousClass: 'slide-previous',
+          previousOffsetX: 15,
+          previousOffsetY: 0,
+          nextText: 'Next',
+          nextClass: 'slide-next',
+          nextOffsetX: 15,
+          nextOffsetY: 0,
+          showOnHover: true
+        });
 
       //watch events
       $('.slide')
