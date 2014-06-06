@@ -1,6 +1,6 @@
 /*!
  * slide - a generic slider
- * v0.13.1
+ * v0.14.0-beta.1
  * https://github.com/firstandthird/slide/
  * copyright First+Third 2014
  * MIT License
@@ -13,12 +13,12 @@
       duration: 500,
       containerClass: 'slide-container',
       overrideTransition: false,
-      wrapEl: 'div',
       wrap: false
     },
 
     init: function() {
 
+      this.el.css('position', 'relative');
       this.items = this.el.children();
       this.pageCount = Math.ceil(this.items.length/this.itemsPerPage);
 
@@ -45,11 +45,16 @@
     },
 
     _createContainer: function() {
-      this.el.children().wrapAll('<' + this.wrapEl + ' class="' + this.containerClass + '"/>');
+      this.el.children().wrapAll('<div class="' + this.containerClass + '"/>');
 
       this.container = this.el.find('.' + this.containerClass);
 
-      this.el.css('overflow', 'hidden');
+      var wrapper = $('<div/>').css({
+        overflow: 'hidden',
+        position: 'relative'
+      });
+      this.container.wrap(wrapper);
+
       this.container.css({
         position: 'relative',
         width: this.pageWidth * this.items.length
@@ -66,6 +71,10 @@
 
     getContainer: function() {
       return this.container;
+    },
+
+    setTransition: function(callback) {
+      this.overrideTransition = callback;
     },
 
     goNext: function(callback) {
@@ -118,11 +127,12 @@
 
       this.emit('beforeSlide.slide', this.currentPage);
       var self = this;
+      var previousPage = this.currentPage;
       this.currentPage = page;
 
       var transition = this.overrideTransition || this._slideTo;
 
-      transition.call(this, this.currentPage, function() {
+      transition.call(this, this.currentPage, previousPage, function() {
         self.emit('slide.slide', self.currentPage);
         if (self.currentPage == 1) {
           self.emit('first.slide');
@@ -135,7 +145,7 @@
       });
     },
 
-    _slideTo: function(page, callback) {
+    _slideTo: function(page, previousPage, callback) {
       var width = '-'+this.pageWidth * (page - 1);
       this.container.animate({
         left: width
@@ -161,7 +171,6 @@
     },
 
     init: function() {
-      this.el.css({ 'position': 'relative' });
       this.setupButtons();
 
       if (!this.el.data('slide').wrap) {
@@ -181,7 +190,8 @@
             'display': (this.autoHide)?'none':'block',
             'position': 'absolute',
             'top': 50 - this.previousOffsetY +'%',
-            'left': this.previousOffsetX
+            'left': this.previousOffsetX,
+            'zIndex': 1100
           })
           .on('click', this.proxy(this.prev))
           .appendTo(this.el);
@@ -194,7 +204,8 @@
             'display': (this.autoHide)?'none':'block',
             'position': 'absolute',
             'top': 50 - this.nextOffsetY +'%',
-            'right': this.nextOffsetX
+            'right': this.nextOffsetX,
+            'zIndex': 1100
           })
           .on('click', this.proxy(this.next))
           .appendTo(this.el);
@@ -236,13 +247,91 @@
 })(jQuery);
 
 (function($) {
+  $.declare('slideCssAnimations', {
+
+    defaults: {
+      animationEndEvents: 'animationend webkitAnimationEnd oAnimationEnd MSAnimationEnd',
+      animationBaseClass: 'slide-transition',
+      itemActiveClass: 'slide-active'
+    },
+
+    init: function() {
+
+      // Check for css3 animation support
+      if(this.el[0].style.animationName === undefined) {
+        //return false;
+      }
+
+      var slide = this.el.data('slide');
+      this.animating = false;
+      this.container = this.el.slide('getContainer');
+      this.slides = this.container.children();
+
+      var pageWidth = slide.pageWidth;
+      this.slides.each(function(index, el) {
+        $(this).css({
+          left: '-'+(index*pageWidth)+'px'
+        });
+      });
+      this.slides.eq(0)
+        .addClass(this.itemActiveClass);
+
+      this.el.slide('setTransition', this.proxy(this.transition));
+
+    },
+
+    transition: function(current, previous, callback) {
+      var self = this;
+      var out = 0;
+
+      console.log(current, previous);
+      var direction = (previous < current) ? 'next' : 'prev';
+
+      /*
+      if(page === 1 && this.currentSlide === this.slides.length) {
+        direction = 'next';
+      }
+
+      if(page === this.slides.length && this.currentSlide === 1) {
+        direction = 'prev';
+      }
+     */
+
+      this.animating = true;
+      $(this.slides).one(this.animationEndEvents, function(){
+        self.animating = false;
+        self.container.find('.'+self.itemActiveClass).removeClass(self.itemActiveClass);
+        //previous slide
+        $(self.slides[previous - 1]).removeClass(self.animationBaseClass + '-' + direction + '-out');
+        //current slide
+        $(self.slides[current - 1]).removeClass(self.animationBaseClass + '-' + direction + '-in').addClass(self.itemActiveClass);
+
+        $(self.slides).unbind(self.animationEndEvents);
+
+        if (callback) {
+          callback();
+        }
+
+      });
+
+      //previous slide
+      $(this.slides[previous - 1]).addClass(this.animationBaseClass + '-' + direction + '-out ' + this.itemActiveClass);
+      //current slide
+      $(this.slides[current - 1]).addClass(this.animationBaseClass + '-' + direction + '-in ' + this.itemActiveClass);
+
+    }
+  });
+})(jQuery);
+
+(function($) {
   $.declare('slideIndicators', {
 
     defaults: {
       element: '<div/>',
       activeClass: 'slide-indicator-active',
       itemClass: 'slide-indicator',
-      offsetY: -10,
+      containerClass: 'slide-indicators',
+      offsetY: 10,
       allowClick: true
     },
 
@@ -250,14 +339,18 @@
       this.sliderContainer = this.el.slide('getContainer');
       this.pageCount = this.el.slide('getPageCount');
 
-      this.indicatorContainer = $(this.element).css({
-        'position':'absolute',
-        'bottom': (this.offsetY < 0) ? -this.offsetY : 0,
-        'width': '100%',
-        'overflow':'hidden',
-        'text-align':'center',
-        'clear':'both'
-      }).appendTo(this.el);
+      this.indicatorContainer = 
+        $(this.element)
+          .addClass(this.containerClass)
+          .css({
+            'position':'absolute',
+            'bottom': (this.offsetY < 0) ? -this.offsetY : 0,
+            'width': '100%',
+            'overflow':'hidden',
+            'text-align':'center',
+            'clear':'both'
+          })
+          .appendTo(this.el);
 
 
       this.createIndicators();
@@ -282,12 +375,12 @@
         indicator = '<span class="'+this.itemClass+'" data-slide-index="'+i+'"></span>';
         indicators.push(indicator);
       }
-      this.indicatorContainer.append(indicators);
+      this.indicatorContainer
+        .css({
+          bottom: this.offsetY
+        })
+        .append(indicators);
 
-      $(this.el).css({
-        'position': 'relative',
-        'padding-bottom': (this.offsetY > 0) ? this.offsetY : 0
-      });
     },
 
     indicatorClicked: function(e) {

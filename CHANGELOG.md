@@ -1,4 +1,12 @@
 
+0.14.0-beta.1 / 2014-06-06 
+==================
+
+  * updated inidcator plugin
+  * added wrapping div for overflow: hidden. fixes #27
+	* Update example
+  * CSS animate plugin.
+
 0.13.1 / 2014-06-05 
 ==================
 
