@@ -7,10 +7,10 @@ body {
 .slide {
   width: 500px;
 }
-.slide > div > div {
+.slide .slide-container > div {
   position: relative;
 }
-.slide > div > div > span {
+.slide .slide-container > div > span {
   position: absolute;
   font-size: 60px;
   color: #fff;
@@ -31,6 +31,7 @@ body {
 }
 #slider4 .slide-indicators {
   height: 20px;
+  z-index: 1100;
 }
 #slider4 .slide-indicator {
   display: inline-block;

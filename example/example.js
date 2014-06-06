@@ -13,6 +13,7 @@ $('#slider3')
 $('#slider4')
   .slide({
   }).slideIndicators({
+    offsetY: -25
   });
 $('#slider5')
   .slide({
