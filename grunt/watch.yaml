@@ -1,5 +1,3 @@
-options:
-  livereload: true
 lib:
   files:
     - '<%= jshint.lib %>'
@@ -20,8 +18,11 @@ test:
     - 'mocha'
     - 'notify:tests'
 example:
+  options:
+    livereload: true
   files:
     - 'example/*'
+    - 'dist/*'
 tools:
   files:
     - 'bower.json'
