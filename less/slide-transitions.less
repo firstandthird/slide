@@ -1,15 +1,11 @@
 @import "slide-keyframes";
 // Soft scale
 
-.slide-transition-base() {
+.slide-transition-base(@base) {
 
-  height: 500px;
   & > div > * {
-    width: 100%;
-    height: 500px;
-    position: absolute;
+    position: relative;
     top: 0;
-    left: 0;
     pointer-events: none;
     opacity: 0;
     z-index: 999;
@@ -20,15 +16,16 @@
       pointer-events: auto;
       z-index: 1000;
     }
-    &.slide-transition-prev-out {
+    &.@{base}-prev-out {
       z-index: 1005;
     }
-    &.slide-tranition-prev-in {
+    &.@{base}-prev-in {
       z-index: 1004;
     }
   }
 }
 .slide-transition(@style, @base: slide-transition) when (@style = 'soft-scale') {
+  .slide-transition-base(@base);
   .slide-keyframe-scaleup();
   .slide-keyframe-scaleDownUp();
   .slide-keyframe-scaleDown();

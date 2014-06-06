@@ -1,19 +1,29 @@
 <html>
   <head>
-    <title></title>
+    <title>Slide Examples</title>
+    <link rel="stylesheet" href="css.css"/>
     <style>
-      #slider1 {
+      .slide {
         width: 500px;
       }
-      #slider2 {
-        width: 500px;
+      .slide > div {
+        position: relative;
       }
-      #slider3 {
-        width: 500px;
+      .slide span {
+        position: absolute;
+        font-size: 60px;
+        color: #fff;
       }
-      #slider4 {
-        width: 500px;
-        height: 400px;
+      .slide img {
+        width: 100%;
+      }
+      .buttons {
+        position: fixed;
+        width: 100%;
+        padding: 10px;
+        bottom: 0;
+        background: #f0f0f0;
+        z-index: 1100;
       }
       #slider4 .slide-indicator {
         display: inline-block;
@@ -28,57 +38,57 @@
         background: #232323;
         color: #fff;
       }
-      #slider5 {
-        width: 500px;
-      }
     </style>
   </head>
   <body>
     <div id="slider1" class="slide">
-      <img src="http://placekitten.com/g/500/400"/>
-      <img src="http://placekitten.com/g/500/400"/>
-      <img src="http://placekitten.com/g/500/400"/>
+      <div><span>1</span><img src="http://placekitten.com/g/500/400"/></div>
+      <div><span>2</span><img src="http://placekitten.com/g/500/400"/></div>
+      <div><span>3</span><img src="http://placekitten.com/g/500/400"/></div>
+      <div><span>4</span><img src="http://placekitten.com/g/500/400"/></div>
+      <div><span>5</span><img src="http://placekitten.com/g/500/400"/></div>
+      <div><span>6</span><img src="http://placekitten.com/g/500/400"/></div>
     </div>
     <div id="slider2" class="slide">
-      <img src="http://placekitten.com/g/500/400"/>
-      <img src="http://placekitten.com/g/500/400"/>
-      <img src="http://placekitten.com/g/500/400"/>
-      <img src="http://placekitten.com/g/500/400"/>
-      <img src="http://placekitten.com/g/500/400"/>
-      <img src="http://placekitten.com/g/500/400"/>
-      <img src="http://placekitten.com/g/500/400"/>
+      <div><span>1</span><img src="http://placekitten.com/g/500/400"/></div>
+      <div><span>2</span><img src="http://placekitten.com/g/500/400"/></div>
+      <div><span>3</span><img src="http://placekitten.com/g/500/400"/></div>
+      <div><span>4</span><img src="http://placekitten.com/g/500/400"/></div>
+      <div><span>5</span><img src="http://placekitten.com/g/500/400"/></div>
+      <div><span>6</span><img src="http://placekitten.com/g/500/400"/></div>
     </div>
     <div id="slider3" class="slide">
-      <img src="http://placekitten.com/g/500/400" data-index="1"/>
-      <img src="http://placekitten.com/g/500/400" data-index="2"/>
-      <img src="http://placekitten.com/g/500/400" data-index="3"/>
-      <img src="http://placekitten.com/g/500/400" data-index="4"/>
-      <img src="http://placekitten.com/g/500/400" data-index="5"/>
-      <img src="http://placekitten.com/g/500/400" data-index="6"/>
-      <img src="http://placekitten.com/g/500/400" data-index="7"/>
+      <div><span>1</span><img src="http://placekitten.com/g/500/400"/></div>
+      <div><span>2</span><img src="http://placekitten.com/g/500/400"/></div>
+      <div><span>3</span><img src="http://placekitten.com/g/500/400"/></div>
+      <div><span>4</span><img src="http://placekitten.com/g/500/400"/></div>
+      <div><span>5</span><img src="http://placekitten.com/g/500/400"/></div>
+      <div><span>6</span><img src="http://placekitten.com/g/500/400"/></div>
     </div>
     <div id="slider4" class="slide">
-      <img src="http://placekitten.com/g/500/400" data-index="1"/>
-      <img src="http://placekitten.com/g/500/400" data-index="2"/>
-      <img src="http://placekitten.com/g/500/400" data-index="3"/>
-      <img src="http://placekitten.com/g/500/400" data-index="4"/>
-      <img src="http://placekitten.com/g/500/400" data-index="5"/>
-      <img src="http://placekitten.com/g/500/400" data-index="6"/>
-      <img src="http://placekitten.com/g/500/400" data-index="7"/>
+      <div><span>1</span><img src="http://placekitten.com/g/500/400"/></div>
+      <div><span>2</span><img src="http://placekitten.com/g/500/400"/></div>
+      <div><span>3</span><img src="http://placekitten.com/g/500/400"/></div>
+      <div><span>4</span><img src="http://placekitten.com/g/500/400"/></div>
+      <div><span>5</span><img src="http://placekitten.com/g/500/400"/></div>
+      <div><span>6</span><img src="http://placekitten.com/g/500/400"/></div>
     </div>
     <div id="slider5" class="slide">
-      <img src="http://placekitten.com/g/500/400"/>
-      <img src="http://placekitten.com/g/500/400"/>
-      <img src="http://placekitten.com/g/500/400"/>
-      <img src="http://placekitten.com/g/500/400"/>
-      <img src="http://placekitten.com/g/500/400"/>
-      <img src="http://placekitten.com/g/500/400"/>
-      <img src="http://placekitten.com/g/500/400"/>
+      <div><span>1</span><img src="http://placekitten.com/g/500/400"/></div>
+      <div><span>2</span><img src="http://placekitten.com/g/500/400"/></div>
+      <div><span>3</span><img src="http://placekitten.com/g/500/400"/></div>
+      <div><span>4</span><img src="http://placekitten.com/g/500/400"/></div>
+      <div><span>5</span><img src="http://placekitten.com/g/500/400"/></div>
+      <div><span>6</span><img src="http://placekitten.com/g/500/400"/></div>
     </div>
-    <button type="button" data-action="first">First</button>
-    <button type="button" data-action="previous">Previous</button>
-    <button type="button" data-action="next">Next</button>
-    <button type="button" data-action="last">Last</button>
+    <div class="buttons">
+      <button type="button" data-action="first">First</button>
+      <button type="button" data-action="previous">Previous</button>
+      <button type="button" data-action="next">Next</button>
+      <button type="button" data-action="last">Last</button>
+      <a href="/example/">Normal Transitions</a>
+      <a href="?css=1">CSS Transitions</a>
+    </div>
     <script src="../bower_components/jquery/dist/jquery.js"></script>
     <script src="../bower_components/fidel/dist/fidel.js"></script>
     <script src="../dist/slide.bower.js"></script>
@@ -152,6 +162,13 @@
       $('[data-action="last"]').on('click', function() {
         $('.slide').slide('goLast');
       });
+      if (window.location.search == '?css=1') {
+        $('.slide')
+          .addClass('css')
+          .slideCssAnimations({
+          });
+      }
+
     </script>
   </body>
 </html>
