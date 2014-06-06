@@ -1,4 +1,9 @@
 
+0.14.0-beta.3 / 2014-06-06 
+==================
+
+  * indicators: if offsetY > 0, add margin to bottom and make position: static
+
 0.14.0-beta.2 / 2014-06-06 
 ==================
 

@@ -1,6 +1,6 @@
 /*!
  * slide - a generic slider
- * v0.14.0-beta.2
+ * v0.14.0-beta.3
  * https://github.com/firstandthird/slide/
  * copyright First+Third 2014
  * MIT License
@@ -508,7 +508,7 @@
       activeClass: 'slide-indicator-active',
       itemClass: 'slide-indicator',
       containerClass: 'slide-indicators',
-      offsetY: 10,
+      offsetY: 0,
       allowClick: true
     },
 
@@ -521,13 +521,20 @@
           .addClass(this.containerClass)
           .css({
             'position':'absolute',
-            'bottom': (this.offsetY < 0) ? -this.offsetY : 0,
+            'bottom': (this.offsetY < 0) ? (this.offsetY*-1) : 0,
             'width': '100%',
             'overflow':'hidden',
             'text-align':'center',
             'clear':'both'
           })
           .appendTo(this.el);
+
+      if (this.offsetY > 0) {
+        this.indicatorContainer.css({
+          'position': 'static',
+          'marginTop': this.offsetY
+        });
+      }
 
 
       this.createIndicators();
@@ -560,9 +567,6 @@
         indicators.push(indicator);
       }
       this.indicatorContainer
-        .css({
-          bottom: this.offsetY
-        })
         .append(indicators);
 
     },
