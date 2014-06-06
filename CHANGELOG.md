@@ -1,4 +1,11 @@
 
+0.14.0-beta.4 / 2014-06-06 
+==================
+
+  * fixed press-away transition
+  * fixed keyframe bug in chrome
+  * transitions: added archive-me
+
 0.14.0-beta.3 / 2014-06-06 
 ==================
 

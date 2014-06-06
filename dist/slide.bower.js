@@ -1,6 +1,6 @@
 /*!
  * slide - a generic slider
- * v0.14.0-beta.3
+ * v0.14.0-beta.4
  * https://github.com/firstandthird/slide/
  * copyright First+Third 2014
  * MIT License
