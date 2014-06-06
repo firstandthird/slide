@@ -1,6 +1,6 @@
 /*!
  * slide - a generic slider
- * v0.14.0-beta.1
+ * v0.14.0-beta.2
  * https://github.com/firstandthird/slide/
  * copyright First+Third 2014
  * MIT License
@@ -29,7 +29,7 @@
       this.animating = false;
 
 
-      this.go(this.page, 'first');
+      this.go(this.page);
       this.emit('init.slide');
     },
 
@@ -125,9 +125,9 @@
         }
       }
 
-      this.emit('beforeSlide.slide', this.currentPage);
+      var previousPage = this.currentPage || 1;
+      this.emit('beforeSlide.slide', [previousPage, page]);
       var self = this;
-      var previousPage = this.currentPage;
       this.currentPage = page;
 
       var transition = this.overrideTransition || this._slideTo;
@@ -161,12 +161,10 @@
     defaults: {
       previousText: 'Previous',
       previousClass: 'slide-previous',
-      previousOffsetX: 10,
-      previousOffsetY: 0,
       nextText: 'Next',
       nextClass: 'slide-next',
-      nextOffsetX: 10,
-      nextOffsetY: 0,
+      offsetX: 10,
+      offsetY: 0,
       autoHide: false
     },
 
@@ -189,8 +187,8 @@
           .css({
             'display': (this.autoHide)?'none':'block',
             'position': 'absolute',
-            'top': 50 - this.previousOffsetY +'%',
-            'left': this.previousOffsetX,
+            'top': 50 - this.offsetY +'%',
+            'left': this.offsetX,
             'zIndex': 1100
           })
           .on('click', this.proxy(this.prev))
@@ -203,8 +201,8 @@
           .css({
             'display': (this.autoHide)?'none':'block',
             'position': 'absolute',
-            'top': 50 - this.nextOffsetY +'%',
-            'right': this.nextOffsetX,
+            'top': 50 - this.offsetY +'%',
+            'right': this.offsetX,
             'zIndex': 1100
           })
           .on('click', this.proxy(this.next))
@@ -284,18 +282,7 @@
       var self = this;
       var out = 0;
 
-      console.log(current, previous);
       var direction = (previous < current) ? 'next' : 'prev';
-
-      /*
-      if(page === 1 && this.currentSlide === this.slides.length) {
-        direction = 'next';
-      }
-
-      if(page === this.slides.length && this.currentSlide === 1) {
-        direction = 'prev';
-      }
-     */
 
       this.animating = true;
       $(this.slides).one(this.animationEndEvents, function(){
@@ -360,11 +347,18 @@
         this.indicators.bind('click', this.proxy(this.indicatorClicked));
       }
 
-      this.el.on('slide.slide', this.proxy(function(e, currentPage){
-        this.indicators.removeClass(this.activeClass);
-        this.indicators.eq(currentPage - 1).addClass(this.activeClass);
-      }));
+      var self = this;
+      this.el.on('beforeSlide.slide', function(e, from, to){
+        self.setIndicators(to);
+      });
 
+      self.setIndicators(this.el.slide('getCurrentPage'));
+
+    },
+
+    setIndicators: function(page) {
+      this.indicators.removeClass(this.activeClass);
+      this.indicators.eq(page - 1).addClass(this.activeClass);
     },
 
     createIndicators: function() {

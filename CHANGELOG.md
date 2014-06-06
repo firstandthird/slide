@@ -1,4 +1,11 @@
 
+0.14.0-beta.2 / 2014-06-06 
+==================
+
+  * indicators: update indicator before finishing the slide
+  * core: beforeSlide passes from and to page number
+  * buttons: changed offsetX/Y to be common for both next and prev
+
 0.14.0-beta.1 / 2014-06-06 
 ==================
 
