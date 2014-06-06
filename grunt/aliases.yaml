@@ -13,6 +13,7 @@ lib:
   - test
 styles:
   - less
+  - autoprefixer
 dist:
   - clean:dist
   - lib

@@ -1,7 +1,7 @@
 $.fn.slide.defaults.duration = 0;
 var testx = function() {};
 
-suite('css animations', function() {
+suite.skip('css animations', function() {
   var slider1;
 
   setup(function() {
