@@ -53,7 +53,6 @@ suite('buttons', function() {
   test('show previous on first page if wrap enabled', function() {
     $('#fixture,#clone').css('visibility', 'visible');
     slider1.slide({ wrap: true }).slideButtons();
-    console.log(slider1.data('slide').wrap);
     assert.equal($('#fixture .slide-previous').css('visibility'), 'visible');
     $('#fixture,#clone').css('visibility', 'hidden');
   });
