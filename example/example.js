@@ -20,13 +20,7 @@ $('#slider4')
     itemsPerPage: 1,
     duration: 250
   }).slideIndicators({
-    element: '<div/>',
-    activeClass: 'slide-indicator-active',
-    itemClass: 'slide-indicator',
-    containerClass: 'indicators',
-    offsetY: 40,
-    allowClick: true
-  });;
+  });
 $('#slider5')
   .slide({
     itemsPerPage: 1,
