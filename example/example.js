@@ -1,30 +1,21 @@
 //init sliders
 $('#slider1')
   .slide({
-    itemsPerPage: 1,
-    duration: 250
   });
 $('#slider2')
   .slide({
     itemsPerPage: 2,
-    duration: 250
   });
 $('#slider3')
   .slide({
-    itemsPerPage: 1,
-    duration: 250,
     wrap: true
   }).slidePreview();
 $('#slider4')
   .slide({
-    itemsPerPage: 1,
-    duration: 250
   }).slideIndicators({
   });
 $('#slider5')
   .slide({
-    itemsPerPage: 1,
-    duration: 250
   }).slideButtons({
     autoHide: true
   });
