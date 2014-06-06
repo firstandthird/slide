@@ -78,6 +78,5 @@ if (window.location.search == '?css=1') {
       var val = $(this).val();
       updateCSSTransition(val);
     });
- $('.slide').addClass('soft-scale');
- updateCSSTransition('soft-scale');
+ updateCSSTransition('archive-me');
 }
