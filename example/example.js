@@ -53,6 +53,14 @@ $('[data-action="next"]').on('click', function() {
 $('[data-action="last"]').on('click', function() {
   $('.slide').slide('goLast');
 });
+var updateCSSTransition = function(val) {
+  $('.slide').each(function(index, el) {
+    el.className = 'slide css';
+  });
+  $('.slide').addClass(val);
+  $('h1').text('Slide Examples: '+val);
+
+};
 if (window.location.search == '?css=1') {
   $('.slide')
     .addClass('css')
@@ -63,4 +71,12 @@ if (window.location.search == '?css=1') {
       .remove()
       .end()
     .remove();
+  $('[data-role="css-select"]')
+    .show()
+    .on('change', function() {
+      var val = $(this).val();
+      updateCSSTransition(val);
+    });
+ $('.slide').addClass('soft-scale');
+ updateCSSTransition('soft-scale');
 }
