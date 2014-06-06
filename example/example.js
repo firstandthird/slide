@@ -73,4 +73,9 @@ if (window.location.search == '?css=1') {
     .addClass('css')
     .slideCssAnimations({
     });
+  $('#slider3')
+    .prev()
+      .remove()
+      .end()
+    .remove();
 }
