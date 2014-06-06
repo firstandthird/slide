@@ -78,5 +78,5 @@ if (window.location.search == '?css=1') {
       var val = $(this).val();
       updateCSSTransition(val);
     });
- updateCSSTransition('archive-me');
+ updateCSSTransition('soft-scale');
 }
