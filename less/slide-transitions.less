@@ -1,9 +1,8 @@
 @import "slide-keyframes";
-// Soft scale
 
 .slide-transition-base(@base) {
 
-  & > div > * {
+  & .slide-container > * {
     position: relative;
     top: 0;
     pointer-events: none;
@@ -24,6 +23,8 @@
     }
   }
 }
+
+// Soft scale
 .slide-transition(@style, @base: slide-transition) when (@style = 'soft-scale') {
   .slide-keyframe-scaleup();
   .slide-keyframe-scaleDownUp();
