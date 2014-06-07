@@ -19,11 +19,13 @@ test:
     - 'notify:tests'
 example:
   options:
-    livereload: true
+    livereload: <%= livereloadPort %>
   files:
     - 'example/*'
     - 'dist/*'
 tools:
+  options:
+    reload: true
   files:
     - 'bower.json'
     - 'Gruntfile.js'
