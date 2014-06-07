@@ -4,7 +4,8 @@ module.exports = function(grunt) {
     config: {
       info: grunt.file.readJSON('bower.json'),
       name: 'slide',
-      livereloadPort: Math.floor(Math.random() * 999) + 35000
+      livereloadPort: Math.floor(Math.random() * 999) + 35000,
+      jshintStylish: require('jshint-stylish')
     }
   });
 

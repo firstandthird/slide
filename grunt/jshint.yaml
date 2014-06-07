@@ -1,3 +1,5 @@
+options:
+  reporter: <%= jshintStylish %>
 tools:
   - 'Gruntfile.js'
   - 'bower.json'
