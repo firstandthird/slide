@@ -15,10 +15,11 @@
     "grunt-mocha": "~0.4.1",
     "grunt-notify": "~0.2.13",
     "grunt-shell": "~0.6.4",
-    "load-grunt-config":"~0.7.1",
-    "jshint-stylish": "~0.1.5",
+    "load-grunt-config": "~0.7.1",
+    "jshint-stylish": "^0.2.0",
     "grunt-jscs-checker": "~0.4.1",
-    "grunt-contrib-less": "~0.11.0"
+    "grunt-contrib-less": "~0.11.0",
+    "grunt-autoprefixer": "^0.7.4"
   },
   "meta": {
     "ftInit": {

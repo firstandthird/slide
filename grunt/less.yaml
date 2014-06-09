@@ -1,4 +1,3 @@
 styles:
-  src:
-    - 'lib/transitions.all.less'
-  dest: 'dist/transitions.css'
+  files:
+    'example/css.css': 'example/css.less'

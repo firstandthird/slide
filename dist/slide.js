@@ -1,6 +1,6 @@
 /*!
  * slide - a generic slider
- * v0.12.0
+ * v0.14.0-beta.5
  * https://github.com/firstandthird/slide/
  * copyright First+Third 2014
  * MIT License
@@ -201,57 +201,54 @@
       page: 1,
       itemsPerPage: 1,
       duration: 500,
-      itemClass: 'item',
-      containerClass: 'container',
-      auto: false,
-      autoDelay: 5000,
-      indicators: false,
-      indicatorClass: 'active',
-      indicatorClick: true,
-      wrap: true,
-      previews: false,
-      cssAnimate: false,
-      responsive: false,
-      ease: 'swing',
-      animationEndEvents: 'animationend webkitAnimationEnd oAnimationEnd MSAnimationEnd',
-      animationBaseClass: 'item-animation'
-    },
-
-    events: {
-      'mouseover': 'stop',
-      'mouseout': 'start'
-    },
-
-    elements: {
-      '[data-action=previous]': 'previousButton',
-      '[data-action=next]': 'nextButton'
+      containerClass: 'slide-container',
+      overrideTransition: false,
+      wrap: false
     },
 
     init: function() {
-      this.items = this.find('.'+this.itemClass);
+
+      this.el.css('position', 'relative');
+      this.items = this.el.children();
       this.pageCount = Math.ceil(this.items.length/this.itemsPerPage);
-      this.container = this.find('.'+this.containerClass);
+
+      this.updateWidth();
+
+      this._createContainer();
       this.container.queue('fx');
       this.animating = false;
 
-      this.updateWidth(this.items.first().outerWidth(true));
 
-      this.go(this.page, 'first');
-      if (this.auto) {
-        this.start();
-      }
+      this.go(this.page);
+      this.emit('init.slide');
+    },
 
-      if (this.indicators && this.indicatorClick) {
-        this.el.find(this.indicators).on('click', this.proxy(this.indicatorClicked));
-      }
+    updateWidth: function() {
+      var width = this.el.width();
+      this.pageWidth = width;
+      var itemWidth = width / this.itemsPerPage;
+      this.items.css({
+        width: itemWidth,
+        float: 'left'
+      });
 
-      if(this.responsive) {
-        $(window).on('resize', this.proxy(function(){
-          this.updateWidth();
-        })).trigger('resize');
-      }
+    },
 
-      this.updatePreview();
+    _createContainer: function() {
+      this.el.children().wrapAll('<div class="' + this.containerClass + '"/>');
+
+      this.container = this.el.find('.' + this.containerClass);
+
+      var wrapper = $('<div/>').css({
+        overflow: 'hidden',
+        position: 'relative'
+      });
+      this.container.wrap(wrapper);
+
+      this.container.css({
+        position: 'relative',
+        width: this.pageWidth * this.items.length
+      });
     },
 
     getCurrentPage: function() {
@@ -262,224 +259,350 @@
       return this.pageCount;
     },
 
-    next: function(cb) {
-      this.go(this.currentPage + 1, cb);
-      this.emit('next', this.currentPage);
+    getContainer: function() {
+      return this.container;
     },
 
-    previous: function(cb) {
-      this.go(this.currentPage - 1, cb);
-      this.emit('previous', this.currentPage);
+    setTransition: function(callback) {
+      this.overrideTransition = callback;
     },
 
-    go: function(page, cb) {
+    goNext: function(callback) {
+      var self = this;
+      this.go(this.currentPage + 1, function() {
+        self.emit('next.slide', self.currentPage);
+        if (callback) {
+          callback();
+        }
+      });
+    },
+
+    goPrevious: function(callback) {
+      var self = this;
+      this.go(this.currentPage - 1, function() {
+        self.emit('previous.slide', self.currentPage);
+        if (callback) {
+          callback();
+        }
+      });
+    },
+
+    goFirst: function(callback) {
+      this.go(1, callback);
+    },
+
+    goLast: function(callback) {
+      this.go(this.pageCount, callback);
+    },
+
+    go: function(page, callback) {
       if(this.animating) {
         return false;
       }
 
-      //check if click from data-action
-      if (typeof page === 'object')  {
-        page = $(page.target).data('page');
-      }
-
       if (page > this.pageCount || page < 1) {
-        if(this.previews || this.wrap) {
+        if(this.wrap) {
           if(page < 1) {
-            this.go(this.pageCount, cb);
+            page = this.pageCount;
           } else {
-            this.go(1, cb);
+            page = 1;
           }
         } else {
-          if (typeof cb == 'function') {
-            cb();
+          if (typeof callback === 'function') {
+            callback();
           }
+          return;
         }
-        return;
-      }
-      var direction = (this.currentPage < page) ? 'next' : 'prev';
-      
-      if(page === 1 && this.currentPage === this.items.length) {
-        direction = 'next';
       }
 
-      if(page === this.items.length && this.currentPage === 1) {
-        direction = 'prev';
-      }
-
+      var previousPage = this.currentPage || 1;
+      this.emit('beforeSlide.slide', [previousPage, page]);
+      var self = this;
       this.currentPage = page;
+
+      var transition = this.overrideTransition || this._slideTo;
+
+      transition.call(this, this.currentPage, previousPage, function() {
+        self.emit('slide.slide', self.currentPage);
+        if (self.currentPage == 1) {
+          self.emit('first.slide');
+        } else if (self.currentPage == self.pageCount) {
+          self.emit('last.slide');
+        }
+        if (typeof callback === 'function') {
+          callback(self.currentPage);
+        }
+      });
+    },
+
+    _slideTo: function(page, previousPage, callback) {
       var width = '-'+this.pageWidth * (page - 1);
-      
-      if(this.cssAnimate) {
-        this._slideCSS(direction, cb);
-      } else {
-        this._slide(width, cb);
+      this.container.animate({
+        left: width
+      }, this.duration, callback);
+    }
+
+  });
+})(jQuery);
+
+(function($) {
+  $.declare('slideButtons', {
+
+    defaults: {
+      previousText: 'Previous',
+      previousClass: 'slide-previous',
+      nextText: 'Next',
+      nextClass: 'slide-next',
+      offsetX: 10,
+      offsetY: 0,
+      autoHide: false
+    },
+
+    init: function() {
+      this.setupButtons();
+
+      if (!this.el.data('slide').wrap) {
+        this.el.on('first.slide', this.proxy(this.hidePreviousButton));
+        this.el.on('last.slide', this.proxy(this.hideNextButton));
+        this.el.on('slide.slide', this.proxy(this.showButtons));
       }
-      
-      if (this.indicators) {
-        var indicators = this.el.find(this.indicators);
-        indicators.removeClass(this.indicatorClass);
-        indicators.eq(this.currentPage - 1).addClass(this.indicatorClass);
+    },
+
+    setupButtons: function() {
+
+      this.prevButton =
+        $('<button/>')
+          .addClass(this.previousClass)
+          .text(this.previousText)
+          .css({
+            'display': (this.autoHide)?'none':'block',
+            'position': 'absolute',
+            'top': 50 - this.offsetY +'%',
+            'left': this.offsetX,
+            'zIndex': 1100
+          })
+          .on('click', this.proxy(this.prev))
+          .appendTo(this.el);
+
+      this.nextButton =
+        $('<button/>')
+          .addClass(this.nextClass)
+          .text(this.nextText)
+          .css({
+            'display': (this.autoHide)?'none':'block',
+            'position': 'absolute',
+            'top': 50 - this.offsetY +'%',
+            'right': this.offsetX,
+            'zIndex': 1100
+          })
+          .on('click', this.proxy(this.next))
+          .appendTo(this.el);
+
+      if (this.autoHide) {
+        var self = this;
+        this.el.hover(function() {
+          self.nextButton.fadeIn();
+          self.prevButton.fadeIn();
+        }, function(){
+          self.nextButton.fadeOut();
+          self.prevButton.fadeOut();
+        });
       }
     },
 
-    first: function(cb) {
-      this.go(1, cb);
+    prev: function() {
+      this.el.slide('goPrevious');
     },
 
-    last: function(cb) {
-      this.go(this.pageCount, cb);
+    next: function() {
+      this.el.slide('goNext');
     },
 
-    _slideCSS: function(direction, cb) {
+    hidePreviousButton: function() {
+      this.prevButton.css('visibility', 'hidden');
+    },
+
+    hideNextButton: function() {
+      this.nextButton.css('visibility', 'hidden');
+    },
+
+    showButtons: function() {
+      this.nextButton.css('visibility', 'visible');
+      this.prevButton.css('visibility', 'visible');
+    }
+
+  });
+})(jQuery);
+
+(function($) {
+  $.declare('slideCssAnimations', {
+
+    defaults: {
+      animationEndEvents: 'animationend webkitAnimationEnd oAnimationEnd MSAnimationEnd',
+      animationBaseClass: 'slide-transition',
+      itemActiveClass: 'slide-active'
+    },
+
+    init: function() {
+
+      // Check for css3 animation support
+      if(this.el[0].style.animationName === undefined) {
+        //return false;
+      }
+
+      var slide = this.el.data('slide');
+      this.animating = false;
+      this.container = this.el.slide('getContainer');
+      this.slides = this.container.children();
+
+      var pageWidth = slide.pageWidth;
+      this.slides.each(function(index, el) {
+        $(this).css({
+          left: '-'+(index*pageWidth)+'px'
+        });
+      });
+      this.slides.eq(0)
+        .addClass(this.itemActiveClass);
+
+      this.el.slide('setTransition', this.proxy(this.transition));
+
+    },
+
+    transition: function(current, previous, callback) {
       var self = this;
       var out = 0;
 
-      if(cb === 'first') {
-        $(this.items[this.currentPage - 1]).addClass('active');
-        return;
-      }
+      var direction = (previous < current) ? 'next' : 'prev';
 
       this.animating = true;
-
-      $(self.items).one(this.animationEndEvents, function(){
+      $(this.slides).one(this.animationEndEvents, function(){
         self.animating = false;
-        self.container.find('.active').removeClass('active');
-        $(self.items[self.currentPage - 1]).removeClass(direction + '-' + self.animationBaseClass + '-in').addClass('active');
-        $(self.items[out]).removeClass(direction + '-' + self.animationBaseClass + '-out');
+        self.container.find('.'+self.itemActiveClass).removeClass(self.itemActiveClass);
+        //previous slide
+        $(self.slides[previous - 1]).removeClass(self.animationBaseClass + '-' + direction + '-out');
+        //current slide
+        $(self.slides[current - 1]).removeClass(self.animationBaseClass + '-' + direction + '-in').addClass(self.itemActiveClass);
 
-        $(self.items).unbind(self.animationEndEvents);
+        $(self.slides).unbind(self.animationEndEvents);
 
-        self.emit('slide', self.currentPage);
-        if (typeof cb == 'function') {
-          cb();
+        if (callback) {
+          callback();
         }
+
       });
 
-      if(direction === 'next') {
-        out = this.currentPage - 2;
+      //previous slide
+      $(this.slides[previous - 1]).addClass(this.animationBaseClass + '-' + direction + '-out ' + this.itemActiveClass);
+      //current slide
+      $(this.slides[current - 1]).addClass(this.animationBaseClass + '-' + direction + '-in ' + this.itemActiveClass);
 
-        if(out < 0) {
-          out = this.items.length - 1;
-        }
-      } else {
-        out = this.currentPage;
-
-        if(out >= this.items.length) {
-          out = 0;
-        }
-      }
-
-      $(this.items[out]).addClass(direction + '-' + this.animationBaseClass + '-out active');
-      $(this.items[this.currentPage - 1]).addClass(direction + '-' + this.animationBaseClass + '-in active');
-    },
-
-    _slide: function(width, cb) {
-      var self = this;
-      this.cb = cb;
-      this.emit('beforeSlide', this.currentPage);
-      this.updateButtons();
-
-      if(cb === 'first') {
-        this.container.css({
-          left: width
-        });
-      } else {
-        this.container.animate({
-          left: width
-        }, self.duration, this.ease, function() {
-          self.emit('slide', self.currentPage);
-          if (typeof cb == 'function') {
-            cb();
-          }
-        });
-      }
-    },
-
-    updateButtons: function() {
-      if (this.currentPage === 1) {
-        this.emit('first', this.currentPage);
-      }
-
-      if (this.currentPage === this.pageCount) {
-        this.emit('last', this.currentPage);
-      }
-
-      if (this.currentPage == 1 && !this.previews && !this.wrap) {
-        this.previousButton.hide();
-      } else {
-        this.previousButton.show();
-      }
-      if (this.currentPage == this.pageCount  && !this.previews && !this.wrap) {
-        this.nextButton.hide();
-      } else {
-        this.nextButton.show();
-      }
-    },
-
-    updatePreview: function() {
-      if(!this.previews) return;
-
-      var items = this.find('.'+this.itemClass);
-      var first = items.first().clone();
-      var last = items.last().clone();
-
-      last.insertBefore(items.first());
-      first.insertAfter(items.last());
-    },
-
-    start: function(e) {
-      if (e && !this.auto) {
-        return;
-      }
-      this.auto = true;
-      if (this.timeout) {
-        clearTimeout(this.timeout);
-      }
-      var self = this;
-      this.timeout = setTimeout(function() {
-        if (self.wrap && self.currentPage == self.pageCount) {
-          self.currentPage = 0;
-        }
-        self.next();
-        self.start();
-      }, this.autoDelay);
-    },
-
-    stop: function() {
-      if (!this.auto) {
-        return;
-      }
-      clearTimeout(this.timeout);
-    },
-
-    indicatorClicked: function(e) {
-      var index = this.el.find(this.indicators).index(e.currentTarget);
-      this.go(index+1);
-    },
-
-    updateWidth: function(width) {
-      if(!width) {
-        width = $(window).width();
-      }
-
-      this.pageWidth = width*this.itemsPerPage;
-
-      if(!this.previews) {
-        this.el.css('width', this.pageWidth);
-      } else {
-        this.el.css('width', width * 2);
-        if (!this.cssAnimate) {
-          this.el.find('.wrapper').css('margin-left', '-' + (width / 2) + 'px');
-        }
-      }
-
-      if (!this.cssAnimate) {
-        this.container.css({
-          left: '-' + ~~(this.pageWidth * ((this.currentPage === 0) ? 0 : this.currentPage - 1)) + 'px'
-        });
-      }
-
-      this.items.css('width', width);
     }
   });
 })(jQuery);
+
+(function($) {
+  $.declare('slideIndicators', {
+
+    defaults: {
+      element: '<div/>',
+      activeClass: 'slide-indicator-active',
+      itemClass: 'slide-indicator',
+      containerClass: 'slide-indicators',
+      offsetY: 0,
+      allowClick: true
+    },
+
+    init: function() {
+      this.sliderContainer = this.el.slide('getContainer');
+      this.pageCount = this.el.slide('getPageCount');
+
+      this.indicatorContainer = 
+        $(this.element)
+          .addClass(this.containerClass)
+          .css({
+            'position':'absolute',
+            'bottom': (this.offsetY < 0) ? (this.offsetY*-1) : 0,
+            'width': '100%',
+            'overflow':'hidden',
+            'text-align':'center',
+            'clear':'both'
+          })
+          .appendTo(this.el);
+
+      if (this.offsetY > 0) {
+        this.indicatorContainer.css({
+          'position': 'static',
+          'marginTop': this.offsetY
+        });
+      }
+
+
+      this.createIndicators();
+      this.indicators = $('.'+this.itemClass);
+
+      if (this.allowClick) {
+        this.indicators.bind('click', this.proxy(this.indicatorClicked));
+      }
+
+      var self = this;
+      this.el.on('beforeSlide.slide', function(e, from, to){
+        self.setIndicators(to);
+      });
+
+      self.setIndicators(this.el.slide('getCurrentPage'));
+
+    },
+
+    setIndicators: function(page) {
+      this.indicators.removeClass(this.activeClass);
+      this.indicators.eq(page - 1).addClass(this.activeClass);
+    },
+
+    createIndicators: function() {
+      var indicator;
+      var indicators = [];
+
+      for (var i=1, j = this.pageCount; i<=j; i++) {
+        indicator = '<span class="'+this.itemClass+'" data-slide-index="'+i+'"></span>';
+        indicators.push(indicator);
+      }
+      this.indicatorContainer
+        .append(indicators);
+
+    },
+
+    indicatorClicked: function(e) {
+      var index = $(e.currentTarget).data('slide-index');
+      this.el.slide('go', index);
+    }
+
+  });
+})(jQuery);
+
+(function($) {
+  $.declare('slidePreview', {
+    init: function() {
+      this.slide = this.el.data('slide');
+
+      if(!this.slide) {
+        throw new Error('slidePreview() must be called after slide()');
+      }
+
+      var items = this.slide.items;
+      var first = items.first().clone();
+      var last = items.last().clone();
+
+      // Duplicate first and last so wrapping looks good
+      last.insertBefore(items.first());
+      first.insertAfter(items.last());
+
+      // Recalc container width (there's two new elements now)
+      this.slide.items = this.slide.container.children();
+      this.slide.container.css('width', (this.slide.pageWidth * this.slide.items.length));
+
+      // Offsets container to partially hide previews
+      this.slide.container.css('marginLeft', (this.slide.pageWidth / 2) * -1);
+      this.el.css('width', '+=' + this.slide.pageWidth);
+    }
+  });
+}(jQuery));

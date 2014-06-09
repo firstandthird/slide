@@ -1,8 +1,7 @@
 
 $.fn.slide.defaults.duration = 0;
-var testx = function() {};
 
-suite('fidel-slider', function() {
+suite('slide', function() {
   var slider1;
   var slider2;
 
@@ -170,9 +169,10 @@ suite('fidel-slider', function() {
 
     test('event when about to slide', function(done) {
       slider1.slide();
-      slider1.on('beforeSlide.slide', function(e, pageNumber) {
+      slider1.on('beforeSlide.slide', function(e, from, to) {
         assert.equal(slider1.find('.slide-container').css('left'), '0px');
-        assert.equal(pageNumber, 1);
+        assert.equal(from, 1);
+        assert.equal(to, 2);
         done();
       });
       slider1.slide('goNext');

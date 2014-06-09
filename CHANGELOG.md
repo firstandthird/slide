@@ -1,4 +1,49 @@
 
+0.14.0-beta.5 / 2014-06-06 
+==================
+
+  * transition: updated press-away
+
+0.14.0-beta.4 / 2014-06-06 
+==================
+
+  * fixed press-away transition
+  * fixed keyframe bug in chrome
+  * transitions: added archive-me
+
+0.14.0-beta.3 / 2014-06-06 
+==================
+
+  * indicators: if offsetY > 0, add margin to bottom and make position: static
+
+0.14.0-beta.2 / 2014-06-06 
+==================
+
+  * indicators: update indicator before finishing the slide
+  * core: beforeSlide passes from and to page number
+  * buttons: changed offsetX/Y to be common for both next and prev
+
+0.14.0-beta.1 / 2014-06-06 
+==================
+
+  * updated inidcator plugin
+  * added wrapping div for overflow: hidden. fixes #27
+	* Update example
+  * CSS animate plugin.
+
+0.13.1 / 2014-06-05 
+==================
+
+  * dist files are helpful
+
+0.13.0 / 2014-06-05 
+==================
+
+	* Complete refactor - switched to a plugin architecture. (needs documentation)
+	* Buttons plugin
+	* Preview plugin
+	* Indicator Plugin
+
 0.12.0 / 2014-04-25 
 ==================
 
