@@ -4,7 +4,7 @@ $('#slider1')
   });
 $('#slider2')
   .slide({
-    itemsPerPage: 2,
+    itemsPerPage: 2
   });
 $('#slider3')
   .slide({
