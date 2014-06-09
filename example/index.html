@@ -31,6 +31,9 @@
       #slider5 {
         width: 500px;
       }
+      #slider6 {
+        width: 500px;
+      }
     </style>
   </head>
   <body>
@@ -67,6 +70,15 @@
       <img src="http://placekitten.com/g/500/400" data-index="7"/>
     </div>
     <div id="slider5" class="slide">
+      <img src="http://placekitten.com/g/500/400"/>
+      <img src="http://placekitten.com/g/500/400"/>
+      <img src="http://placekitten.com/g/500/400"/>
+      <img src="http://placekitten.com/g/500/400"/>
+      <img src="http://placekitten.com/g/500/400"/>
+      <img src="http://placekitten.com/g/500/400"/>
+      <img src="http://placekitten.com/g/500/400"/>
+    </div>
+    <div id="slider6" class="slide">
       <img src="http://placekitten.com/g/500/400"/>
       <img src="http://placekitten.com/g/500/400"/>
       <img src="http://placekitten.com/g/500/400"/>
@@ -118,6 +130,11 @@
         }).slideButtons({
           autoHide: true
         });
+      $('#slider6')
+        .slide({
+          itemsPerPage: 1,
+          duration: 250
+        }).slideKeypress();
 
       //watch events
       $('.slide')
