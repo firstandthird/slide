@@ -324,23 +324,26 @@
   .slide-keyframe-scaleHalfDown();
   .slide-keyframe-slideInFromBottom();
   .slide-keyframe-slideOutToBottom();
-  .slide-keyframe-slideHalfUp();
+  .slide-keyframe-scaleHalfUp();
 
-  .@{base}-next-out {
+  .@{base}-prev-out {
+    z-index: 1000 !important;
     animation: scaleHalfDown 0.7s forwards cubic-bezier(0.7, 0, 0.3, 1);
   }
 
-  .@{base}-next-in {
-    z-index: 1001;
-    opacity: 1;
+  .@{base}-prev-in {
+    z-index: 1001 !important;
+    opacity: 1 !important;
     animation: slideInFromBottom 0.7s forwards cubic-bezier(0.7, 0, 0.3, 1);
   }
 
-  .@{base}-prev-out {
+  .@{base}-next-out {
+    z-index: 1001 !important;
+    opacity: 1 !important;
     animation: slideOutToBottom 0.7s forwards cubic-bezier(0.7, 0, 0.3, 1);
   }
 
-  .@{base}-prev-in {
+  .@{base}-next-in {
     animation: scaleHalfUp 0.7s forwards cubic-bezier(0.7, 0, 0.3, 1);
   }
 
