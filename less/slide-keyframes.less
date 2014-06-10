@@ -46,7 +46,7 @@
   }
 }
 
-.slide-keyframe-slideOutScaleRight {
+.slide-keyframe-slideOutScaleRight() {
   @keyframes slideOutScaleRight {
     from {
       /**/
@@ -58,7 +58,7 @@
   }
 }
 
-.slide-keyframe-slideInFromLeft {
+.slide-keyframe-slideInFromLeft() {
   @keyframes slideInFromLeft {
     from {
       transform: translateX(-100%);
@@ -69,7 +69,7 @@
   }
 }
 
-.slide-keyframe-slideOutScaleLeft {
+.slide-keyframe-slideOutScaleLeft() {
   @keyframes slideOutScaleLeft {
     from {
       /**/
@@ -81,7 +81,7 @@
   }
 }
 
-.slide-keyframe-slideInFromRight {
+.slide-keyframe-slideInFromRight() {
   @keyframes slideInFromRight {
     from {
       transform: translateX(100%);
@@ -92,7 +92,7 @@
   }
 }
 
-.slide-keyframe-rotateInFromLeft {
+.slide-keyframe-rotateInFromLeft() {
   @keyframes rotateInFromLeft {
     from {
       transform: translateX(-100%) rotateY(-55deg);
@@ -104,7 +104,7 @@
   }
 }
 
-.slide-keyframe-rotateInFromRight {
+.slide-keyframe-rotateInFromRight() {
   @keyframes rotateInFromRight {
     from {
       transform: translateX(100%) rotateY(55deg);
@@ -337,31 +337,39 @@
   }
 }
 
+.slide-keyframe-hideLeft() {
   @keyframes hideLeft { 
     0% { transform: translateZ( 0px ); }
     40% { transform: translate( 0, -40% ) scale( 0.8 ) rotateX( -20deg ); z-index: 9999; }
     100% { opacity: 1; transform: translateZ( -400px ); }
   }
+}
 
+.slide-keyframe-showRight() {
   @keyframes showRight {
     0% { transform: translateZ( -400px ); opacity: 1; }
     40% { transform: translate( 0, 40% ) scale( 0.8 ) rotateX( 20deg ); opacity: 1; }
     41% { transform: translate( 0, 40% ) scale( 0.8 ) rotateX( 20deg ); opacity: 1; z-index: 9999; }
     100% { transform: translateZ( 0px ); opacity: 1; z-index: 9999; }
   }
+}
 
+.slide-keyframe-hideRight() {
   @keyframes hideRight { 
     0% { transform: translateZ( 0px ); }
     40% { transform: translate( 0, 40% ) scale( 0.8 ) rotateX( 20deg ); z-index: 9999; }
     100% { opacity: 1; transform: translateZ( -400px ); }
   }
+}
 
+.slide-keyframe-showLeft() {
   @keyframes showLeft {
     0% { transform: translateZ( -400px ); opacity: 1; }
     40% { transform: translate( 0, -40% ) scale( 0.8 ) rotateX( -20deg ); opacity: 1; }
     41% { transform: translate( 0, -40% ) scale( 0.8 ) rotateX( -20deg ); opacity: 1; z-index: 9999; }
     100% { transform: translateZ( 0px ); opacity: 1; z-index: 9999; }
   }
+}
 
 .slide-keyframe-scaleUpFadeOut() {
   @keyframes scaleUpFadeOut {
