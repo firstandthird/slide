@@ -1,6 +1,6 @@
 /*!
  * slide - a generic slider
- * v0.14.0-beta.5
+ * v0.14.0-beta.6
  * https://github.com/firstandthird/slide/
  * copyright First+Third 2014
  * MIT License
@@ -31,6 +31,7 @@
 
       this.go(this.page);
       this.emit('init.slide');
+
     },
 
     updateWidth: function() {
@@ -106,7 +107,8 @@
     },
 
     go: function(page, callback) {
-      if(this.animating) {
+      var self = this;
+      if(self.animating) {
         return false;
       }
 
@@ -127,11 +129,10 @@
 
       var previousPage = this.currentPage || 1;
       this.emit('beforeSlide.slide', [previousPage, page]);
-      var self = this;
       this.currentPage = page;
 
       var transition = this.overrideTransition || this._slideTo;
-
+      self.animating = true;
       transition.call(this, this.currentPage, previousPage, function() {
         self.emit('slide.slide', self.currentPage);
         if (self.currentPage == 1) {
@@ -142,6 +143,7 @@
         if (typeof callback === 'function') {
           callback(self.currentPage);
         }
+        self.animating = false;
       });
     },
 
@@ -255,27 +257,43 @@
 
     init: function() {
 
-      // Check for css3 animation support
-      if(this.el[0].style.animationName === undefined) {
-        //return false;
+      if (!this.animationSupport()) {
+        return false;
       }
-
       var slide = this.el.data('slide');
       this.animating = false;
       this.container = this.el.slide('getContainer');
       this.slides = this.container.children();
 
       var pageWidth = slide.pageWidth;
+
       this.slides.each(function(index, el) {
         $(this).css({
           left: '-'+(index*pageWidth)+'px'
         });
       });
+      this.el.slide('setTransition', this.proxy(this.transition));
       this.slides.eq(0)
         .addClass(this.itemActiveClass);
 
-      this.el.slide('setTransition', this.proxy(this.transition));
+    },
 
+    animationSupport: function(){
+      var animationstring = 'animation';
+      var keyframeprefix = '';
+      var domPrefixes = 'Webkit Moz O ms Khtml'.split(' ');
+      var pfx  = '';
+
+      if (this.el[0].style.animationName !== undefined) { return true; }    
+
+      for( var i = 0, k = domPrefixes.length; i < k; i++ ) {
+        if( this.el[0].style[domPrefixes[i] + 'AnimationName'] !== undefined ) {
+          pfx = domPrefixes[ i ];
+          animationstring = pfx + 'Animation';
+          keyframeprefix = '-' + pfx.toLowerCase() + '-';
+          return true;
+        }
+      }
     },
 
     transition: function(current, previous, callback) {
@@ -384,6 +402,43 @@
     indicatorClicked: function(e) {
       var index = $(e.currentTarget).data('slide-index');
       this.el.slide('go', index);
+    }
+
+  });
+})(jQuery);
+
+(function($) {
+  $.declare('slideKeypress', {
+
+    init: function() {
+
+      this.keyEvents = {
+        37: 'goPrevious',
+        39: 'goNext'
+      };
+
+      $(document).keydown(this.proxy(function(e){
+        if (this.keyEvents[e.which] && this.isElementInViewport(this.el)) {
+          this.el.slide(this.keyEvents[e.which]);
+        }
+      }));
+    },
+
+    isElementInViewport: function(el) {
+      el = el[0];
+      var rect = el.getBoundingClientRect();
+      return (
+        rect.top > 0 &&
+        rect.bottom < (window.innerHeight || document.documentElement.clientHeight)
+      );
+    },
+
+    goPreviousKey: function(e) {
+      this.el.slide('goPrevious');
+    },
+
+    goNextKey: function(e) {
+      this.el.slide('goNext');
     }
 
   });
