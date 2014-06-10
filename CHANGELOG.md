@@ -1,4 +1,20 @@
 
+0.14.0-beta.6 / 2014-06-10 
+==================
+
+	* Updated Archive Me transition
+  * Convert Cliff Dive transition
+  * Convert Soft Pulse transition
+  * Convert Vertical Growth transition
+  * Convert Stick It transition
+  * Convert Fortune Wheel transitions
+  * Convert Side Swing transition
+  * Convert Push Reveal, Snap In, and Let Me In
+  * convert Swipe transition
+  * Detecting CSS transition support before overriding transition
+  * Keypress Plugin
+  * Check if currently sliding before triggering another slide. Issue #29
+
 0.14.0-beta.5 / 2014-06-06 
 ==================
 
