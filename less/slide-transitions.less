@@ -76,7 +76,11 @@
 }
 
 // Side swing
-.slide-transition(@style, @base: item-animation) when (@style = 'side-swing') {
+.slide-transition(@style, @base: slide-transition) when (@style = 'side-swing') {
+  .slide-keyframe-slideOutScaleRight();
+  .slide-keyframe-slideInFromLeft();
+  .slide-keyframe-slideOutScaleLeft();
+  .slide-keyframe-slideInFromRight();
 
   .@{base}-next-out {
     animation: slideOutScaleRight 1.2s forwards;
