@@ -153,47 +153,57 @@
 }
 
 // Push reveal
-.slide-transition(@style, @base: item-animation) when (@style = 'push-reveal') {
-  .next-@{base}-out {
+.slide-transition(@style, @base: slide-transition) when (@style = 'push-reveal') {
+  .slide-keyframe-slideOutBottom();
+  .slide-keyframe-slideOutHalfTop();
+  .slide-keyframe-slideInHalfFromTop();
+  .slide-keyframe-slideInFromBottom();
+
+  .@{base}-next-out {
     opacity: 1;
     animation: slideOutBottom 0.7s forwards ease-in-out;
   }
 
-  .next-@{base}-in {
+  .@{base}-next-in {
     opacity: 1;
+    z-index: 999!important;
     animation: slideInHalfFromTop 0.7s forwards ease-in-out;
   }
 
-  .prev-@{base}-out {
+  .@{base}-prev-out {
     opacity: 1;
+    z-index: 999!important;
     animation: slideOutHalfTop 0.7s forwards ease-in-out;
   }
 
-  .prev-@{base}-in {
+  .@{base}-prev-in {
     opacity: 1;
-    z-index: 1001;
     animation: slideInFromBottom 0.7s forwards ease-in-out;
   }
 }
 
 // Snap in
-.slide-transition(@style, @base: item-animation) when (@style = 'snap-in') {
-  .next-@{base}-out {
+.slide-transition(@style, @base: slide-transition) when (@style = 'snap-in') {
+  .slide-keyframe-slideOutLeft();
+  .slide-keyframe-slideFromRightFast();
+  .slide-keyframe-slideOutRight();
+  .slide-keyframe-slideFromLeftFast();
+
+  .@{base}-next-out {
     animation: slideOutLeft 0.5s forwards ease-in;
   }
 
-  .next-@{base}-in {
-    z-index: 1001;
+  .@{base}-next-in {
     opacity: 1;
     animation: slideFromRightFast 0.5s forwards cubic-bezier(0.7, 0, 0.3, 1);
   }
 
-  .prev-@{base}-out {
+  .@{base}-prev-out {
+    z-index: 999!important;
     animation: slideOutRight 0.5s forwards ease-in;
   }
 
-  .prev-@{base}-in {
-    z-index: 1001;
+  .@{base}-prev-in {
     opacity: 1;
     animation: slideFromLeftFast 0.5s forwards cubic-bezier(0.7, 0, 0.3, 1);
   }
@@ -211,36 +221,39 @@
     transition: opacity 0.4s 0.1s ease-in;
   }
 
-  .prev-@{base}-out::after,
-  .next-@{base}-out::after {
+  .@{base}-prev-out::after,
+  .@{base}-next-out::after {
     opacity: 1;
   }
 }
 
 // Let me in
-.slide-transition(@style, @base: item-animation) when (@style = 'let-me-in') {
+.slide-transition(@style, @base: slide-transition) when (@style = 'let-me-in') {
+  .slide-keyframe-rotateOutRight();
+  .slide-keyframe-slideFromRightFast();
+  .slide-keyframe-slideFromLeftFast();
+
   ul {
     perspective: 1600px;
   }
 
-  .next-@{base}-out {
+  .@{base}-next-out {
     transform-origin: 0% 50%;
     animation: rotateOutRight 0.5s forwards ease-in-out;
   }
 
-  .next-@{base}-in {
-    z-index: 1001;
+  .@{base}-next-in {
     opacity: 1;
     animation: slideFromRightFast 0.5s forwards ease;
   }
 
-  .prev-@{base}-out {
+  .@{base}-prev-out {
     transform-origin: 100% 0%;
     animation: rotateOutLeft 0.5s forwards ease-in-out;
   }
 
-  .prev-@{base}-in {
-    z-index: 1001;
+  .@{base}-prev-in {
+    z-index: 1006!important;
     opacity: 1;
     animation: slideFromLeftFast 0.5s forwards ease;
   }
@@ -258,8 +271,8 @@
     transition: opacity 0.5s ease-in-out;
   }
 
-  .prev-@{base}-out::after,
-  .next-@{base}-out::after {
+  .@{base}-prev-out::after,
+  .@{base}-next-out::after {
     opacity: 1;
   }
 }
@@ -557,36 +570,6 @@
     to {
       transform: translateX(-100%) scale(0.9);
       opacity: 0;
-    }
-  }
-
-  @keyframes slideOutBottom {
-    to {
-      transform: translateY(100%);
-    }
-  }
-
-  @keyframes slideInHalfFromTop {
-    from {
-      transform: translateY(-50%);
-    }
-    to {
-      transform: translateY(0);
-    }
-  }
-
-  @keyframes slideOutHalfTop {
-    to {
-      transform: translateY(-50%);
-    }
-  }
-
-  @keyframes slideInFromBottom {
-    from {
-      transform: translateY(100%);
-    }
-    to {
-      transform: translateY(0);
     }
   }
 
