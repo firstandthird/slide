@@ -63,7 +63,8 @@ var updateCSSTransition = function(val) {
   });
   $('.slide').addClass(val);
   $('h1').text('Slide Examples: '+val);
-
+  $('[data-role="css-select"]').val(val);
+  window.location.hash = val;
 };
 if (window.location.search == '?css=1') {
   $('.slide')
@@ -81,5 +82,9 @@ if (window.location.search == '?css=1') {
       var val = $(this).val();
       updateCSSTransition(val);
     });
- updateCSSTransition('soft-scale');
+ if (window.location.hash) {
+   updateCSSTransition(window.location.hash.substring(1));
+ } else {
+   updateCSSTransition('soft-scale');
+ }
 }
