@@ -401,14 +401,17 @@
 }
 
 // Soft pulse
-.slide-transition(@style, @base: item-animation) when (@style = 'soft-pulse') {
-  .prev-@{base}-out,
-  .next-@{base}-out {
+.slide-transition(@style, @base: slide-transition) when (@style = 'soft-pulse') {
+  .slide-keyframe-scaleUpFadeOut();
+  .slide-keyframe-scaleDownFadeIn();
+
+  .@{base}-prev-out,
+  .@{base}-next-out {
     animation: scaleUpFadeOut 0.8s forwards ease-in;
   }
 
-  .prev-@{base}-in,
-  .next-@{base}-in {
+  .@{base}-prev-in,
+  .@{base}-next-in {
     animation: scaleDownFadeIn 0.8s forwards ease-out;
   }
 }

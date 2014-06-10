@@ -360,6 +360,7 @@
     100% { transform: translateZ( 0px ); opacity: 1; z-index: 9999; }
   }
 
+.slide-keyframe-scaleUpFadeOut() {
   @keyframes scaleUpFadeOut {
     50% {
       transform: scale(1.2);
@@ -374,7 +375,9 @@
       opacity: 0;
     }
   }
+}
 
+.slide-keyframe-scaleDownFadeIn() {
   @keyframes scaleDownFadeIn {
     50% {
       opacity: 1;
@@ -385,6 +388,7 @@
       transform: scale(1);
     }
   }
+}
 
   @keyframes rotateOutCircLeft {
     to {
