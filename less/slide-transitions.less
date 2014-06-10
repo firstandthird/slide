@@ -287,28 +287,33 @@
 }
 
 // Stick it
-.slide-transition(@style, @base: item-animation) when (@style = 'stick-it') {
+.slide-transition(@style, @base: slide-transition) when (@style = 'stick-it') {
+  .slide-keyframe-rotateBottomSideOut();
+  .slide-keyframe-slideInFromBottomDelayed();
+  .slide-keyframe-slideOutToBottom();
+  .slide-keyframe-rotateBottomSideIn();
+
   ul {
     perspective: 1600px;
   }
 
-  .next-@{base}-out {
+  .@{base}-next-out {
     transform-origin: 50% 0%;
     animation: rotateBottomSideOut 0.8s forwards ease-in;
   }
 
-  .next-@{base}-in {
+  .@{base}-next-in {
     z-index: 1001;
     opacity: 1;
     animation: slideInFromBottomDelayed 0.8s forwards;
   }
 
-  .prev-@{base}-out {
+  .@{base}-prev-out {
     opacity: 1;
     animation: slideOutToBottom 0.8s forwards;
   }
 
-  .prev-@{base}-in {
+  .@{base}-prev-in {
     transform-origin: 50% 0%;
     animation: rotateBottomSideIn 0.8s 0.1s forwards ease-in;
   }
