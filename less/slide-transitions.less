@@ -83,24 +83,23 @@
   .slide-keyframe-slideInFromRight();
 
   .@{base}-next-out {
-    animation: slideOutScaleRight 1.2s forwards;
+    animation: slideOutScaleLeft 1.2s forwards;
     animation-timing-function: cubic-bezier(1, -0.2, 0, 1);
   }
 
   .@{base}-next-in {
     opacity: 1;
-    animation: slideInFromLeft 1.2s forwards;
+    animation: slideInFromRight 1.2s forwards;
     animation-timing-function: cubic-bezier(1, -0.2, 0, 1);
   }
-
   .@{base}-prev-out {
-    animation: slideOutScaleLeft 1.2s forwards;
+    animation: slideOutScaleRight 1.2s forwards;
     animation-timing-function: cubic-bezier(1, -0.2, 0, 1);
   }
 
   .@{base}-prev-in {
     opacity: 1;
-    animation: slideInFromRight 1.2s forwards;
+    animation: slideInFromLeft 1.2s forwards;
     animation-timing-function: cubic-bezier(1, -0.2, 0, 1);
   }
 }
@@ -112,11 +111,12 @@
   .slide-keyframe-slideOutScaleLeft();
   .slide-keyframe-rotateInFromRight();
 
-  ul {
+  div {
     perspective: 1600px;
   }
 
   .@{base}-next-out {
+    z-index: 1004!important;
     animation: slideOutScaleRight 1.2s forwards cubic-bezier(0.7, 0, 0.3, 1);
   }
 
@@ -242,7 +242,7 @@
   .slide-keyframe-slideFromRightFast();
   .slide-keyframe-slideFromLeftFast();
 
-  ul {
+  div {
     perspective: 1600px;
   }
 
@@ -267,7 +267,7 @@
     animation: slideFromLeftFast 0.5s forwards ease;
   }
 
-  li::after {
+  div::after {
     content: '';
     position: absolute;
     top: 0;
@@ -293,7 +293,7 @@
   .slide-keyframe-slideOutToBottom();
   .slide-keyframe-rotateBottomSideIn();
 
-  ul {
+  div {
     perspective: 1600px;
   }
 
@@ -379,7 +379,7 @@
 // Slide behind
 // From https://github.com/hakimel/kontext by Hakim El Hattab, http://hakim.se
 .slide-transition(@style, @base: item-animation) when (@style = 'vertical-growth') {
-  ul {
+  div {
     perspective: 1000px;
   }
 
@@ -468,13 +468,6 @@
 }
 
 .slide-transition-keyframes() {
-  @keyframes scaleUp {
-    to {
-      transform: scale(1.2);
-      opacity: 0;
-    }
-  }
-
   @keyframes scaleDownUp {
     from {
       opacity: 0;
@@ -483,127 +476,6 @@
     to {
       opacity: 1;
       transform: scale(1);
-    }
-  }
-
-  @keyframes scaleDown {
-    to {
-      opacity: 0;
-      transform: scale(0.9);
-    }
-  }
-
-  @keyframes scaleUpDown {
-    from {
-      transform: scale(1.2);
-    }
-    to {
-      opacity: 1;
-      transform: scale(1);
-    }
-  }
-
-  @keyframes slideOutScaleRight {
-    to {
-      transform: translateX(100%) scale(0.9);
-      opacity: 0;
-    }
-  }
-
-  @keyframes slideInFromLeft {
-    from {
-      transform: translateX(-100%);
-    }
-    to {
-      transform: translateX(0);
-    }
-  }
-
-  @keyframes slideOutScaleLeft {
-    to {
-      transform: translateX(-100%) scale(0.9);
-      opacity: 0;
-    }
-  }
-
-  @keyframes slideInFromRight {
-    from {
-      transform: translateX(100%);
-    }
-    to {
-      transform: translateX(0);
-    }
-  }
-
-  @keyframes slideOutScaleRight {
-    to {
-      transform: translateX(100%) scale(0.9);
-      opacity: 0;
-    }
-  }
-
-  @keyframes slideInFromLeft {
-    from {
-      transform: translateX(-100%);
-    }
-    to {
-      transform: translateX(0);
-    }
-  }
-
-  @keyframes slideOutScaleLeft {
-    to {
-      transform: translateX(-100%) scale(0.9);
-      opacity: 0;
-    }
-  }
-
-  @keyframes slideInFromRight {
-    from {
-      transform: translateX(100%);
-    }
-    to {
-      transform: translateX(0);
-    }
-  }
-
-  @keyframes rotateInFromLeft {
-    from {
-      transform: translateX(-100%) rotateY(-55deg);
-    }
-    to {
-      transform: translateX(0) rotateY(0deg);
-      opacity: 1;
-    }
-  }
-
-  @keyframes rotateInFromRight {
-    from {
-      transform: translateX(100%) rotateY(55deg);
-    }
-    to {
-      transform: translateX(0) rotateY(0deg);
-      opacity: 1;
-    }
-  }
-
-  @keyframes slideOutScaleRight {
-    to {
-      transform: translateX(100%) scale(0.9);
-      opacity: 0;
-    }
-  }
-
-  @keyframes slideOutScaleLeft {
-    to {
-      transform: translateX(-100%) scale(0.9);
-      opacity: 0;
-    }
-  }
-
-  @keyframes slideOutLeft {
-    to {
-      transform: translateX(-10%);
     }
   }
 
@@ -634,80 +506,6 @@
   @keyframes rotateOutRight {
     to {
       transform: rotateY(10deg);
-    }
-  }
-
-  @keyframes rotateOutLeft {
-    to {
-      transform: rotateY(-10deg);
-    }
-  }
-
-  @keyframes rotateBottomSideOut {
-    40% { 
-      transform: rotateX(-15deg);
-      animation-timing-function: ease-out; 
-    }
-    100% { 
-      opacity: 0;
-      transform: scale(0.8) translateZ(-200px);
-    }
-  }
-
-  @keyframes slideInFromBottomDelayed {
-    0%, 30% {
-      transform: translateY(100%);
-    }
-    100% {
-      transform: translateY(0);
-    }
-  }
-
-  @keyframes rotateBottomSideIn {
-    0% {
-      opacity: 0;
-      transform: scale(0.8) translateZ(-200px);
-    }
-    60% {
-      transform: scale(1) translateZ(0) rotateX(-15deg);
-      animation-timing-function: ease-out;
-    }
-    100% {
-      opacity: 1;
-      transform: scale(1) translateZ(0) rotateX(0deg);
-    }
-  }
-
-  @keyframes scaleHalfDown {
-    to {
-      transform: scale(0.6);
-      opacity: 0;
-    }
-  }
-
-  @keyframes slideOutToBottom {
-    to {
-      transform: translateY(100%);
-    }
-  }
-
-  @keyframes scaleHalfUp {
-    from {
-      opacity: 0;
-      transform: scale(0.6);
-    }
-    to {
-      opacity: 1;
-      transform: scale(1);
-    }
-  }
-
-  @keyframes maximize {
-    from {
-      transform: scale(0);
-    }
-    to {
-      transform: scale(1);
     }
   }
 
@@ -749,23 +547,6 @@
     100% {
       transform: scale(1);
       opacity: 0;
-    }
-  }
-
-  @keyframes scaleDownFadeIn {
-    50% {
-      opacity: 1;
-      transform: scale(1.2);
-    }
-    100% {
-      opacity: 1;
-      transform: scale(1);
-    }
-  }
-
-  @keyframes rotateOutCircLeft {
-    to {
-      transform: rotate(-20deg) translateX(-100%);
     }
   }
 
