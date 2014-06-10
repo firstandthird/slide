@@ -77,23 +77,24 @@
 
 // Side swing
 .slide-transition(@style, @base: item-animation) when (@style = 'side-swing') {
-  .next-@{base}-out {
+
+  .@{base}-next-out {
     animation: slideOutScaleRight 1.2s forwards;
     animation-timing-function: cubic-bezier(1, -0.2, 0, 1);
   }
 
-  .next-@{base}-in {
+  .@{base}-next-in {
     opacity: 1;
     animation: slideInFromLeft 1.2s forwards;
     animation-timing-function: cubic-bezier(1, -0.2, 0, 1);
   }
 
-  .prev-@{base}-out {
+  .@{base}-prev-out {
     animation: slideOutScaleLeft 1.2s forwards;
     animation-timing-function: cubic-bezier(1, -0.2, 0, 1);
   }
 
-  .prev-@{base}-in {
+  .@{base}-prev-in {
     opacity: 1;
     animation: slideInFromRight 1.2s forwards;
     animation-timing-function: cubic-bezier(1, -0.2, 0, 1);
@@ -106,40 +107,45 @@
     perspective: 1600px;
   }
 
-  .next-@{base}-out {
+  .@{base}-next-out {
     animation: slideOutScaleRight 1.2s forwards cubic-bezier(0.7, 0, 0.3, 1);
   }
 
-  .next-@{base}-in {
+  .@{base}-next-in {
     transform-origin: 100% 50%;
     animation: rotateInFromLeft 1.2s forwards cubic-bezier(0.7, 0, 0.3, 1);
   }
 
-  .prev-@{base}-out {
+  .@{base}-prev-out {
     animation: slideOutScaleLeft 1.2s forwards cubic-bezier(0.7, 0, 0.3, 1);
   }
 
-  .prev-@{base}-in {
+  .@{base}-prev-in {
     transform-origin: 0% 50%;
     animation: rotateInFromRight 1.2s forwards cubic-bezier(0.7, 0, 0.3, 1);
   }
 }
 
 // Swipe
-.slide-transition(@style, @base: item-animation) when (@style = 'swipe') {
-  .next-@{base}-out {
+.slide-transition(@style, @base: slide-transition) when (@style = 'swipe') {
+  .slide-keyframe-decreaseHeight();
+  .slide-keyframe-show();
+  .slide-keyframe-hide();
+  .slide-keyframe-increaseHeight();
+
+  .@{base}-next-out {
     animation: decreaseHeight 0.8s forwards ease-in-out;
   }
 
-  .next-@{base}-in {
+  .@{base}-next-in {
     animation: show 0.8s forwards ease-in-out;
   }
 
-  .prev-@{base}-out {
+  .@{base}-prev-out {
     animation: hide 0.8s forwards ease-in-out;
   }
 
-  .prev-@{base}-in {
+  .@{base}-prev-in {
     z-index: 1001;
     opacity: 1;
     animation: increaseHeight 0.8s forwards ease-in-out;
@@ -551,39 +557,6 @@
     to {
       transform: translateX(-100%) scale(0.9);
       opacity: 0;
-    }
-  }
-
-  @keyframes decreaseHeight {
-    to {
-      height: 0;
-    }
-  }
-
-  @keyframes show {
-    0% {
-      opacity: 0;
-    }
-    1%,100% {
-      opacity: 1;
-    }
-  }
-
-  @keyframes hide {
-    0%,99% {
-      opacity: 1;
-    }
-    100% {
-      opacity: 0;
-    }
-  }
-
-  @keyframes increaseHeight {
-    from {
-      height: 0;
-    }
-    to {
-      height: 100%;
     }
   }
 

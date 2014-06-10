@@ -92,44 +92,6 @@
   }
 }
 
-  @keyframes slideOutScaleRight {
-    from {
-      /**/
-    }
-    to {
-      transform: translateX(100%) scale(0.9);
-      opacity: 0;
-    }
-  }
-
-  @keyframes slideInFromLeft {
-    from {
-      transform: translateX(-100%);
-    }
-    to {
-      transform: translateX(0);
-    }
-  }
-
-  @keyframes slideOutScaleLeft {
-    from {
-      /**/
-    }
-    to {
-      transform: translateX(-100%) scale(0.9);
-      opacity: 0;
-    }
-  }
-
-  @keyframes slideInFromRight {
-    from {
-      transform: translateX(100%);
-    }
-    to {
-      transform: translateX(0);
-    }
-  }
-
   @keyframes rotateInFromLeft {
     from {
       transform: translateX(-100%) rotateY(-55deg);
@@ -150,50 +112,40 @@
     }
   }
 
-  @keyframes slideOutScaleRight {
-    to {
-      transform: translateX(100%) scale(0.9);
-      opacity: 0;
-    }
-  }
-
-  @keyframes slideOutScaleLeft {
-    from {
-      /**/
-    }
-    to {
-      transform: translateX(-100%) scale(0.9);
-      opacity: 0;
-    }
-  }
-
+.slide-keyframe-decreaseHeight() {
   @keyframes decreaseHeight {
     from {
-      /**/
+      height: 100%;
     }
     to {
       height: 0;
     }
   }
+}
 
+.slide-keyframe-show() {
   @keyframes show {
-    0% {
+    from {
       opacity: 0;
     }
-    1%,100% {
+    to {
       opacity: 1;
     }
   }
+}
 
+.slide-keyframe-hide() {
   @keyframes hide {
-    0%,99% {
+    from {
       opacity: 1;
     }
-    100% {
+    to {
       opacity: 0;
     }
   }
+}
 
+.slide-keyframe-increaseHeight() {
   @keyframes increaseHeight {
     from {
       height: 0;
@@ -202,13 +154,17 @@
       height: 100%;
     }
   }
+}
 
+.slide-keyframe-slideOutBottom() {
   @keyframes slideOutBottom {
     to {
       transform: translateY(100%);
     }
   }
+}
 
+.slide-keyframe-slideInHalfFromTop() {
   @keyframes slideInHalfFromTop {
     from {
       transform: translateY(-50%);
@@ -217,12 +173,15 @@
       transform: translateY(0);
     }
   }
+}
 
+.slide-keyframe-slideOutHalfTop() {
   @keyframes slideOutHalfTop {
     to {
       transform: translateY(-50%);
     }
   }
+}
 
 .slide-keyframe-slideInFromBottom {
   @keyframes slideInFromBottom {
