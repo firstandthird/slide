@@ -20,6 +20,9 @@ $('#slider5')
   }).slideButtons({
     autoHide: true
   });
+$('#slider6')
+  .slide({
+  }).slideKeypress();
 
 //watch events
 $('.slide')
