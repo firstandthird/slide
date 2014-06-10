@@ -106,7 +106,12 @@
 }
 
 // Fortune wheel
-.slide-transition(@style, @base: item-animation) when (@style = 'fortune-wheel') {
+.slide-transition(@style, @base: slide-transition) when (@style = 'fortune-wheel') {
+  .slide-keyframe-slideOutScaleRight();
+  .slide-keyframe-rotateInFromLeft();
+  .slide-keyframe-slideOutScaleLeft();
+  .slide-keyframe-rotateInFromRight();
+
   ul {
     perspective: 1600px;
   }
