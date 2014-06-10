@@ -417,27 +417,33 @@
 }
 
 // Cliff dive
-.slide-transition(@style, @base: item-animation) when (@style = 'cliff-dive') {
+.slide-transition(@style, @base: slide-transition) when (@style = 'cliff-dive') {
+  .slide-keyframe-rotateOutCircLeft();
+  .slide-keyframe-rotateInCircRight();
+  .slide-keyframe-rotateOutCircRight();
+  .slide-keyframe-rotateInCircLeft();
+
   li {
     transform-origin: 50% 400%;
   }
 
-  .next-@{base}-out {
+  .@{base}-next-out {
     opacity: 1;
     animation: rotateOutCircLeft 0.9s forwards cubic-bezier(0.7, 0, 0.3, 1);
   }
 
-  .next-@{base}-in {
+  .@{base}-next-in {
     opacity: 1;
     animation: rotateInCircRight 0.9s forwards cubic-bezier(0.7, 0, 0.3, 1);
   }
 
-  .prev-@{base}-out {
+  .@{base}-prev-out {
     opacity: 1;
+    z-index: 999!important;
     animation: rotateOutCircRight 0.9s forwards cubic-bezier(0.7, 0, 0.3, 1);
   }
 
-  .prev-@{base}-in {
+  .@{base}-prev-in {
     opacity: 1;
     animation: rotateInCircLeft 0.9s forwards cubic-bezier(0.7, 0, 0.3, 1);
   }
@@ -455,8 +461,8 @@
     transition: opacity 0.9s cubic-bezier(0.7, 0, 0.3, 1);
   }
 
-  .prev-@{base}-out::after,
-  .next-@{base}-out::after {
+  .@{base}-prev-out::after,
+  .@{base}-next-out::after {
     opacity: 1;
   }
 }
