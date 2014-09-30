@@ -1,6 +1,6 @@
 /*!
  * slide - a generic slider
- * v0.14.0
+ * v0.14.1
  * https://github.com/firstandthird/slide/
  * copyright First+Third 2014
  * MIT License
@@ -534,7 +534,7 @@
       this.sliderContainer = this.el.slide('getContainer');
       this.pageCount = this.el.slide('getPageCount');
 
-      this.indicatorContainer = 
+      this.indicatorContainer =
         $(this.element)
           .addClass(this.containerClass)
           .css({
@@ -556,7 +556,6 @@
 
 
       this.createIndicators();
-      this.indicators = $('.'+this.itemClass);
 
       if (this.allowClick) {
         this.indicators.bind('click', this.proxy(this.indicatorClicked));
@@ -587,6 +586,7 @@
       this.indicatorContainer
         .append(indicators);
 
+      this.indicators = this.indicatorContainer.children();
     },
 
     indicatorClicked: function(e) {
