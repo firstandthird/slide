@@ -1,3 +1,8 @@
+0.15.0 / 2014-10-20
+==================
+
+  * Merge pull request #33 from firstandthird/feature/auto-slide
+  * Added auto plugin.
 
 0.14.1 / 2014-09-30
 ==================
