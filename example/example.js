@@ -23,6 +23,9 @@ $('#slider5')
 $('#slider6')
   .slide({
   }).slideKeypress();
+$('#slider7')
+  .slide({
+  }).slideLazyLoad();
 
 //watch events
 $('.slide')
