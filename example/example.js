@@ -23,6 +23,9 @@ $('#slider5')
 $('#slider6')
   .slide({
   }).slideKeypress();
+$('#slider8')
+  .slide({
+  }).slideTouch();
 
 //watch events
 $('.slide')
