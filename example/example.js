@@ -23,9 +23,10 @@ $('#slider5')
 $('#slider6')
   .slide({
   }).slideKeypress();
-$('#slider7')
-  .slide({
-  }).slideLazyLoad();
+$('#slider7').slide({
+}).slideLazyLoad();
+$('#slider8').slide({
+}).slideTouch();
 
 //watch events
 $('.slide')
