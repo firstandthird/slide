@@ -8,8 +8,7 @@
   "main": "dist/slide.bower.js",
   "dependencies": {
     "fidel": "~2.2.5",
-    "jquery": "*",
-    "hammerjs": "~2.0.4"
+    "jquery": "*"
   },
   "devDependencies": {
     "assert": "*",
