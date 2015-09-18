@@ -1,8 +1,8 @@
 /*!
  * slide - a generic slider
- * v0.15.0
+ * v0.16.0
  * https://github.com/firstandthird/slide/
- * copyright First+Third 2014
+ * copyright First+Third 2015
  * MIT License
 */
 (function($) {
@@ -478,6 +478,23 @@
 })(jQuery);
 
 (function($) {
+  $.declare('slideLazyLoad', {
+
+    init: function() {
+      $(window).load(this.proxy(this.loadImages));
+    },
+
+    loadImages: function() {
+      this.el.find('[data-src]').each(function() {
+        var image = $(this);
+        image.attr('src', image.data('src'));
+      });
+    }
+
+  });
+})(jQuery);
+
+(function($) {
   $.declare('slidePreview', {
     init: function() {
       this.slide = this.el.data('slide');
@@ -504,3 +521,62 @@
     }
   });
 }(jQuery));
+
+(function($) {
+  $.declare('slideTouch', {
+
+    init: function() {
+
+      if (typeof Hammer === 'undefined') {
+        throw new Error('You must load the Hammer library to use touch. http://hammerjs.github.io');
+      }
+
+      var slide = this.el.data('slide');
+      this.animating = false;
+      this.container = this.el.slide('getContainer');
+      this.slides = this.container.children();
+
+      this.pageWidth = slide.pageWidth;
+
+      this.slides.each(function(index, el) {
+        $(this).css({
+          'pointer-events': 'none'
+        });
+      });
+
+      this.el.slide('setTransition', function(curr, prev, cb) {
+        cb();
+      });
+
+      this.hammer = new Hammer(this.el[0]);
+
+      this.hammer.on('panstart panend panleft panright', this.proxy(this.panHandler));
+    },
+
+    panHandler: function(e) {
+      var offset = ((this.el.slide('getCurrentPage')-1) * -this.pageWidth) + e.deltaX;
+
+      if (e.type === 'panstart') {
+        this.container.removeClass('slide-animate');
+      } else if (e.type === 'panend') {
+        this.container.addClass('slide-animate');
+
+        if (offset < 0 && Math.abs(offset) / this.el.slide('getCurrentPage') >= this.pageWidth / 3) {
+
+          if (Math.abs(offset) > (this.el.slide('getCurrentPage')-1) * this.pageWidth) {
+            this.el.slide('goNext');
+          } else {
+            this.el.slide('goPrevious');
+          }
+        }
+
+        offset = -((this.el.slide('getCurrentPage')-1) * this.pageWidth);
+      }
+
+      this.container.css({
+        left: offset
+      });
+
+    }
+  });
+})(jQuery);

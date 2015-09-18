@@ -1,3 +1,11 @@
+
+0.16.0 / 2015-09-17
+==================
+
+  * Remove hammer from bower
+  * Added touch plugin.
+  * Added lazyload plugin.
+
 0.15.0 / 2014-10-20
 ==================
 
