@@ -29,25 +29,25 @@ $('#slider8').slide({
 }).slideTouch();
 
 //watch events
-$('.slide')
-  .on('next.slide', function(e, page) {
-    console.log('next', page);
-  })
-  .on('previous.slide', function(e, page) {
-    console.log('previous', page);
-  })
-  .on('beforeSlide.slide', function(e, page) {
-    console.log('before slide', page);
-  })
-  .on('slide.slide', function(e, page) {
-    console.log('slide', page);
-  })
-  .on('first.slide', function() {
-    console.log('first');
-  })
-  .on('last.slide', function() {
-    console.log('last');
-  });
+// $('.slide')
+//   .on('next.slide', function(e, page) {
+//     console.log('next', page);
+//   })
+//   .on('previous.slide', function(e, page) {
+//     console.log('previous', page);
+//   })
+//   .on('beforeSlide.slide', function(e, page) {
+//     console.log('before slide', page);
+//   })
+//   .on('slide.slide', function(e, page) {
+//     console.log('slide', page);
+//   })
+//   .on('first.slide', function() {
+//     console.log('first');
+//   })
+//   .on('last.slide', function() {
+//     console.log('last');
+//   });
 
 $('[data-action="first"]').on('click', function() {
   $('.slide').slide('goFirst');
