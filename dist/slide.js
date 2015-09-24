@@ -3191,12 +3191,6 @@ if (typeof define == TYPE_FUNCTION && define.amd) {
 
       this.pageWidth = slide.pageWidth;
 
-      this.slides.each(function(index, el) {
-        $(this).css({
-          'pointer-events': 'none'
-        });
-      });
-
       this.el.slide('setTransition', function(curr, prev, cb) {
         cb();
       });
@@ -3207,16 +3201,16 @@ if (typeof define == TYPE_FUNCTION && define.amd) {
     },
 
     panHandler: function(e) {
-      var offset = ((this.el.slide('getCurrentPage')-1) * -this.pageWidth) + e.deltaX;
+       var offset = ((this.el.slide('getCurrentPage')-1) * -this.pageWidth) + e.deltaX;
 
       if (e.type === 'panstart') {
         this.container.removeClass('slide-animate');
       } else if (e.type === 'panend') {
         this.container.addClass('slide-animate');
 
-        if (offset < 0 && Math.abs(offset) / this.el.slide('getCurrentPage') >= this.pageWidth / 3) {
+        if (Math.abs(e.deltaX) >= this.pageWidth/3) {
 
-          if (Math.abs(offset) > (this.el.slide('getCurrentPage')-1) * this.pageWidth) {
+          if (e.deltaX < 0) {
             this.el.slide('goNext');
           } else {
             this.el.slide('goPrevious');
