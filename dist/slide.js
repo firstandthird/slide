@@ -2666,21 +2666,19 @@ if (typeof define == TYPE_FUNCTION && define.amd) {
       duration: 500,
       containerClass: 'slide-container',
       overrideTransition: false,
-      wrap: false
+      wrap: false,
+      defaultWidth: true
     },
 
     init: function() {
 
       this.el.css('position', 'relative');
-      this.items = this.el.children();
-      this.pageCount = Math.ceil(this.items.length/this.itemsPerPage);
 
-      this.updateWidth();
+      this.itemsUpdated();
 
       this._createContainer();
       this.container.queue('fx');
       this.animating = false;
-
 
       this.go(this.page);
       this.emit('init.slide');
@@ -2691,11 +2689,40 @@ if (typeof define == TYPE_FUNCTION && define.amd) {
       var width = this.el.width();
       this.pageWidth = width;
       var itemWidth = width / this.itemsPerPage;
-      this.items.css({
-        width: itemWidth,
-        float: 'left'
-      });
 
+      if (this.defaultWidth) {
+        this.items.css({
+          width: itemWidth,
+          float: 'left'
+        });
+      } else {
+        this.pageWidth = this.items.first().outerWidth() * this.itemsPerPage;
+      }
+
+      if (this.container) {
+        this.container.css({
+          width: this.pageWidth * this.items.length
+        });
+      }
+
+    },
+
+    itemsUpdated: function() {
+      if (this.container) {
+        this.items = this.container.children();
+      } else {
+        this.items = this.el.children();
+      }
+
+      this.pageCount = Math.ceil(this.items.length/this.itemsPerPage);
+
+      this.updateWidth();
+    },
+
+    reset: function() {
+      this.container.children().remove();
+      this.currentPage = 1;
+      this.pageCount = 1;
     },
 
     _createContainer: function() {
