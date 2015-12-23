@@ -2723,6 +2723,10 @@ if (typeof define == TYPE_FUNCTION && define.amd) {
       this.container.children().remove();
       this.currentPage = 1;
       this.pageCount = 1;
+      this.container.css({
+        left: 0
+      });
+      this.emit('reset.slide');
     },
 
     _createContainer: function() {
@@ -2891,6 +2895,9 @@ if (typeof define == TYPE_FUNCTION && define.amd) {
         this.el.on('last.slide', this.proxy(this.hideNextButton));
         this.el.on('slide.slide', this.proxy(this.showButtons));
       }
+
+      this.el.on('reset.slide', this.proxy(this.hidePreviousButton));
+      this.el.on('reset.slide', this.proxy(this.hideNextButton));
     },
 
     setupButtons: function() {
