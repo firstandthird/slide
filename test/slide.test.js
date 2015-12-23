@@ -163,6 +163,27 @@ suite('slide', function() {
       });
     });
 
+    test('play nice with new elements', function() {
+      slider1.slide();
+
+      assert.equal(slider1.slide('getPageCount'), 3);
+
+      var toClone = slider1.slide('getContainer').children().first().clone();
+      slider1.slide('getContainer').append(toClone);
+      slider1.slide('itemsUpdated');
+
+      assert.equal(slider1.slide('getPageCount'), 4);
+    });
+
+    test('reset slider', function() {
+      slider1.slide();
+      slider1.slide('reset');
+
+      assert.equal(slider1.slide('getContainer').children().length, 0);
+      assert.equal(slider1.slide('getCurrentPage'), 1);
+      assert.equal(slider1.slide('getPageCount'), 1);
+    });
+
   });
 
   suite('events', function() {
@@ -235,4 +256,3 @@ suite('slide', function() {
   });
 
 });
-
